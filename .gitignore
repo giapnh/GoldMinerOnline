@@ -1,9 +1,10 @@
 # Unity generated #
 # =============== #
-Temp/
-Obj/
-UnityGenerated/
-Library/
+trunk/giapnh/Temp/
+trunk/giapnh/Obj/
+trunk/giapnh/UnityGenerated/
+trunk/giapnh/Library/
+trunk/giapnh/Library/
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
