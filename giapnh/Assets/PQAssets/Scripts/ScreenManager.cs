@@ -4,20 +4,39 @@ using INet;
 
 public class ScreenManager : MonoBehaviour,NetworkListener {
 	public static ScreenManager instance;
-	
 	public NetworkAPI mNetwork;
-	
 	//Panel
-	public ArrayList mScreens;
-	public GameObject mLoginScreen;
+	public GameObject[] mScreens;
+//	public GameObject mLoginScreen;
+//	public GameObject mRegisterScreen;
 	
+	//Panel ID:
+	public static int PN_LOGIN = 0;
+	public static int PN_REGISTER = 1;
+	
+	
+	//Loading dialog
+	public GameObject loading;
 	// Use this for initialization
 	void Start () {
 		instance = this;
-		mScreens = new ArrayList();
 		mNetwork = new NetworkAPI(this);
-		//Add all screen to list
-		mScreens.Add(mLoginScreen);
+	}
+	
+	public void ShowPanel(int panelId){
+		((GameObject)mScreens[panelId]).SetActive(true);
+	}
+	
+	public void HidePanel(int panelId){
+		((GameObject)mScreens[panelId]).SetActive(false);
+	}
+	
+	public void ShowLoading(){
+		loading.SetActive(true);
+	}
+	
+	public void HideLoading(){
+		loading.SetActive(false);
 	}
 	
 	public void Send(Command cmd){
@@ -40,11 +59,13 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	
 	public void onConnectFailure ()
 	{
+		//Invalid username or password
 		throw new System.NotImplementedException ();
 	}
 	
 	public void onError ()
 	{
+		// Cannot connect to server, please check your device network and try again!
 		throw new System.NotImplementedException ();
 	}
 	

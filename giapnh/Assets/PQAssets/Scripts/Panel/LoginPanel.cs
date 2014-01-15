@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using INet;
+using IHelper;
 public class LoginPanel : MonoBehaviour {
 	public UILabel txtUsername;
 	public UILabel txtPasswrd;
@@ -21,11 +22,12 @@ public class LoginPanel : MonoBehaviour {
 			return;
 		Command cmd = (Command)message.InputData;
 		if(cmd.code == CmdCode.CMD_LOGIN){
+			//TODO
 			message.ReceiveData = true;
 		}else if(cmd.code == CmdCode.CMD_REGISTER){
+			//TODO
 			message.ReceiveData = true;
 		}
-		
 		message.ReceiveData = false;
 	}
 	
@@ -33,12 +35,23 @@ public class LoginPanel : MonoBehaviour {
 	/// Send message login
 	/// </summary>
 	void OnLoginClick(){
+		controller.SendMessage("ShowLoading");
 		var username = txtUsername.text;
 		var password = txtPasswrd.text;
 		
-		Command cmd = new Command(CmdCode.CMD_LOGIN);
-		cmd.addString(ArgCode.ARG_LOGIN_USERNAME, txtUsername.text);
-		cmd.addString(ArgCode.ARG_LOGIN_PASSWRD , txtPasswrd.text);
-		ScreenManager.instance.Send (cmd);
+		if(!InputFilter.CheckEmail(username)){
+			Debug.Log("Invalid username");
+			//Show notify
+			return;
+		}else if(!InputFilter.CheckEmail(password)){
+			Debug.Log("Invalid password");
+			//Show notify
+			return;
+		}else{
+			Command cmd = new Command(CmdCode.CMD_LOGIN);
+			cmd.addString(ArgCode.ARG_LOGIN_USERNAME, txtUsername.text);
+			cmd.addString(ArgCode.ARG_LOGIN_PASSWRD , txtPasswrd.text);
+			ScreenManager.instance.Send (cmd);
+		}
 	}
 }

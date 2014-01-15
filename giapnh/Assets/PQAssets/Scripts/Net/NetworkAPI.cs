@@ -18,6 +18,7 @@ public class NetworkAPI{
 	/// Take all functions.
 	/// </summary>
 	public TcpClient client;
+	public bool Connected = false;
 	/// <summary>
 	/// The reader.
 	/// Responsibility: Read all receive data from server
@@ -32,7 +33,7 @@ public class NetworkAPI{
 	#region Constructors
 	public NetworkAPI(NetworkListener mListener){
 		handler = mListener;
-		Start();
+		Connect();
 	}
 	
 	#endregion
@@ -41,19 +42,27 @@ public class NetworkAPI{
 	/// <summary>
 	/// Connect to server.
 	/// </summary>
-	public void Start () {
-		client = new TcpClient();
-		 // 1. connect
-        client.Connect(Configs.HOST,Configs.PORT);
-		client.ReceiveBufferSize = 1024 * 1024;
-		client.NoDelay = true;
-		
-        Stream stream = client.GetStream();
-		reader = new StreamReader(stream);
-		writer = new StreamWriter(stream);
-		//create reader thread and writer thread
-		tReader = new Thread(new ThreadStart(this.Read));
-		tReader.Start();
+	public void Connect () {
+		if(!Connected){
+			client = new TcpClient();
+			 // 1. connect
+			try{
+			    client.Connect(Configs.HOST,Configs.PORT);
+				client.ReceiveBufferSize = 1024 * 1024;
+				client.NoDelay = true;
+				Stream stream = client.GetStream();
+				reader = new StreamReader(stream);
+				writer = new StreamWriter(stream);
+				//create reader thread and writer thread
+				tReader = new Thread(new ThreadStart(this.Read));
+				tReader.Start();
+				Connected = true;
+			}catch(SocketException ex){
+				Connected = false;
+				handler.onError();
+			}
+		}
+        
 	}	
 	/// <summary>
 	/// Read data from server
