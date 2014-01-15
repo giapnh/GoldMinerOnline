@@ -55,6 +55,7 @@ public class NetworkAPI{
 	public void Start () {
 		client = new TcpClient();
 		client.ReceiveBufferSize = 1024 * 1024;
+		
 		 // 1. connect
         client.Connect(Configs.HOST,Configs.PORT);
         stream = client.GetStream();
@@ -64,13 +65,17 @@ public class NetworkAPI{
 		tReader = new Thread(new ThreadStart(this.Read));
 		tReader.Start();
 	}	
-	
+	/// <summary>
+	/// Read data from clients sent to
+	/// </summary>
 	public void Read(){
 		while(true){
 			if(stream.DataAvailable && stream.CanRead){
-			int code = reader.ReadInt32();
-			Command cmd = new Command(code);
-			cmd.read(reader);
+				Console.Write("Read");
+				int code = reader.ReadInt16();
+				Command cmd = new Command(code);
+				cmd.read(reader);
+				Console.WriteLine(cmd.GetLog());
 			}
 		}
 	}
