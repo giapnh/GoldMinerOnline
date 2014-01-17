@@ -19,6 +19,7 @@ public class NetworkAPI{
 	/// </summary>
 	public TcpClient client;
 	public bool Connected = false;
+	public NetworkStream stream;
 	/// <summary>
 	/// The reader.
 	/// Responsibility: Read all receive data from server
@@ -28,6 +29,8 @@ public class NetworkAPI{
 	Thread tReader;
 	bool reading = true;
 	NetworkListener handler;
+
+	public Queue queueMessage = new Queue();
 	#endregion
 	
 	#region Constructors
@@ -35,7 +38,6 @@ public class NetworkAPI{
 		handler = mListener;
 		Connect();
 	}
-	
 	#endregion
 	
 	#region Methods and Functions
@@ -50,7 +52,7 @@ public class NetworkAPI{
 			    client.Connect(Configs.HOST,Configs.PORT);
 				client.ReceiveBufferSize = 1024 * 1024;
 				client.NoDelay = true;
-				Stream stream = client.GetStream();
+				stream = client.GetStream();
 				reader = new BinaryReader(stream);
 				writer = new BinaryWriter(stream);
 				//create reader thread and writer thread
@@ -68,22 +70,32 @@ public class NetworkAPI{
 	/// Read data from server
 	/// </summary>
 	public void Read(){
-		
 		while(reading){
 		try{
-			Command cmd = new Command();
-			cmd.read(reader);
-			ReceiveCommand(cmd);
+			if(stream.DataAvailable && stream.CanRead){
+				int code = reader.ReadInt16();
+				Command cmd = new Command(code);
+				cmd.read(reader);
+				ReceiveCommand(cmd);
+			}
 			}catch(Exception e){
 				if(reading){
 					OnError();
 				}
 			}
+			
 		}
 	}
-	
+	/// <summary>
+	/// Receives the command.
+	/// </summary>
+	/// <param name='cmd'>
+	/// The command you received from server
+	/// </param>
 	public void ReceiveCommand(Command cmd){
 		if(reading){
+			Debug.Log("Received:  " + cmd.GetLog());
+			queueMessage.Enqueue(cmd);
 			handler.receiveCmd(cmd);
 		}
 	}

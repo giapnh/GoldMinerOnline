@@ -26,9 +26,9 @@ public class RegisterPanel : MonoBehaviour {
 			controller.SendMessage("ShowPanel", ScreenManager.PN_LOGIN);
 			controller.SendMessage("HidePanel", ScreenManager.PN_REGISTER);
 			controller.SendMessage("HideLoading");
-			
 			//TODO
 			message.ReceiveData = true;
+			return;
 		}
 		message.ReceiveData = false;
 	}
@@ -36,7 +36,7 @@ public class RegisterPanel : MonoBehaviour {
 	/// <summary>
 	/// Send message login
 	/// </summary>
-	void onRegisterSubmit(){
+	void OnRegisterSubmit(){
 		controller.SendMessage("ShowLoading");
 		var username = txtUsername.text;
 		var password = txtPasswrd.text;
@@ -59,11 +59,11 @@ public class RegisterPanel : MonoBehaviour {
 			Command cmd = new Command(CmdCode.CMD_REGISTER);
 			cmd.addString(ArgCode.ARG_PLAYER_USERNAME, txtUsername.text);
 			cmd.addString(ArgCode.ARG_PLAYER_PASSWRD , txtPasswrd.text);
-#if WINDOW
+#if UNITY_STANDALONE_WIN
 			cmd.addInt(ArgCode.ARG_OS, Fields.OS_WINDOW);
-#elif IOS
+#elif UNITY_IPHONE
 			cmd.addInt(ArgCode.ARG_OS, Fields.OS_IOS);
-#elif ANDROID
+#elif UNITY_ANDROID
 			cmd.addInt(ArgCode.ARG_OS, Fields.OS_ANDROID);
 #endif
 			ScreenManager.instance.Send (cmd);

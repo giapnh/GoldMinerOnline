@@ -9,7 +9,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public GameObject[] mScreens;
 //	public GameObject mLoginScreen;
 //	public GameObject mRegisterScreen;
-	
+	public bool reading = false;
 	//Panel ID:
 	public static int PN_LOGIN = 0;
 	public static int PN_REGISTER = 1;
@@ -21,6 +21,25 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	void Start () {
 		instance = this;
 		mNetwork = new NetworkAPI(this);
+	}
+
+	void Update(){
+		if(reading){
+			while(mNetwork.queueMessage.Count>0){
+				Command cmd = mNetwork.queueMessage.Dequeue() as Command;
+				SendMessageContext command = new SendMessageContext();
+				command.InputData = cmd;
+				foreach(GameObject screen in mScreens){
+					if(screen.activeSelf)
+						screen.SendMessage("OnCommand", command);
+				}
+				if(command.ReceiveData == false){
+					// If no have panel process this command
+					Debug.Log("Screen manager have to process this command");
+				}
+			}
+			reading = false;
+		}
 	}
 	
 	public void ShowPanel(int panelId){
@@ -45,18 +64,12 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	
 	public void receiveCmd (Command cmd)
 	{
-		Debug.Log("Recv: " + cmd.GetLog());
-		SendMessageContext command = new SendMessageContext();
-		command.InputData = cmd;
-		foreach(GameObject screen in mScreens){
-			screen.SendMessage("OnCommand", command);
-			if(command.ReceiveData == true){
-				return;
-			}
-		}
-		// If no have panel process this command
-		Debug.Log("Screen manager have to process this command");
+		reading = true;
 		throw new System.NotImplementedException ();
+	}
+	
+	public void SendMessage(GameObject receiver, object message){
+		receiver.SendMessageUpwards("OnCommand", message);
 	}
 	
 	public void onConnected ()

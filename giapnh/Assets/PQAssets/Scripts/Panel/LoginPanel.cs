@@ -33,6 +33,7 @@ public class LoginPanel : MonoBehaviour {
 				controller.SendMessage("HideLoading");
 			}
 			message.ReceiveData = true;
+			return;
 		}
 		message.ReceiveData = false;
 	}
