@@ -46,25 +46,35 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public void receiveCmd (Command cmd)
 	{
 		Debug.Log("Recv: " + cmd.GetLog());
+		SendMessageContext command = new SendMessageContext();
+		command.InputData = cmd;
 		foreach(GameObject screen in mScreens){
-			
+			screen.SendMessage("OnCommand", command);
+			if(command.ReceiveData == true){
+				return;
+			}
 		}
+		// If no have panel process this command
+		Debug.Log("Screen manager have to process this command");
 		throw new System.NotImplementedException ();
 	}
 	
 	public void onConnected ()
 	{
+		Debug.Log("On Connected");
 		throw new System.NotImplementedException ();
 	}
 	
 	public void onConnectFailure ()
 	{
+		Debug.Log("On connect failure");
 		//Invalid username or password
 		throw new System.NotImplementedException ();
 	}
 	
 	public void onError ()
 	{
+		Debug.Log("On Error");
 		// Cannot connect to server, please check your device network and try again!
 		throw new System.NotImplementedException ();
 	}

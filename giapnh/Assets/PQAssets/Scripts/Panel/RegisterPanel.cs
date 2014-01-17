@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections;
 using INet;
 using IHelper;
-public class LoginPanel : MonoBehaviour {
+public class RegisterPanel : MonoBehaviour {
 	public UILabel txtUsername;
 	public UILabel txtPasswrd;
+	public UILabel txtRepasswrd;
 	public GameObject controller;     
 	// Use this for initialization
 	void Start () {
@@ -21,17 +22,12 @@ public class LoginPanel : MonoBehaviour {
 		if(message.InputData == null)
 			return;
 		Command cmd = (Command)message.InputData;
-		if(cmd.code == CmdCode.CMD_LOGIN){
-			int result = cmd.getInt(ArgCode.ARG_CODE,0);
-			if(result == 0){
-				// Login failure
-				//TODO
-			}else{
-				// Login successful
-				controller.SendMessage("HidePanel" , ScreenManager.PN_LOGIN);
-				controller.SendMessage("ShowPanel" , ScreenManager.PN_REGISTER);
-				controller.SendMessage("HideLoading");
-			}
+		if(cmd.code == CmdCode.CMD_REGISTER){
+			controller.SendMessage("ShowPanel", ScreenManager.PN_LOGIN);
+			controller.SendMessage("HidePanel", ScreenManager.PN_REGISTER);
+			controller.SendMessage("HideLoading");
+			
+			//TODO
 			message.ReceiveData = true;
 		}
 		message.ReceiveData = false;
@@ -40,10 +36,11 @@ public class LoginPanel : MonoBehaviour {
 	/// <summary>
 	/// Send message login
 	/// </summary>
-	void OnLoginClick(){
+	void onRegisterSubmit(){
 		controller.SendMessage("ShowLoading");
 		var username = txtUsername.text;
 		var password = txtPasswrd.text;
+		var repasswrd = txtRepasswrd.text;
 		
 		if(!InputFilter.CheckEmail(username)){
 			Debug.Log("Invalid username");
@@ -55,16 +52,26 @@ public class LoginPanel : MonoBehaviour {
 			controller.SendMessage("HideLoading");
 			//Show notify
 			return;
+		}else if(!password.Equals(repasswrd)){
+			Debug.Log("Password invalid");
+			
 		}else{
-			Command cmd = new Command(CmdCode.CMD_LOGIN);
+			Command cmd = new Command(CmdCode.CMD_REGISTER);
 			cmd.addString(ArgCode.ARG_PLAYER_USERNAME, txtUsername.text);
 			cmd.addString(ArgCode.ARG_PLAYER_PASSWRD , txtPasswrd.text);
+#if WINDOW
+			cmd.addInt(ArgCode.ARG_OS, Fields.OS_WINDOW);
+#elif IOS
+			cmd.addInt(ArgCode.ARG_OS, Fields.OS_IOS);
+#elif ANDROID
+			cmd.addInt(ArgCode.ARG_OS, Fields.OS_ANDROID);
+#endif
 			ScreenManager.instance.Send (cmd);
 		}
 	}
 	
-	void OnRegisterClick(){
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_REGISTER);
-		controller.SendMessage("HidePanel" , ScreenManager.PN_LOGIN);
+	void OnRegisterCancel(){
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_LOGIN);
+		controller.SendMessage("HidePanel" , ScreenManager.PN_REGISTER);
 	}
 }

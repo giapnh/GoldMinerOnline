@@ -23,8 +23,8 @@ public class NetworkAPI{
 	/// The reader.
 	/// Responsibility: Read all receive data from server
 	/// </summary>
-	StreamReader reader;
-	StreamWriter writer;
+	BinaryReader reader;
+	BinaryWriter writer;
 	Thread tReader;
 	bool reading = true;
 	NetworkListener handler;
@@ -51,8 +51,8 @@ public class NetworkAPI{
 				client.ReceiveBufferSize = 1024 * 1024;
 				client.NoDelay = true;
 				Stream stream = client.GetStream();
-				reader = new StreamReader(stream);
-				writer = new StreamWriter(stream);
+				reader = new BinaryReader(stream);
+				writer = new BinaryWriter(stream);
 				//create reader thread and writer thread
 				tReader = new Thread(new ThreadStart(this.Read));
 				tReader.Start();
@@ -89,8 +89,8 @@ public class NetworkAPI{
 	}
 	
 	public void Send(Command cmd){
-		Debug.Log("Sent to server");
-		writer.WriteLine(cmd.ToString());
+		Debug.Log("Sent: " + cmd.GetLog());
+		writer.Write(cmd.getBytes());
 		writer.Flush();
 	}
 	
@@ -105,7 +105,6 @@ public class NetworkAPI{
 		reader.Close();
 		writer.Close();
 		reading = false;
-		client.GetStream().Close();
 		client.Close();
 	}
 	#endregion
