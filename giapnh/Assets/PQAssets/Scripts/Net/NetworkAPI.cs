@@ -17,7 +17,7 @@ public class NetworkAPI{
 	/// The instance of networkApi
 	/// Take all functions.
 	/// </summary>
-	public TcpClient client;
+	public Socket client;
 	public bool Connected = false;
 	public NetworkStream stream;
 	/// <summary>
@@ -25,7 +25,6 @@ public class NetworkAPI{
 	/// Responsibility: Read all receive data from server
 	/// </summary>
 	BinaryReader reader;
-	BinaryWriter writer;
 	Thread tReader;
 	bool reading = true;
 	NetworkListener handler;
@@ -46,15 +45,14 @@ public class NetworkAPI{
 	/// </summary>
 	public void Connect () {
 		if(!Connected){
-			client = new TcpClient();
 			 // 1. connect
 			try{
-			    client.Connect(Configs.HOST,Configs.PORT);
+				client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+				client.Connect(Configs.HOST, Configs.PORT);
 				client.ReceiveBufferSize = 1024 * 1024;
 				client.NoDelay = true;
-				stream = client.GetStream();
+				stream = new NetworkStream(client);
 				reader = new BinaryReader(stream);
-				writer = new BinaryWriter(stream);
 				//create reader thread and writer thread
 				tReader = new Thread(new ThreadStart(this.Read));
 				tReader.Start();
@@ -71,11 +69,9 @@ public class NetworkAPI{
 	/// </summary>
 	public void Read(){
 		while(reading){
-		Debug.Log("Reading!");
 		try{
 			if(stream.DataAvailable && stream.CanRead){
 				int code = reader.ReadInt16();
-					Debug.Log("Read!Checking...");
 				Command cmd = new Command(code);
 				cmd.read(reader);
 				ReceiveCommand(cmd);
@@ -99,14 +95,13 @@ public class NetworkAPI{
 		if(reading){
 			Debug.Log("Received:  " + cmd.GetLog());
 			queueMessage.Enqueue(cmd);
-			handler.receiveCmd(cmd);
+//			handler.receiveCmd(cmd);
 		}
 	}
 	
 	public void Send(Command cmd){
 		Debug.Log("Sent: " + cmd.GetLog());
-		writer.Write(cmd.getBytes());
-		writer.Flush();
+		client.Send(cmd.getBytes());
 	}
 	
 	public void OnError(){
@@ -118,7 +113,6 @@ public class NetworkAPI{
 	/// </summary>
 	public void Stop(){
 		reader.Close();
-		writer.Close();
 		reading = false;
 		client.Close();
 	}
