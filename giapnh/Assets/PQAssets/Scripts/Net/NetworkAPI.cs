@@ -71,14 +71,17 @@ public class NetworkAPI{
 	/// </summary>
 	public void Read(){
 		while(reading){
+		Debug.Log("Reading!");
 		try{
 			if(stream.DataAvailable && stream.CanRead){
 				int code = reader.ReadInt16();
+					Debug.Log("Read!Checking...");
 				Command cmd = new Command(code);
 				cmd.read(reader);
 				ReceiveCommand(cmd);
 			}
-			}catch(Exception e){
+			}catch(IOException e){
+				Debug.LogError("Ex: "+e.GetType().ToString()+ "Msg: "+e.Message);
 				if(reading){
 					OnError();
 				}

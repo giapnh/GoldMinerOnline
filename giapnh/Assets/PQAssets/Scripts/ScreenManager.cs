@@ -11,8 +11,9 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 //	public GameObject mRegisterScreen;
 	public bool reading = false;
 	//Panel ID:
-	public static int PN_LOGIN = 0;
-	public static int PN_REGISTER = 1;
+	public static readonly int PN_LOGIN = 0;
+	public static readonly int PN_REGISTER = 1;
+	public static readonly int PN_MENU = 2;
 	
 	
 	//Loading dialog
