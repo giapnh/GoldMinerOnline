@@ -60,6 +60,13 @@ public class LoginPanel : MonoBehaviour {
 			Command cmd = new Command(CmdCode.CMD_LOGIN);
 			cmd.addString(ArgCode.ARG_PLAYER_USERNAME, txtUsername.text);
 			cmd.addString(ArgCode.ARG_PLAYER_PASSWRD , txtPasswrd.text);
+#if UNITY_STANDALONE_WIN
+			cmd.addInt(ArgCode.ARG_OS, Fields.OS_WINDOW);
+#elif UNITY_IPHONE
+			cmd.addInt(ArgCode.ARG_OS, Fields.OS_IOS);
+#elif UNITY_ANDROID
+			cmd.addInt(ArgCode.ARG_OS, Fields.OS_ANDROID);
+#endif
 			ScreenManager.instance.Send (cmd);
 		}
 	}

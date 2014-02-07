@@ -10,8 +10,8 @@ public class Hook : MonoBehaviour {
 	public int State;
 
 	// Hook indexs
-	public int Vel_Drop = -10;
-	public int Vel_Drag = 10;
+	public float Vel_Drop = -100;
+	public float Vel_Drag = 100;
 
 
 
@@ -23,9 +23,10 @@ public class Hook : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(State == DROP|| State == DRAG){
-			Vector3 position = gameObject.transform.position;
-			gameObject.transform.position = new Vector3(position.x + Vel_Drop * Time.deltaTime, position.y + Vel_Drop * Time.deltaTime, position.z);
-			Debug.Log(gameObject.transform.position.y);
+			Vector3 position = gameObject.transform.localPosition;
+			gameObject.transform.localPosition.Set(position.x + Vel_Drop * Time.fixedDeltaTime,
+				position.y + Vel_Drop * Time.fixedDeltaTime, position.z);
+			Debug.Log(gameObject.transform.localPosition.y);
 		}
 		//TODO
 		if(Input.GetMouseButtonDown(0)){
