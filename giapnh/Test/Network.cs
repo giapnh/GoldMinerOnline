@@ -20,14 +20,13 @@ public class NetworkAPI{
 	/// Take all functions.
 	/// </summary>
 	public static NetworkAPI instance; 
-	public TcpClient client;
+	public Socket client;
 	NetworkStream stream;
 	/// <summary>
 	/// The reader.
 	/// Responsibility: Read all receive data from server
 	/// </summary>
 	BinaryReader reader;
-	BinaryWriter writer;
 	Thread tReader;
 	#endregion
 	
@@ -53,14 +52,13 @@ public class NetworkAPI{
 	/// Connect to server.
 	/// </summary>
 	public void Start () {
-		client = new TcpClient();
+		client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+		client.Connect(Configs.HOST, Configs.PORT);
 		client.ReceiveBufferSize = 1024 * 1024;
-		
+		client.NoDelay = true;
 		 // 1. connect
-        client.Connect(Configs.HOST,Configs.PORT);
-        stream = client.GetStream();
+		stream = new NetworkStream(client);
 		reader = new BinaryReader(stream);
-		writer = new BinaryWriter(stream);
 		//create reader thread and writer thread
 		tReader = new Thread(new ThreadStart(this.Read));
 		tReader.Start();
@@ -71,26 +69,23 @@ public class NetworkAPI{
 	public void Read(){
 		while(true){
 			if(stream.DataAvailable && stream.CanRead){
-				Console.Write("Read");
 				int code = reader.ReadInt16();
 				Command cmd = new Command(code);
 				cmd.read(reader);
-				Console.WriteLine(cmd.GetLog());
+				Console.WriteLine("Received: "+cmd.GetLog());
 			}
 		}
 	}
 	
 	public void Send(Command cmd){
-		writer.Write(cmd.getBytes());
-		writer.Flush();
-		Console.Write(cmd.GetLog());
+		client.Send(cmd.getBytes());
+		Console.Write("Sent: " + cmd.GetLog());
 	}
 	/// <summary>
 	/// Stop read and write.
 	/// </summary>
 	public void Stop(){
 		tReader.Interrupt();
-		client.GetStream().Close();
 		client.Close();
 	}
 	#endregion
