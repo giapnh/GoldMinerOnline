@@ -5,10 +5,16 @@ using IHelper;
 public class LoginPanel : MonoBehaviour {
 	public UILabel txtUsername;
 	public UILabel txtPasswrd;
+	public UICheckbox cbxRemember;
 	public GameObject controller;     
 	// Use this for initialization
 	void Start () {
-	
+		if(PlayerPrefs.GetInt("remember") == 1){
+			var username = PlayerPrefs.GetString("login_username");
+			var password = PlayerPrefs.GetString("login_password");
+			txtUsername.text = username;
+			txtPasswrd.text = password;
+		}
 	}
 	
 	// Update is called once per frame
@@ -27,6 +33,11 @@ public class LoginPanel : MonoBehaviour {
 				// Login failure
 				//TODO
 			}else{
+				// Save login info to PlayerPrefs
+				if(PlayerPrefs.GetInt("remember") == 1){
+					PlayerPrefs.SetString("login_username", txtUsername.text);
+					PlayerPrefs.SetString("login_password", txtPasswrd.text);
+				}
 				// Login successful
 				controller.SendMessage("HidePanel" , ScreenManager.PN_LOGIN);
 				controller.SendMessage("ShowPanel" , ScreenManager.PN_MENU);
@@ -45,7 +56,13 @@ public class LoginPanel : MonoBehaviour {
 		controller.SendMessage("ShowLoading");
 		var username = txtUsername.text;
 		var password = txtPasswrd.text;
-		
+		// Check if uer remember username and password
+		if(cbxRemember.isChecked){
+			PlayerPrefs.SetInt ("remember", 1);
+		}else{
+			PlayerPrefs.SetInt ("remember", 0);
+		}
+		// Check valid username and password
 		if(!InputFilter.CheckEmail(username)){
 			Debug.Log("Invalid username");
 			controller.SendMessage("HideLoading");
@@ -68,6 +85,16 @@ public class LoginPanel : MonoBehaviour {
 			cmd.addInt(ArgCode.ARG_OS, Fields.OS_ANDROID);
 #endif
 			ScreenManager.instance.Send (cmd);
+		}
+	}
+	/// <summary>
+	/// Login remember infor or not
+	/// </summary>
+	void OnRemember(){
+		if(cbxRemember.isChecked){
+			PlayerPrefs.SetInt("remember", 1);
+		}else{
+			PlayerPrefs.SetInt("remember", 0);
 		}
 	}
 	

@@ -27,20 +27,22 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 	void Update(){
 //		if(reading){
-		if(mNetwork.queueMessage.Count == 0)
-			return;
-		Command cmd = mNetwork.queueMessage.Dequeue() as Command;
-		SendMessageContext command = new SendMessageContext();
-		command.InputData = cmd;
-		foreach(GameObject screen in mScreens){
-			if(screen.activeSelf)
-				screen.SendMessage("OnCommand", command);
-		}
-		if(command.ReceiveData == false){
-			// If no have panel process this command
-			Debug.Log("Screen manager have to process this command");
-			// If screen manager can't process this command, enqueue
-			mNetwork.queueMessage.Enqueue(command.InputData);
+		if(mNetwork.Connected){
+			if(mNetwork.queueMessage.Count == 0)
+				return;
+			Command cmd = mNetwork.queueMessage.Dequeue() as Command;
+			SendMessageContext command = new SendMessageContext();
+			command.InputData = cmd;
+			foreach(GameObject screen in mScreens){
+				if(screen.activeSelf)
+					screen.SendMessage("OnCommand", command);
+			}
+			if(command.ReceiveData == false){
+				// If no have panel process this command
+				// Debug.Log("Screen manager have to process this command");
+				// If screen manager can't process this command, enqueue
+				mNetwork.queueMessage.Enqueue(command.InputData);
+			}
 		}
 //			reading = false;
 //		}

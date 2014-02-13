@@ -62,7 +62,6 @@ public class NetworkAPI{
 				handler.onError();
 			}
 		}
-        
 	}	
 	/// <summary>
 	/// Read data from server
