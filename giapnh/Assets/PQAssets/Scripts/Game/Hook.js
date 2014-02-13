@@ -45,8 +45,7 @@ function Update () {
 	}
 	//hooking
 	if(state == "HOOKING"){
-		Debug.Log(transform.position);
-		if(transform.localPosition.y <= -8 || transform.position.x > 385) GoBack();
+		if(transform.position.y <= -0.9 || transform.position.x < -1.6 || transform.position.x > 1.6) GoBack();
 		if(transform.position.y > initialPosition.y) returnIDLE();
 	}
 }
