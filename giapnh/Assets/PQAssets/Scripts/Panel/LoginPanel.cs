@@ -65,6 +65,7 @@ public class LoginPanel : MonoBehaviour {
 		// Check valid username and password
 		if(!InputFilter.CheckEmail(username)){
 			Debug.Log("Invalid username");
+			//
 			controller.SendMessage("HideLoading");
 			//Show notify
 			return;
