@@ -1,4 +1,5 @@
 #pragma strict
+var textures : Texture[];
 var center_point: Vector3;
 var flag:int = 1;
 var isRotating:boolean = true;
@@ -9,10 +10,6 @@ var rotateDirection: Vector3;
 var initialPosition: Vector3;
 var speed:float = 10;
 var gold:Object;
-//test linerenderer
-var c1 : Color = Color.yellow;
-var c2 : Color = Color.red;
-var lengthOfLineRenderer : int = 20;
 function Start () {
 
 }
@@ -20,10 +17,12 @@ function Start () {
 function Update () {
 	//rotate
 	if(state == "IDLE"){
-		center_point = transform.parent.transform.position + Vector3(0,-0.1,0);
-		if(transform.rotation.z >= 0.5) flag=-1;
-		else if(transform.rotation.z <= -0.5) flag=1;
-		transform.RotateAround (center_point, Vector3.forward, 40 * Time.deltaTime * flag);
+		center_point = transform.parent.transform.position + Vector3(0,-0.15,0);
+		//center_point = Vector3(0,0.1,0);
+		if(transform.localRotation.z >= 0.5) flag=1;
+		else if(transform.localRotation.z <= -0.5) flag=-1;
+		transform.RotateAround (center_point, Vector3.forward, 60 * Time.deltaTime * flag);
+		Debug.Log(transform.localRotation.z );
 		
 		//click
 		if(Input.GetMouseButtonDown(0)){
@@ -32,9 +31,7 @@ function Update () {
 			rotateDirection = transform.position - center_point;
 			rigidbody.velocity = rotateDirection*speed;		
 		}
-		//lineRenderer.SetPosition(0, center_point);
-		//lineRenderer.SetPosition(1, transform.position);
-	}
+	}//
 	//catching
 	if(state == "CATCHING"){
 		//Debug.Log(gold.transform.position);
@@ -51,6 +48,7 @@ function Update () {
 }
 function OnTriggerEnter(col : Collider) {
 	if(col.gameObject.tag == "Gold") {
+		renderer.material.mainTexture = textures[1];
 		GoBack();
 		col.rigidbody.velocity = rigidbody.velocity;
 		gold = col.gameObject;
@@ -61,7 +59,8 @@ function OnTriggerEnter(col : Collider) {
 function GoBack(){
 	rigidbody.velocity = -rotateDirection*speed;
 }
-function returnIDLE(){
+function returnIDLE(){	
+	renderer.material.mainTexture = textures[0];
 	rigidbody.velocity = Vector3(0,0,0);
 	transform.position = initialPosition;
 	state = "IDLE";
