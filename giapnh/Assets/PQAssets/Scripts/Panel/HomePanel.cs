@@ -46,7 +46,7 @@ public class HomePanel : MonoBehaviour {
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_MAP);
 	}
 	
-	void OnOnline(){
+	void JoinOnline(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_HOME);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_ONGAME);
 	}
