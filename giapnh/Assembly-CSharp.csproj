@@ -162,6 +162,8 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITiledSprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Arrow.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Character.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Controll.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Hook.cs" />
      <Compile Include="Assets\PQAssets\Scripts\GameController.cs" />

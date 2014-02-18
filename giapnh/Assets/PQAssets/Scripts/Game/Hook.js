@@ -11,7 +11,7 @@ var initialPosition: Vector3;
 var speed:float = 10;
 var gold:Object;
 function Start () {
-
+	transform.localRotation.z = 0;
 }
 
 function Update () {
@@ -22,14 +22,16 @@ function Update () {
 		if(transform.localRotation.z >= 0.5) flag=1;
 		else if(transform.localRotation.z <= -0.5) flag=-1;
 		transform.RotateAround (center_point, Vector3.forward, 60 * Time.deltaTime * flag);
-		Debug.Log(transform.localRotation.z );
 		
 		//click
-		if(Input.GetMouseButtonDown(0)){
-			state = "HOOKING";
-			initialPosition = transform.position;
-			rotateDirection = transform.position - center_point;
-			rigidbody.velocity = rotateDirection*speed;		
+		if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
+			var mouse_pos = Input.mousePosition;
+			if(mouse_pos.y <480){
+				state = "HOOKING";
+				initialPosition = transform.position;
+				rotateDirection = transform.position - center_point;
+				rigidbody.velocity = rotateDirection*speed;
+			}	
 		}
 	}//
 	//catching
