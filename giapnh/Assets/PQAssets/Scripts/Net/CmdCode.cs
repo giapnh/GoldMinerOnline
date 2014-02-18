@@ -16,7 +16,7 @@ namespace INet
     	public static readonly int CMD_REMOVE_FRIEND = 13;
     	public static readonly int CMD_PLAYER_CHAT = 20;
 
-    	public static readonly int CMD_GAME_JOIN = 100;
+    	public static readonly int CMD_GAME_MATCHING = 100;
 	}
 }
 
