@@ -12,14 +12,11 @@ public class Water : MonoBehaviour
 	};
 	public WaterMode m_WaterMode = WaterMode.Refractive;
 	public bool m_DisablePixelLights = true;
-    public bool m_DisableTreesAndDetails = true;
 	public int m_TextureSize = 256;
 	public float m_ClipPlaneOffset = 0.07f;
 	
 	public LayerMask m_ReflectLayers = -1;
 	public LayerMask m_RefractLayers = -1;
-	
-	public Terrain terrain;
 		
 	private Hashtable m_ReflectionCameras = new Hashtable(); // Camera -> Camera table
 	private Hashtable m_RefractionCameras = new Hashtable(); // Camera -> Camera table
@@ -68,14 +65,6 @@ public class Water : MonoBehaviour
 		if( m_DisablePixelLights )
 			QualitySettings.pixelLightCount = 0;
 		
-		float detailDistance = Terrain.activeTerrain.detailObjectDistance;
-		float treeDistance = Terrain.activeTerrain.treeDistance;
-		if(terrain && m_DisableTreesAndDetails)
-		{
-			terrain.detailObjectDistance = 0;
-			terrain.treeDistance = 0;
-        }
-        
 		UpdateCameraModes( cam, reflectionCamera );
 		UpdateCameraModes( cam, refractionCamera );
 		
@@ -104,7 +93,7 @@ public class Water : MonoBehaviour
 			GL.SetRevertBackfacing (true);
 			reflectionCamera.transform.position = newpos;
 			Vector3 euler = cam.transform.eulerAngles;
-			reflectionCamera.transform.eulerAngles = new Vector3(0, euler.y, euler.z);
+			reflectionCamera.transform.eulerAngles = new Vector3(-euler.x, euler.y, euler.z);
 			reflectionCamera.Render();
 			reflectionCamera.transform.position = oldpos;
 			GL.SetRevertBackfacing (false);
@@ -134,12 +123,6 @@ public class Water : MonoBehaviour
 		// Restore pixel light count
 		if( m_DisablePixelLights )
 			QualitySettings.pixelLightCount = oldPixelLightCount;
-		
-		if(terrain && m_DisableTreesAndDetails)
-		{
-			terrain.detailObjectDistance = detailDistance;
-			terrain.treeDistance = treeDistance;
-		}
 		
 		// Setup shader keywords based on water mode
 		switch( mode )

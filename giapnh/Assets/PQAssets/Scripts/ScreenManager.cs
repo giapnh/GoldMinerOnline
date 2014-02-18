@@ -13,7 +13,10 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	//Panel ID:
 	public static readonly int PN_LOGIN = 0;
 	public static readonly int PN_REGISTER = 1;
-	public static readonly int PN_MENU = 2;
+	public static readonly int PN_HOME = 2;
+	public static readonly int PN_COMPAIN_MAP = 3;
+	public static readonly int PN_COMPAIN_ONGAME = 4;
+	public static readonly int PN_ONLINE_ONGAME = 5;
 	
 	
 	//Loading dialog
@@ -23,6 +26,9 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 		instance = this;
 		mNetwork = new NetworkAPI(this);
 		mScreens[0].SetActive(true);
+		for(int i = 1; i < mScreens.Length; i++){
+			mScreens[i].SetActive(false);
+		}
 	}
 
 	void Update(){

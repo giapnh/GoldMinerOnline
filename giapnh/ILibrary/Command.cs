@@ -195,7 +195,7 @@ namespace INet
 		
 		public static string getCommandName(short _command) {
 			//TODO
-			return "CmdName";
+			return "Command";
 		}
 		//For debug
 		public string GetLog() {

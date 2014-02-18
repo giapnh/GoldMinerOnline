@@ -135,7 +135,7 @@ namespace INet
 		/// </param>
 		public static string getArgumentAsString (int code)
 		{
-			return "ArgName";
+			return "Argument";
 		}
 		/// <summary>
 		/// Write the specified writer.

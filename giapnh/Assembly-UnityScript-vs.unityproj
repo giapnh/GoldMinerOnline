@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\PQAssets\Scripts\Game\Character.js" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Hook.js" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />
@@ -60,6 +61,8 @@
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Header.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (AlphaClip).shader" />
      <None Include="Assets\Pro Standard Assets\Image Based\Contrast Stretch\Apply.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-SimpleWater4.shader" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\GUI - Text Shader (AlphaClip).shader" />
      <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
@@ -78,6 +81,7 @@
      <None Include="Assets\iTween\ReadMe!\ReadMe!.txt" />
      <None Include="Assets\NGUI\Examples\Other\English.txt" />
      <None Include="Assets\NGUI\Examples\Other\French.txt" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders\FX-Water.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
      <None Include="Assets\Pro Standard Assets\Image Based\GrayscaleEffect.shader" />
      <None Include="Assets\Pro Standard Assets\Image Based\SepiaToneEffect.shader" />
@@ -87,7 +91,9 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
      <None Include="Assets\NGUI\Examples\Shaders\Refractive.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\WaterInclude.cginc" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-Water4.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
      <None Include="Assets\NGUI\Examples\Models\Orc Armor\Orc Armor.shader" />

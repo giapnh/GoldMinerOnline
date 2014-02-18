@@ -9,6 +9,14 @@ namespace INet
 		public static readonly int CMD_REGISTER = 1;
 		public static readonly int CMD_LOGIN = 2;
 		public static readonly int CMD_PLAYER_INFO = 3;
+		
+    	public static readonly int  CMD_LIST_FRIEND = 10;
+    	public static readonly int CMD_ADD_FRIEND = 11;
+    	public static readonly int CMD_ACCEPT_FRIEND = 12;
+    	public static readonly int CMD_REMOVE_FRIEND = 13;
+    	public static readonly int CMD_PLAYER_CHAT = 20;
+
+    	public static readonly int CMD_GAME_JOIN = 100;
 	}
 }
 

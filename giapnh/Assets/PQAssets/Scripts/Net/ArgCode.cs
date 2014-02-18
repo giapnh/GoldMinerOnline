@@ -17,6 +17,8 @@ namespace INet
 		public static short	ARG_PLAYER_LEVEL_UP_POINT = 25;
 		public static short ARG_PLAYER_LEVEL_UP_REQUIRE = 26;
 		public static short ARG_PLAYER_CUP = 27;
+
+    	public static short ARG_FRIEND_USERNAME = 40;
 	}
 }
 

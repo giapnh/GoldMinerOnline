@@ -40,7 +40,7 @@ public class LoginPanel : MonoBehaviour {
 				}
 				// Login successful
 				controller.SendMessage("HidePanel" , ScreenManager.PN_LOGIN);
-				controller.SendMessage("ShowPanel" , ScreenManager.PN_MENU);
+				controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 				controller.SendMessage("HideLoading");
 			}
 			message.ReceiveData = true;
