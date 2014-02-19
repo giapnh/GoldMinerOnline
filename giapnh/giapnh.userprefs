@@ -1,0 +1,45 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ILibrary\Command.cs">
+    <Files>
+      <File FileName="ILibrary\Argument.cs" Line="138" Column="22" />
+      <File FileName="ILibrary\Command.cs" Line="195" Column="3" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="PQAssets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Game" expanded="True" />
+                  <Node name="Net" expanded="True">
+                    <Node name="ArgCode.cs" selected="True" />
+                  </Node>
+                  <Node name="Panel" expanded="True" />
+                  <Node name="Player" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+          <Node name="Assembly-UnityScript" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="PQAssets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Game" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="E:\WorkSpace\OneOfThem\GoldMinerOnline\trunk\giapnh\Assets\PQAssets\Scripts\Net\ArgCode.cs" line="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Nguyen Huu Giap" Email="hgbk.it@gmail.com" Copyright="Nguyen Huu Giap" Company="OOT" Trademark="" />
+</Properties>
