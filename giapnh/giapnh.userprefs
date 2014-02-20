@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ILibrary\Command.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PQAssets\Scripts\Net\Configs.cs">
     <Files>
+      <File FileName="Assets\PQAssets\Scripts\Net\Configs.cs" Line="4" Column="44" />
       <File FileName="ILibrary\Argument.cs" Line="138" Column="22" />
-      <File FileName="ILibrary\Command.cs" Line="195" Column="3" />
+      <File FileName="ILibrary\Command.cs" Line="191" Column="24" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,7 +15,7 @@
                 <Node name="Scripts" expanded="True">
                   <Node name="Game" expanded="True" />
                   <Node name="Net" expanded="True">
-                    <Node name="ArgCode.cs" selected="True" />
+                    <Node name="Configs.cs" selected="True" />
                   </Node>
                   <Node name="Panel" expanded="True" />
                   <Node name="Player" expanded="True" />
