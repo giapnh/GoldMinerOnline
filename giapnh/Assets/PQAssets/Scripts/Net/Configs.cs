@@ -1,7 +1,7 @@
 using System;
 public class Configs
 {
-	public static string HOST = "192.168.1.101";
+	public static string HOST = "192.168.1.168";
 //	public static string HOST = "localhost";
 	public static int PORT = 9090;//port
 
