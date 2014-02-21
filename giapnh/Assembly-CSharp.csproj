@@ -175,6 +175,7 @@
      <Compile Include="Assets\PQAssets\Scripts\Net\Fields.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Net\NetworkAPI.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Net\NetworkListener.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Panel\CompainPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\HomePanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\LoginPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\RegisterPanel.cs" />
