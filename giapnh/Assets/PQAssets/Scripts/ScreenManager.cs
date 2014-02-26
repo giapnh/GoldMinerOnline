@@ -33,6 +33,8 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 	void Update(){
 //		if(reading){
+		if(mNetwork == null)
+			return;
 		if(mNetwork.Connected){
 			if(mNetwork.queueMessage.Count == 0)
 				return;
@@ -100,12 +102,12 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	
 	public void onError ()
 	{
-		Debug.Log("On Error");
-		// Cannot connect to server, please check your device network and try again!
-		throw new System.NotImplementedException ();
+		Debug.Log("Cannot connect to server, please check your device network and try again!");
 	}
 	
 	void OnApplicationQuit(){
-		mNetwork.Stop();
+		
+		if(mNetwork!=null)
+			mNetwork.Stop();
 	}
 }

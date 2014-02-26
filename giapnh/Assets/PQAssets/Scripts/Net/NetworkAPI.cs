@@ -111,9 +111,11 @@ public class NetworkAPI{
 	/// Stop read and write.
 	/// </summary>
 	public void Stop(){
-		reader.Close();
-		reading = false;
-		client.Close();
+		if(reader!=null){
+			reader.Close();
+			reading = false;
+			client.Close();
+		}
 	}
 	#endregion
 }
