@@ -7,8 +7,6 @@ Project("{4EA4E1C6-AA8B-F312-AFB4-81CB3FFAE3B0}") = "giapnh", "Assembly-CSharp.c
 EndProject
 Project("{4EA4E1C6-AA8B-F312-AFB4-81CB3FFAE3B0}") = "giapnh", "Assembly-CSharp-Editor.csproj", "{3C971F64-4E1B-0161-F082-DCF7368B4A8B}"
 EndProject
-Project("{4EA4E1C6-AA8B-F312-AFB4-81CB3FFAE3B0}") = "giapnh", "Assembly-UnityScript.unityproj", "{B0173C03-F8FA-FFB2-7834-B884BA90366E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,15 +25,11 @@ Global
 		{3C971F64-4E1B-0161-F082-DCF7368B4A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C971F64-4E1B-0161-F082-DCF7368B4A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C971F64-4E1B-0161-F082-DCF7368B4A8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0173C03-F8FA-FFB2-7834-B884BA90366E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0173C03-F8FA-FFB2-7834-B884BA90366E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0173C03-F8FA-FFB2-7834-B884BA90366E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0173C03-F8FA-FFB2-7834-B884BA90366E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																						GlobalSection(MonoDevelopProperties) = preSolution
+																									GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp-firstpass.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
