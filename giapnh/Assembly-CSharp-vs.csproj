@@ -163,10 +163,14 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Arrow.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Bomb.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Character.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Controll.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\CurrentLevel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Hook.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Map.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Pig.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Test.cs" />
      <Compile Include="Assets\PQAssets\Scripts\GameController.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Helper\InputFilter.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Net\ArgCode.cs" />
@@ -186,6 +190,7 @@
      <Compile Include="Assets\iTween\Sample\MoveSample.cs" />
      <Compile Include="Assets\iTween\Sample\RotateSample.cs" />
      <Compile Include="Assets\iTween\Sample\SampleInfo.cs" />
+     <Compile Include="Assets\iTween\iTweenPath\iTweenPath.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\NGUI\Examples\Models\Orc\Orc Skin.shader" />

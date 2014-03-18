@@ -1,35 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PQAssets\Scripts\Panel\HomePanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PQAssets\Scripts\Game\Hook.cs">
     <Files>
-      <File FileName="ILibrary\Argument.cs" Line="138" Column="22" />
-      <File FileName="ILibrary\Command.cs" Line="191" Column="24" />
-      <File FileName="Assets\PQAssets\Scripts\Net\Configs.cs" Line="4" Column="44" />
-      <File FileName="Assets\PQAssets\Scripts\Game\CurrentLevel.cs" Line="5" Column="2" />
-      <File FileName="Assets\PQAssets\Scripts\Panel\HomePanel.cs" Line="46" Column="70" />
+      <File FileName="Assets\PQAssets\Scripts\Game\Hook.cs" Line="39" Column="92" />
+      <File FileName="Assets\PQAssets\Scripts\Game\Pig.cs" Line="10" Column="9" />
+      <File FileName="Assets\PQAssets\Scripts\Game\Map.cs" Line="21" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="PQAssets" expanded="True">
-                <Node name="Scripts" expanded="True">
-                  <Node name="Panel" expanded="True">
-                    <Node name="HomePanel.cs" selected="True" />
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="E:\WorkSpace\OneOfThem\GoldMinerOnline\trunk\giapnh\Assets\PQAssets\Scripts\Net\ArgCode.cs" line="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <AuthorInfo Name="Nguyen Huu Giap" Email="hgbk.it@gmail.com" Copyright="Nguyen Huu Giap" Company="OOT" Trademark="" />
