@@ -15,7 +15,7 @@ public class Hook : MonoBehaviour {
 	public float hook_speed;
 	Vector3 rotateDirection;
 	Vector3 initialPosition;
-	Object gold;
+	Object caught_item;
 	
 	// Use this for initialization
 	void Start () {
@@ -48,7 +48,7 @@ public class Hook : MonoBehaviour {
 		if(state == CATCHING){
 			//Debug.Log(gold.transform.position);
 			if(transform.position.y > initialPosition.y){
-				Destroy(gold);
+				if(caught_item) Destroy(caught_item);
 				returnIDLE();
 			}
 		}
@@ -60,12 +60,30 @@ public class Hook : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if(col.gameObject.tag == "Gold") {
-			renderer.material.mainTexture = textures[1];
-			GoBack();
-			col.rigidbody.velocity = rigidbody.velocity;
-			gold = col.gameObject;
-			state = CATCHING;
+		//catch gold
+		if(state == HOOKING){
+			if(col.gameObject.tag == "Gold") {
+				renderer.material.mainTexture = textures[1];
+				GoBack();
+				col.rigidbody.velocity = rigidbody.velocity;
+				caught_item = col.gameObject;
+				state = CATCHING;
+			}
+			//catch bomb
+			if(col.gameObject.tag == "Bomb") {
+				GoBack();
+				state = CATCHING;
+				col.GetComponent<Bomb>().state = Bomb.HOOKED;
+			}
+			//catch pig
+			if(col.gameObject.tag == "Pig") {
+				renderer.material.mainTexture = textures[1];
+				GoBack();
+				col.rigidbody.velocity = rigidbody.velocity;
+				caught_item = col.gameObject;
+				state = CATCHING;
+				col.GetComponent<Pig>().state = Pig.HOOKED;
+			}
 		}
 	}
 
