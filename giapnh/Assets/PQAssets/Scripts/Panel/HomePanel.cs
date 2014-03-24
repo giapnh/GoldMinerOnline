@@ -49,5 +49,7 @@ public class HomePanel : MonoBehaviour {
 	void JoinOnline(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_HOME);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_ONGAME);
+		Command cmd = new Command(CmdCode.CMD_GAME_MATCHING);
+		ScreenManager.instance.Send (cmd);
 	}
 }

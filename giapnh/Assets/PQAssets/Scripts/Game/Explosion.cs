@@ -11,34 +11,36 @@ public class Explosion : MonoBehaviour {
 	public int colNumber = 0; //Zero Indexed
 	public int totalCells = 25;
 	public int  fps     = 10;
-	int i = 0;
+	int j = 0;
 	public float damage_radius;
   	//Maybe this should be a private var
     private Vector2 offset;
 	float count_time=0;
+	bool is_destroyed = false;
 	void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		i = SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
-		if(i==0) {
-			Debug.Log ("a");
-			ExplosionDamage();
-		}
-		if(i==24) {
+		j = SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
+		if(j==24) {
 			Destroy(this.gameObject);
+		}
+		
+		if(!is_destroyed) {
+			ExplosionDamage();
+			is_destroyed = true;
 		}
 	}
 	
 	void ExplosionDamage() {
+		//Debug.Log ("a");
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, damage_radius);
         int i = 0;
         while (i < hitColliders.Length) {
-            i++;
-			Debug.Log (hitColliders[i].gameObject.tag);
 			if(hitColliders[i].gameObject.tag=="Gold" || hitColliders[i].gameObject.tag=="Pig")
 				Destroy(hitColliders[i].gameObject);
+            i++;
         }
     }
 	
@@ -66,7 +68,6 @@ public class Explosion : MonoBehaviour {
 	 
 	    renderer.material.SetTextureOffset ("_MainTex", offset);
 	    renderer.material.SetTextureScale  ("_MainTex", size);
-		//Debug.Log (index);
 		count_time+=Time.deltaTime;
 		return index;
 	}
