@@ -5,8 +5,11 @@ public class HomePanel : MonoBehaviour {
 
 	public UILabel TxtLevel;
 	public UILabel TxtProgress;
-
 	public UILabel TxtCup;
+	
+	public UILabel TxtMoveSpeed;
+	public UILabel TxtDropSpeed;
+	public UILabel TxtDragSpeed;
 	public GameObject controller;
 	// Use this for initialization
 	void Start () {
@@ -36,9 +39,17 @@ public class HomePanel : MonoBehaviour {
 			TxtCup.text = ""+pCup;
 			TxtProgress.text = "("+pLevelUpProgress+"/"+pLevelUpRequire+")";
 			message.ReceiveData = true;
+			
+			
+			PlayerInfo.MoveSpeed = cmd.getInt(ArgCode.ARG_PLAYER_SPEED_MOVE , 0);
+			PlayerInfo.DropSpeed = cmd.getInt(ArgCode.ARG_PLAYER_SPEED_DROP , 0);
+			PlayerInfo.DragSpeed = cmd.getInt(ArgCode.ARG_PLAYER_SPEED_DRAG , 0);
+			//TODO update hook info
+			TxtMoveSpeed.text = "" + PlayerInfo.MoveSpeed;
+			TxtDropSpeed.text = "" + PlayerInfo.DropSpeed;
+			TxtDragSpeed.text = "" + PlayerInfo.DragSpeed;
 			return;
 		}
-		message.ReceiveData = false;
 	}
 	
 	void OnCompain(){
@@ -48,7 +59,7 @@ public class HomePanel : MonoBehaviour {
 	
 	void JoinOnline(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_HOME);
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_ONGAME);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_SEARCH_OPPONENT);
 		Command cmd = new Command(CmdCode.CMD_GAME_MATCHING);
 		ScreenManager.instance.Send (cmd);
 	}

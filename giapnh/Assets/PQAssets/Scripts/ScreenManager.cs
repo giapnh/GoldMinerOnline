@@ -17,6 +17,8 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public static readonly int PN_COMPAIN_MAP = 3;
 	public static readonly int PN_COMPAIN_ONGAME = 4;
 	public static readonly int PN_ONLINE_ONGAME = 5;
+	public static readonly int PN_SEARCH_OPPONENT = 6;
+	public static readonly int PN_WAITING_ROOM = 7;
 	
 	
 	//Loading dialog
@@ -41,6 +43,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			Command cmd = mNetwork.queueMessage.Dequeue() as Command;
 			SendMessageContext command = new SendMessageContext();
 			command.InputData = cmd;
+			
 			foreach(GameObject screen in mScreens){
 				if(screen.activeSelf)
 					screen.SendMessage("OnCommand", command);

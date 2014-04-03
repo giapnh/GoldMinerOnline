@@ -9,6 +9,7 @@ namespace INet
 		public static readonly int CMD_REGISTER = 1;
 		public static readonly int CMD_LOGIN = 2;
 		public static readonly int CMD_PLAYER_INFO = 3;
+		public static readonly int CMD_OPPONENT_INFO = 30;
 		
     	public static readonly int  CMD_LIST_FRIEND = 10;
     	public static readonly int CMD_ADD_FRIEND = 11;
@@ -17,6 +18,11 @@ namespace INet
     	public static readonly int CMD_PLAYER_CHAT = 20;
 
     	public static readonly int CMD_GAME_MATCHING = 100;
+		public static readonly int CMD_GAME_MATCHING_CANCEL = 101;
+		public static readonly int CMD_ROOM_INFO = 102;
+		public static readonly int CMD_ROOM_EXIT = 105;
+		public static readonly int CMD_GAME_READY = 110;
+		
 	}
 }
 
