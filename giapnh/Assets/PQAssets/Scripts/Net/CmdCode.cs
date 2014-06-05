@@ -22,6 +22,7 @@ namespace INet
 		public static readonly int CMD_ROOM_INFO = 102;
 		public static readonly int CMD_ROOM_EXIT = 105;
 		public static readonly int CMD_GAME_READY = 110;
+		public static readonly int CMD_GAME_START = 111;
 		
 	}
 }

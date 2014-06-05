@@ -12,10 +12,12 @@ public class WaitingRoomPanel : MonoBehaviour {
 	public UILabel TxtMoveSpeed;
 	public UILabel TxtDropSpeed;
 	public UILabel TxtDragSpeed;
+	public GameObject ReadySelf;
 	//opponent
 	public UILabel TxtOpMoveSpeed;
 	public UILabel TxtOpDropSpeed;
 	public UILabel TxtOpDragSpeed;
+	public GameObject ReadyOp;
 	
 	public GameObject SpeechBoxPrefab;
 	public UILabel txtMessage;
@@ -73,6 +75,18 @@ public class WaitingRoomPanel : MonoBehaviour {
 			message.ReceiveData = true;
 			return;
 		}
+		//opponent ready
+		if (cmd.code == CmdCode.CMD_GAME_READY) {
+			message.ReceiveData = true;
+			ReadyOp.gameObject.SetActive (true);
+		}
+		//all ready, game start
+		if (cmd.code == CmdCode.CMD_GAME_START) {
+			message.ReceiveData = true;
+			Debug.Log("start");
+			controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
+			controller.SendMessage("ShowPanel" , ScreenManager.PN_ONLINE_ONGAME);
+		}
 		message.ReceiveData = false;
 	}
 	
@@ -102,16 +116,23 @@ public class WaitingRoomPanel : MonoBehaviour {
 		cmd.addInt(ArgCode.ARG_ROOM_ID, room_id);
 		if(ready_state == 0){
 			cmd.addInt(ArgCode.ARG_CODE, 1);
-			TxtReady.text = "Unready";
+			TxtReady.gameObject.transform.parent.gameObject.SetActive(false);
 			ready_state = 1;
 		}
+		/*
 		else{
 			cmd.addInt(ArgCode.ARG_CODE, 0);
 			TxtReady.text = "Ready";
 			ready_state = 0;
-		}
+		}*/
+		//TODO hien thi dau tich trang thai san sang
+		ReadySelf.gameObject.SetActive (true);
 		ScreenManager.instance.Send (cmd);
 		
+	}
+
+	void OpReady(){
+	
 	}
 	
 	void OutRoom(){
