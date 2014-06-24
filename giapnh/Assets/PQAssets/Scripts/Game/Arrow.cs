@@ -15,7 +15,10 @@ public class Arrow : MonoBehaviour {
 	void OnClick(){
 		GameObject character =  GameObject.Find("Character");
 		Hook hook_info = character.gameObject.GetComponentInChildren<Hook>();
-        if(hook_info.state == Hook.IDLE){
+		//check current user' turn
+		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+		string current_user = onlineGame_info.current_player;
+        if(hook_info.state == Hook.IDLE && current_user == PlayerInfo.Username){
 			int to_pos = int.Parse(this.gameObject.name.Substring(this.gameObject.name.Length - 1));
 			onlineGameScreen.SendMessage("Move", to_pos);
 		}

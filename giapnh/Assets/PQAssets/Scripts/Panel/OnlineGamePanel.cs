@@ -8,7 +8,7 @@ public class OnlineGamePanel : MonoBehaviour {
 	public GameObject[] maps;
 	public GameObject user;
 	public GameObject op_user;
-	string current_player;
+	public string current_player;
 	public GameObject[] arrows;
 
 	// Use this for initialization
