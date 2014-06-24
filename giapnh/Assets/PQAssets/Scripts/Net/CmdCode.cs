@@ -25,6 +25,7 @@ namespace INet
 		public static readonly int CMD_GAME_START = 111;
 		public static readonly int CMD_MAP_INFO = 120;
 		public static readonly int CMD_PLAYER_MOVE = 130;
+		public static readonly int CMD_PLAYER_DROP = 131;
 		
 	}
 }

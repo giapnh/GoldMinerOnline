@@ -28,6 +28,8 @@ namespace INet
 		public static short ARG_MAP_ID = 120;
 		public static short ARG_MOVE_FROM = 130;
 		public static short ARG_MOVE_TO = 131;
+		public static short ARG_DROP_ANGLE_X = 135;
+		public static short ARG_DROP_ANGLE_Y = 136;
 	}
 }
 

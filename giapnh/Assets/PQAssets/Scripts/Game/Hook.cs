@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using INet;
+using IHelper;
 
-public class Hook : MonoBehaviour {	
+public class Hook : MonoBehaviour {
+	public GameObject onlineGameScreen;
 	public int state;
 	public static int IDLE = 0;
 	public static int MOVING = 1;
@@ -34,14 +37,29 @@ public class Hook : MonoBehaviour {
 			transform.RotateAround (center_point, Vector3.forward, 60 * Time.deltaTime * flag);
 			
 			//click
-			if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
-				var mouse_pos = Input.mousePosition;
-				if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
-					state = HOOKING;
-					initialPosition = transform.position;
-					rotateDirection = transform.position - center_point;
-					rigidbody.velocity = rotateDirection*hook_speed;
-				}	
+			OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+			string current_user = onlineGame_info.current_player;
+			if(transform.parent.gameObject.name == "Character" && current_user == PlayerInfo.Username){
+				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
+					var mouse_pos = Input.mousePosition;
+					//TODO chay 2 lan roi
+					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+						initialPosition = transform.position;
+						rotateDirection = transform.position - center_point;
+						Vector3 velocity = rotateDirection*hook_speed;
+
+						//send hook velocity to server
+						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
+						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+						int angle_x = (int) (velocity.x*100);
+						int angle_y = (int) (velocity.y*100);
+						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
+						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
+						ScreenManager.instance.Send(cmd);
+						//recv hook velociry from server
+						Debug.Log("a");
+					}	
+				}
 			}
 		}//
 		//catching

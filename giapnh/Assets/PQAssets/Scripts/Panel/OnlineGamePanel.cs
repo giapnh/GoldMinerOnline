@@ -42,7 +42,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			return;
 		}
 
-		//Opponent move
+		//Move
 		if (cmd.code == CmdCode.CMD_PLAYER_MOVE) {
 			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 //			int from_pos = cmd.getInt(ArgCode.ARG_MOVE_FROM,0);
@@ -60,6 +60,23 @@ public class OnlineGamePanel : MonoBehaviour {
 			return;
 		}
 		message.ReceiveData = false;
+
+		//Hook
+		if (cmd.code == CmdCode.CMD_PLAYER_DROP) {
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			int angel_x = cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
+			int angel_y = cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
+			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
+
+			Hook hook;
+			if(username == PlayerInfo.Username){
+				hook = user.gameObject.GetComponentInChildren<Hook>();
+			} else{
+				hook = op_user.gameObject.GetComponentInChildren<Hook>();
+			}
+			hook.state = Hook.HOOKING;
+			hook.rigidbody.velocity = velocity;
+		}
 	}
 
 	void Move(int to_pos){
