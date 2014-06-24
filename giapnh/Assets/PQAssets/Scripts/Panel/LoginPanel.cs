@@ -36,6 +36,7 @@ public class LoginPanel : MonoBehaviour {
 				// Save login info to PlayerPrefs
 				if(PlayerPrefs.GetInt("remember") == 1){
 					PlayerPrefs.SetString("login_username", txtUsername.text);
+					PlayerInfo.Username = txtUsername.text;
 					PlayerPrefs.SetString("login_password", txtPasswrd.text);
 				}
 				// Login successful

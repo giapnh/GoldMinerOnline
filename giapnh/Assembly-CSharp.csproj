@@ -185,6 +185,7 @@
      <Compile Include="Assets\PQAssets\Scripts\Panel\CompainPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\HomePanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\LoginPanel.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Panel\OnlineGamePanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\RegisterPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\SearchingOpponentPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\WaitingRoomPanel.cs" />

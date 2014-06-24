@@ -1,6 +1,7 @@
 using System;
 public class PlayerInfo
 {
+	public static int RoomId = 0;
 	//Self
 	public static String Username = "";
 	public static int Cup = 0;

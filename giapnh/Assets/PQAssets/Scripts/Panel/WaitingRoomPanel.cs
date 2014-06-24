@@ -41,6 +41,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 		Command cmd = (Command)message.InputData;
 		if(cmd.code == CmdCode.CMD_ROOM_INFO){
 			room_id = cmd.getInt(ArgCode.ARG_ROOM_ID, 0);
+			PlayerInfo.RoomId = room_id;
 			int cup_win = cmd.getInt(ArgCode.ARG_CUP_WIN, 0);
 			int cup_lost = cmd.getInt(ArgCode.ARG_CUP_LOST, 0);
 			/**/

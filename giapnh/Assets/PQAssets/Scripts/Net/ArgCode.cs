@@ -25,6 +25,9 @@ namespace INet
 		public static short ARG_ROOM_ID = 100;
 		public static short ARG_CUP_WIN = 101;
 		public static short ARG_CUP_LOST = 102;
+		public static short ARG_MAP_ID = 120;
+		public static short ARG_MOVE_FROM = 130;
+		public static short ARG_MOVE_TO = 131;
 	}
 }
 
