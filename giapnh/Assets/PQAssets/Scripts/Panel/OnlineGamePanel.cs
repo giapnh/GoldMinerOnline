@@ -76,9 +76,8 @@ public class OnlineGamePanel : MonoBehaviour {
 				hook = op_hook;
 			}
 
-			hook.gameObject.SetActive(true);
+			//hook.gameObject.SetActive(true);
 			Hook hook_info = hook.gameObject.GetComponent<Hook>();
-			hook_info.state = Hook.HOOKING;
 			//initial positon and velo
 
 
@@ -90,10 +89,12 @@ public class OnlineGamePanel : MonoBehaviour {
 			Vector3 initialPosition = center_point + velocity/hook_info.hook_speed;
 
 			//set
+			hook_info.state = Hook.HOOKING;
 			hook.transform.position = initialPosition;
 			hook_info.initialPosition = initialPosition;
 			hook_info.rotateDirection = velocity/hook_info.hook_speed;
 			hook.rigidbody.velocity = velocity;
+			hook.gameObject.SetActive(true);
 
 			Debug.Log (velocity);
 
