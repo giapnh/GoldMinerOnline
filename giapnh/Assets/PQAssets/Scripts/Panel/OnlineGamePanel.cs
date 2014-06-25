@@ -92,6 +92,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			//set
 			hook.transform.position = initialPosition;
 			hook_info.initialPosition = initialPosition;
+			hook_info.rotateDirection = velocity/hook_info.hook_speed;
 			hook.rigidbody.velocity = velocity;
 
 			Debug.Log (velocity);
