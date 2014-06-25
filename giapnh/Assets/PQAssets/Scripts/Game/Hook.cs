@@ -5,12 +5,12 @@ using IHelper;
 
 public class Hook : MonoBehaviour {
 	public GameObject onlineGameScreen;
-	public int state;
 	public static int IDLE = 0;
 	public static int MOVING = 1;
 	public static int ROTATING = 2;
 	public static int CATCHING = 3;
 	public static int HOOKING = 4;
+	public int state = IDLE;
 	
 	public Texture[] textures;
 	public Vector3 center_point;
@@ -24,7 +24,7 @@ public class Hook : MonoBehaviour {
 	public Color c2 = Color.red;
 	// Use this for initialization
 	void Start () {
-		state = IDLE;
+//		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
 		//draw line
 		LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
