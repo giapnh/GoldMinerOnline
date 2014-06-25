@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using INet;
-using IHelper;
 
-public class Hook : MonoBehaviour {
-	public GameObject onlineGameScreen;
+public class DmHook : MonoBehaviour {	
 	public int state;
 	public static int IDLE = 0;
 	public static int MOVING = 1;
@@ -19,6 +16,7 @@ public class Hook : MonoBehaviour {
 	Vector3 rotateDirection;
 	Vector3 initialPosition;
 	Object caught_item;
+
 	//draw line
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
@@ -26,11 +24,13 @@ public class Hook : MonoBehaviour {
 	void Start () {
 		state = IDLE;
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
+
 		//draw line
 		LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
 		lineRenderer.SetColors(c1, c2);
 		lineRenderer.SetWidth(0.02f,0.02f);
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+
 	}
 	
 	// Update is called once per frame
@@ -44,32 +44,18 @@ public class Hook : MonoBehaviour {
 			transform.RotateAround (center_point, Vector3.forward, 60 * Time.deltaTime * flag);
 			
 			//click
-			OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-			string current_user = onlineGame_info.current_player;
-			if(transform.parent.gameObject.name == "Character" && current_user == PlayerInfo.Username){
-				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
-					var mouse_pos = Input.mousePosition;
-					//TODO chay 2 lan roi
-					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
-						initialPosition = transform.position;
-						rotateDirection = transform.position - center_point;
-						Vector3 velocity = rotateDirection*hook_speed;
-
-						//send hook velocity to server
-						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
-						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-						int angle_x = (int) (velocity.x*100);
-						int angle_y = (int) (velocity.y*100);
-						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
-						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
-						ScreenManager.instance.Send(cmd);
-					}	
-				}
+			if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
+				var mouse_pos = Input.mousePosition;
+				if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+					state = HOOKING;
+					initialPosition = transform.position;
+					rotateDirection = transform.position - center_point;
+					rigidbody.velocity = rotateDirection*hook_speed;
+				}	
 			}
 		}//
 		//catching
 		if(state == CATCHING){
-			//Debug.Log(gold.transform.position);
 			if(transform.position.y > initialPosition.y){
 				if(caught_item) Destroy(caught_item);
 				returnIDLE();
@@ -88,7 +74,7 @@ public class Hook : MonoBehaviour {
 			lineRenderer.SetPosition(1, pos);
 		}
 	}
-
+	
 	void OnTriggerEnter(Collider col) {
 		//catch gold
 		if(state == HOOKING){
@@ -117,7 +103,7 @@ public class Hook : MonoBehaviour {
 			}
 		}
 	}
-
+	
 	void GoBack(){
 		rigidbody.velocity =  -rotateDirection * hook_speed;
 	}

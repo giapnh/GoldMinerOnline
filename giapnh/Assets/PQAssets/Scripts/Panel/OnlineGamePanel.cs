@@ -37,6 +37,8 @@ public class OnlineGamePanel : MonoBehaviour {
 				user.transform.position = arrows[3].transform.position;
 				op_user.transform.position = arrows[0].transform.position;
 			}
+			user.GetComponentInChildren<UILabel>().text = PlayerInfo.Username;
+			op_user.GetComponentInChildren<UILabel>().text = PlayerInfo.OpUsername;
 
 			message.ReceiveData = true;
 			return;

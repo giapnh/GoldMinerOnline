@@ -164,6 +164,8 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITiledSprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\DemoGame\DmArrow.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\DemoGame\DmHook.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Arrow.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Bomb.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Character.cs" />
@@ -173,7 +175,6 @@
      <Compile Include="Assets\PQAssets\Scripts\Game\Hook.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Map.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Pig.cs" />
-     <Compile Include="Assets\PQAssets\Scripts\Game\Test.cs" />
      <Compile Include="Assets\PQAssets\Scripts\GameController.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Helper\InputFilter.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Net\ArgCode.cs" />
