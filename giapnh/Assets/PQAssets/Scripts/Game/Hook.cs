@@ -54,6 +54,7 @@ public class Hook : MonoBehaviour {
 						initialPosition = transform.position;
 						rotateDirection = transform.position - center_point;
 						Vector3 velocity = rotateDirection*hook_speed;
+						state = HOOKING;
 
 						//send hook velocity to server
 						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);

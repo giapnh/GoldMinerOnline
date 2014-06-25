@@ -61,24 +61,30 @@ public class OnlineGamePanel : MonoBehaviour {
 			message.ReceiveData = true;
 			return;
 		}
-		message.ReceiveData = false;
 
 		//Hook
 		if (cmd.code == CmdCode.CMD_PLAYER_DROP) {
 			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			int angel_x = cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
-			int angel_y = cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
-			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
-
-			Hook hook;
+			GameObject player;
 			if(username == PlayerInfo.Username){
-				hook = user.gameObject.GetComponentInChildren<Hook>();
+				player = user;
 			} else{
-				hook = op_user.gameObject.GetComponentInChildren<Hook>();
+				player = op_user;
 			}
-			hook.state = Hook.HOOKING;
+
+			Transform hook = player.transform.Find("Hook");
+			Hook hook_info = hook.gameObject.GetComponentInChildren<Hook>();
+			hook_info.state = Hook.HOOKING;
+
+			float angel_x = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
+			float angel_y = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
+			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
 			hook.rigidbody.velocity = velocity;
+
+			message.ReceiveData = true;
+			return;
 		}
+		message.ReceiveData = false;
 	}
 
 	void Move(int to_pos){
