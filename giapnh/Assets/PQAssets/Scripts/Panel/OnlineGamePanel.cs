@@ -8,6 +8,8 @@ public class OnlineGamePanel : MonoBehaviour {
 	public GameObject[] maps;
 	public GameObject user;
 	public GameObject op_user;
+	public GameObject user_hook;
+	public GameObject op_hook;
 	public string current_player;
 	public GameObject[] arrows;
 
@@ -65,22 +67,33 @@ public class OnlineGamePanel : MonoBehaviour {
 		//Hook
 		if (cmd.code == CmdCode.CMD_PLAYER_DROP) {
 			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			GameObject player;
+			GameObject player, hook;
 			if(username == PlayerInfo.Username){
 				player = user;
+				hook = user_hook;
 			} else{
 				player = op_user;
+				hook = op_hook;
 			}
 
-			Transform hook = player.transform.Find("Hook");
-			Hook hook_info = hook.gameObject.GetComponentInChildren<Hook>();
-			hook_info.initialPosition = hook.position;
+			hook.gameObject.SetActive(true);
+			Hook hook_info = hook.gameObject.GetComponent<Hook>();
 			hook_info.state = Hook.HOOKING;
+			//initial positon and velo
+
 
 			float angel_x = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
 			float angel_y = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
 			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
+			
+			Vector3 center_point = player.transform.position + new Vector3(0,-0.15f,0);
+			Vector3 initialPosition = center_point + velocity/hook_info.hook_speed;
+
+			//set
+			hook.transform.position = initialPosition;
+			hook_info.initialPosition = initialPosition;
 			hook.rigidbody.velocity = velocity;
+
 			Debug.Log (velocity);
 
 			message.ReceiveData = true;
