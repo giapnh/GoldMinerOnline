@@ -74,12 +74,14 @@ public class OnlineGamePanel : MonoBehaviour {
 
 			Transform hook = player.transform.Find("Hook");
 			Hook hook_info = hook.gameObject.GetComponentInChildren<Hook>();
+			hook_info.initialPosition = hook.position;
 			hook_info.state = Hook.HOOKING;
 
 			float angel_x = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
 			float angel_y = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
 			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
 			hook.rigidbody.velocity = velocity;
+			Debug.Log (velocity);
 
 			message.ReceiveData = true;
 			return;

@@ -17,7 +17,7 @@ public class Hook : MonoBehaviour {
 	public int flag=1;
 	public float hook_speed;
 	Vector3 rotateDirection;
-	Vector3 initialPosition;
+	public Vector3 initialPosition;
 	Object caught_item;
 	//draw line
 	public Color c1 = Color.black;
