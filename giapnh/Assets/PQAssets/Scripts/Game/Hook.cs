@@ -12,6 +12,9 @@ public class Hook : MonoBehaviour {
 	public static int HOOKING = 4;
 	public static int WAITING = 5;
 	public int state = WAITING;
+	//item point
+	public static int GOLD_POINT = 20;
+	public static int BOMB_POINT = -10;
 	
 	public Texture[] textures;
 	public Vector3 center_point;
@@ -20,6 +23,8 @@ public class Hook : MonoBehaviour {
 	public Vector3 rotateDirection;
 	public Vector3 initialPosition;
 	Object caught_item;
+	int caught_type = 0; //0: ko co gi, -1:bomb, 1: vat pham
+	int item_id = 0; //0 khong co gi, 1:gold, 2: kim cuong
 	//draw line
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
@@ -100,12 +105,15 @@ public class Hook : MonoBehaviour {
 				col.rigidbody.velocity = rigidbody.velocity;
 				caught_item = col.gameObject;
 				state = CATCHING;
+				caught_type = 1;
+				item_id = 1;
 			}
 			//catch bomb
 			if(col.gameObject.tag == "Bomb") {
 				GoBack();
 				state = CATCHING;
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
+				caught_type = -1;
 			}
 			//catch pig
 			if(col.gameObject.tag == "Pig") {
@@ -127,5 +135,12 @@ public class Hook : MonoBehaviour {
 		renderer.material.mainTexture = textures[0];
 		rigidbody.velocity = new Vector3(0,0,0);
 		transform.position = initialPosition;
+
+		//send result
+		Command cmd = new Command(CmdCode.CMD_PLAYER_DROP_RESULT);
+		cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+		cmd.addInt(ArgCode.ARG_CODE, caught_type);
+		cmd.addInt(ArgCode.ARG_MAP_OBJ_TYPE, item_id);
+		ScreenManager.instance.Send(cmd);
 	}
 }

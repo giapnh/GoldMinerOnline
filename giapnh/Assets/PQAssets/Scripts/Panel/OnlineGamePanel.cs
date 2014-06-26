@@ -38,13 +38,9 @@ public class OnlineGamePanel : MonoBehaviour {
 			if(current_player== PlayerInfo.Username){
 				player = user;
 				waiter = op_user;
-//				user.transform.position = arrows[0].transform.position;
-//				op_user.transform.position = arrows[3].transform.position;
 			} else{
 				player = op_user;
 				waiter = user;
-//				user.transform.position = arrows[3].transform.position;
-//				op_user.transform.position = arrows[0].transform.position;
 			}
 			player.transform.position = arrows[0].transform.position;
 			waiter.transform.position = arrows[3].transform.position;
@@ -114,6 +110,35 @@ public class OnlineGamePanel : MonoBehaviour {
 			message.ReceiveData = true;
 			return;
 		}
+		// change turn
+		if (cmd.code == CmdCode.CMD_PLAYER_TURN) {
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			
+			if(current_player== PlayerInfo.Username){
+				player = user;
+				waiter = op_user;
+			} else{
+				player = op_user;
+				waiter = user;
+			}
+			Hook player_hook_info = player.GetComponentInChildren<Hook>();
+			player_hook_info.state = Hook.IDLE;
+			Hook waiter_hook_info = waiter.GetComponentInChildren<Hook>();
+			waiter_hook_info.state = Hook.WAITING;
+
+			message.ReceiveData = true;
+			return;
+		}
+		// add score
+		if (cmd.code == CmdCode.CMD_ADD_SCORE) {
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			int score = cmd.getInt(ArgCode.ARG_SCORE,0);
+			Debug.Log(username + " them " + score);
+			
+			message.ReceiveData = true;
+			return;
+		}
+
 		message.ReceiveData = false;
 	}
 

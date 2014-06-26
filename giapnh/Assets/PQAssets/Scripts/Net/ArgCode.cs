@@ -31,6 +31,8 @@ namespace INet
 		public static short ARG_DROP_ROTATION = 134;
 		public static short ARG_DROP_ANGLE_X = 135;
 		public static short ARG_DROP_ANGLE_Y = 136;
+		public static short ARG_MAP_OBJ_TYPE = 140;
+		public static short ARG_SCORE = 150;
 	}
 }
 
