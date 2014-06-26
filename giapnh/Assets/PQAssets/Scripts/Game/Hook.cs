@@ -10,7 +10,8 @@ public class Hook : MonoBehaviour {
 	public static int ROTATING = 2;
 	public static int CATCHING = 3;
 	public static int HOOKING = 4;
-	public int state = IDLE;
+	public static int WAITING = 5;
+	public int state = WAITING;
 	
 	public Texture[] textures;
 	public Vector3 center_point;
@@ -46,28 +47,25 @@ public class Hook : MonoBehaviour {
 			//click
 			OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 			string current_user = onlineGame_info.current_player;
-			if(transform.parent.gameObject.name == "Character" && current_user == PlayerInfo.Username){
-				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
-					var mouse_pos = Input.mousePosition;
-					//TODO chay 2 lan roi
-					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
-						initialPosition = transform.position;
-						rotateDirection = transform.position - center_point;
-						Vector3 velocity = rotateDirection*hook_speed;
-						state = HOOKING;
+			if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
+				var mouse_pos = Input.mousePosition;
+				if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+					initialPosition = transform.position;
+					rotateDirection = transform.position - center_point;
+					Vector3 velocity = rotateDirection*hook_speed;
+					state = HOOKING;
 
-						//send hook velocity to server
-						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
-						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-						int angle_x = (int) (velocity.x*100);
-						int angle_y = (int) (velocity.y*100);
-						string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
-						cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
-						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
-						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
-						ScreenManager.instance.Send(cmd);
-					}	
-				}
+					//send hook velocity to server
+					Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
+					cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+					int angle_x = (int) (velocity.x*100);
+					int angle_y = (int) (velocity.y*100);
+					string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
+					cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
+					cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
+					cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
+					ScreenManager.instance.Send(cmd);
+				}	
 			}
 		}//
 		//catching
@@ -125,9 +123,9 @@ public class Hook : MonoBehaviour {
 		rigidbody.velocity =  -rotateDirection * hook_speed;
 	}
 	void returnIDLE(){
+		state = WAITING;
 		renderer.material.mainTexture = textures[0];
 		rigidbody.velocity = new Vector3(0,0,0);
 		transform.position = initialPosition;
-		state = IDLE;
 	}
 }
