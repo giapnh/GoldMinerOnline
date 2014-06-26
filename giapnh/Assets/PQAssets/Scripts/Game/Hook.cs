@@ -37,7 +37,6 @@ public class Hook : MonoBehaviour {
 		lineRenderer.SetColors(c1, c2);
 		lineRenderer.SetWidth(0.02f,0.02f);
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		Debug.Log (transform.position);
 	}
 	
 	// Update is called once per frame

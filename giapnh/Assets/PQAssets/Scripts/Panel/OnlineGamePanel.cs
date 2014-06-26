@@ -47,8 +47,10 @@ public class OnlineGamePanel : MonoBehaviour {
 			waiter.transform.position = arrows[3].transform.position;
 			player.renderer.material = player_mats[0];
 			waiter.renderer.material = player_mats[1];
-			Hook hook_info = player.GetComponentInChildren<Hook>();
-			hook_info.state = Hook.IDLE;
+			Hook player_hook = player.GetComponentInChildren<Hook>();
+			player_hook.state = Hook.IDLE;
+			Hook waiter_hook = waiter.GetComponentInChildren<Hook>();
+			waiter_hook.state = Hook.IDLE;
 
 			message.ReceiveData = true;
 			return;
