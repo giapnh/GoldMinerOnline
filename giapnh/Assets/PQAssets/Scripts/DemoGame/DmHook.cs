@@ -30,13 +30,14 @@ public class DmHook : MonoBehaviour {
 		lineRenderer.SetColors(c1, c2);
 		lineRenderer.SetWidth(0.02f,0.02f);
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+		Debug.Log (transform.localRotation.z);
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//rotate
-		Debug.Log (transform.rotation.w);
+		Debug.Log (transform.localRotation.z);
 		if(state == IDLE){
 			center_point = transform.parent.transform.position + new Vector3(0,-0.15f,0);
 			//center_point = Vector3(0,0.1,0);

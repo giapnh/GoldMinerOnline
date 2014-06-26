@@ -18,7 +18,7 @@ public class Hook : MonoBehaviour {
 	
 	public Texture[] textures;
 	public Vector3 center_point;
-	public int flag=1;
+	public int flag=-1;
 	public float hook_speed;
 	public Vector3 rotateDirection;
 	public Vector3 initialPosition;
@@ -42,18 +42,19 @@ public class Hook : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//rotate
-		if(state == IDLE){
+		Debug.Log (transform.eulerAngles);
+		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+		string current_player = onlineGame_info.current_player;
+		if(state == IDLE && current_player == PlayerInfo.Username){
 			center_point = transform.parent.transform.position + new Vector3(0,-0.15f,0);
 			//center_point = Vector3(0,0.1,0);
 			if(transform.localRotation.z >= 0.5) flag=1;
-			else if(transform.localRotation.z <= -0.5) flag=-1;
+			else if(transform.localRotation.z < -0.5) flag=-1;
 			transform.RotateAround (center_point, Vector3.forward, 60 * Time.deltaTime * flag);
 			
 			//click
-			OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-			string current_player = onlineGame_info.current_player;
 			//check current user
-			if(current_player == PlayerInfo.Username){
+			//if(current_player == PlayerInfo.Username){
 				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
 					var mouse_pos = Input.mousePosition;
 					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
@@ -74,7 +75,7 @@ public class Hook : MonoBehaviour {
 						ScreenManager.instance.Send(cmd);
 					}	
 				}
-			}
+			//}
 		}//
 		//catching
 		if(state == CATCHING){
@@ -140,6 +141,7 @@ public class Hook : MonoBehaviour {
 		//transform.position = initialPosition;
 		transform.localPosition = new Vector3 (0,-0.6f,-5f);
 		transform.eulerAngles = new Vector3 (0,180,0);
+		flag = -1;
 
 		//send result if is current user
 		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
