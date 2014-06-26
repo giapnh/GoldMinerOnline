@@ -101,7 +101,6 @@ public class OnlineGamePanel : MonoBehaviour {
 			hook.gameObject.SetActive(true);
 			hook_info.state = Hook.HOOKING;
 			hook.transform.eulerAngles = rotation;
-			Debug.Log(hook.transform.rotation);
 			hook.transform.position = initialPosition;
 			hook_info.initialPosition = initialPosition;
 			hook_info.rotateDirection = velocity/hook_info.hook_speed;
@@ -112,9 +111,9 @@ public class OnlineGamePanel : MonoBehaviour {
 		}
 		// change turn
 		if (cmd.code == CmdCode.CMD_PLAYER_TURN) {
-			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			Debug.Log("chuyen luot cho " + username);
-			if(username== PlayerInfo.Username){
+			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			Debug.Log("chuyen luot cho " + current_player);
+			if(current_player== PlayerInfo.Username){
 				player = user;
 				waiter = op_user;
 			} else{

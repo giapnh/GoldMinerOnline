@@ -37,6 +37,7 @@ public class Hook : MonoBehaviour {
 		lineRenderer.SetColors(c1, c2);
 		lineRenderer.SetWidth(0.02f,0.02f);
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+		Debug.Log (transform.position);
 	}
 	
 	// Update is called once per frame
@@ -51,9 +52,9 @@ public class Hook : MonoBehaviour {
 			
 			//click
 			OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-			string current_user = onlineGame_info.current_player;
+			string current_player = onlineGame_info.current_player;
 			//check current user
-			if(current_user == PlayerInfo.Username){
+			if(current_player == PlayerInfo.Username){
 				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
 					var mouse_pos = Input.mousePosition;
 					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
@@ -138,6 +139,7 @@ public class Hook : MonoBehaviour {
 		renderer.material.mainTexture = textures[0];
 		rigidbody.velocity = new Vector3(0,0,0);
 		transform.position = initialPosition;
+		transform.eulerAngles = new Vector3 (0,180,0);
 
 		//send result if is current user
 		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
