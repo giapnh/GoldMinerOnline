@@ -60,8 +60,8 @@ public class Hook : MonoBehaviour {
 						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
 						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 						int angle_x = (int) (velocity.x*100);
-						int angle_y = (int) (velocity.y*100);						
-						string rotation = transform.rotation.eulerAngles.x + "," + transform.rotation.eulerAngles.y + "," + transform.rotation.eulerAngles.z;
+						int angle_y = (int) (velocity.y*100);
+						string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
 						cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
 						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
 						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
