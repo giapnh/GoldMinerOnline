@@ -113,8 +113,8 @@ public class OnlineGamePanel : MonoBehaviour {
 		// change turn
 		if (cmd.code == CmdCode.CMD_PLAYER_TURN) {
 			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			
-			if(current_player== PlayerInfo.Username){
+			Debug.Log("chuyen luot cho " + username);
+			if(username== PlayerInfo.Username){
 				player = user;
 				waiter = op_user;
 			} else{

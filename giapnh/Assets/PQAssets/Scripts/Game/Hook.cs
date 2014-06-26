@@ -52,25 +52,28 @@ public class Hook : MonoBehaviour {
 			//click
 			OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 			string current_user = onlineGame_info.current_player;
-			if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
-				var mouse_pos = Input.mousePosition;
-				if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
-					initialPosition = transform.position;
-					rotateDirection = transform.position - center_point;
-					Vector3 velocity = rotateDirection*hook_speed;
-					state = HOOKING;
+			//check current user
+			if(current_user == PlayerInfo.Username){
+				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
+					var mouse_pos = Input.mousePosition;
+					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+						initialPosition = transform.position;
+						rotateDirection = transform.position - center_point;
+						Vector3 velocity = rotateDirection*hook_speed;
+						state = HOOKING;
 
-					//send hook velocity to server
-					Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
-					cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-					int angle_x = (int) (velocity.x*100);
-					int angle_y = (int) (velocity.y*100);
-					string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
-					cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
-					cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
-					cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
-					ScreenManager.instance.Send(cmd);
-				}	
+						//send hook velocity to server
+						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
+						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+						int angle_x = (int) (velocity.x*100);
+						int angle_y = (int) (velocity.y*100);
+						string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
+						cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
+						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
+						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
+						ScreenManager.instance.Send(cmd);
+					}	
+				}
 			}
 		}//
 		//catching
@@ -136,11 +139,15 @@ public class Hook : MonoBehaviour {
 		rigidbody.velocity = new Vector3(0,0,0);
 		transform.position = initialPosition;
 
-		//send result
-		Command cmd = new Command(CmdCode.CMD_PLAYER_DROP_RESULT);
-		cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-		cmd.addInt(ArgCode.ARG_CODE, caught_type);
-		cmd.addInt(ArgCode.ARG_MAP_OBJ_TYPE, item_id);
-		ScreenManager.instance.Send(cmd);
+		//send result if is current user
+		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+		string current_user = onlineGame_info.current_player;
+		if (current_user == PlayerInfo.Username) {
+				Command cmd = new Command (CmdCode.CMD_PLAYER_DROP_RESULT);
+				cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+				cmd.addInt (ArgCode.ARG_CODE, caught_type);
+				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
+				ScreenManager.instance.Send (cmd);
+		}
 	}
 }
