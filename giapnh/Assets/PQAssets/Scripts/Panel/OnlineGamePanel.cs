@@ -50,7 +50,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			Hook player_hook = player.GetComponentInChildren<Hook>();
 			player_hook.state = Hook.IDLE;
 			Hook waiter_hook = waiter.GetComponentInChildren<Hook>();
-			waiter_hook.state = Hook.IDLE;
+			waiter_hook.state = Hook.WAITING;
 
 			message.ReceiveData = true;
 			return;
