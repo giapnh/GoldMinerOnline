@@ -89,7 +89,6 @@ public class OnlineGamePanel : MonoBehaviour {
 			float angel_x = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
 			float angel_y = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
 			string rotation_str = cmd.getString(ArgCode.ARG_DROP_ROTATION,"");
-			Debug.Log(rotation_str);
 			string[] tab = rotation_str.Split(',');
 			Vector3 rotation = new Vector3(float.Parse(tab[0]),float.Parse(tab[1]),float.Parse(tab[2]));
 			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
@@ -112,7 +111,6 @@ public class OnlineGamePanel : MonoBehaviour {
 		// change turn
 		if (cmd.code == CmdCode.CMD_PLAYER_TURN) {
 			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			Debug.Log("chuyen luot cho " + current_player);
 			if(current_player== PlayerInfo.Username){
 				player = user;
 				waiter = op_user;

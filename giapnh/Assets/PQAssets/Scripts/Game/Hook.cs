@@ -138,7 +138,8 @@ public class Hook : MonoBehaviour {
 		state = WAITING;
 		renderer.material.mainTexture = textures[0];
 		rigidbody.velocity = new Vector3(0,0,0);
-		transform.position = initialPosition;
+		//transform.position = initialPosition;
+		transform.localPosition = new Vector3 (0,-0.6f,-5f);
 		transform.eulerAngles = new Vector3 (0,180,0);
 
 		//send result if is current user
