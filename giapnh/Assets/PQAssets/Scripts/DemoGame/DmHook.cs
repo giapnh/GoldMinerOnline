@@ -36,6 +36,7 @@ public class DmHook : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//rotate
+		Debug.Log (transform.rotation.w);
 		if(state == IDLE){
 			center_point = transform.parent.transform.position + new Vector3(0,-0.15f,0);
 			//center_point = Vector3(0,0.1,0);
@@ -51,7 +52,7 @@ public class DmHook : MonoBehaviour {
 					initialPosition = transform.position;
 					rotateDirection = transform.position - center_point;
 					rigidbody.velocity = rotateDirection*hook_speed;
-				}	
+				}
 			}
 		}//
 		//catching
