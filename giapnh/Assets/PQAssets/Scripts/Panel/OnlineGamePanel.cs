@@ -14,6 +14,8 @@ public class OnlineGamePanel : MonoBehaviour {
 	public GameObject[] arrows;
 	GameObject player, waiter;
 	public Material[] player_mats;
+	public float round_time = 0;
+	public UILabel timer;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +24,20 @@ public class OnlineGamePanel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		round_time += Time.deltaTime;
+		int display_time = 15 - Mathf.FloorToInt (round_time);
+		timer.text = display_time.ToString() + " s";
+		if (round_time > 15) {
+			timer.gameObject.SetActive(false);
+
+			//send timeout
+			if(current_player== PlayerInfo.Username){
+				Command cmd = new Command (CmdCode.CMD_PLAYER_TURN_TIME_OUT);
+				cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+				ScreenManager.instance.Send (cmd);
+			}
+			round_time = 0;
+		}
 	
 	}
 
@@ -32,6 +48,7 @@ public class OnlineGamePanel : MonoBehaviour {
 		Command cmd = (Command)message.InputData;
 		if(cmd.code == CmdCode.CMD_MAP_INFO){
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
+			PlayerInfo.MapID = map_id;
 			maps[map_id-1].SetActive(true);
 			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			user.GetComponentInChildren<UILabel>().text = PlayerInfo.Username;
@@ -51,6 +68,8 @@ public class OnlineGamePanel : MonoBehaviour {
 			player_hook.state = Hook.IDLE;
 			Hook waiter_hook = waiter.GetComponentInChildren<Hook>();
 			waiter_hook.state = Hook.WAITING;
+			round_time = 0;
+			timer.gameObject.SetActive(true);
 
 			message.ReceiveData = true;
 			return;
@@ -88,8 +107,6 @@ public class OnlineGamePanel : MonoBehaviour {
 
 			//hook.gameObject.SetActive(true);
 			Hook hook_info = hook.gameObject.GetComponent<Hook>();
-			//initial positon and velo
-
 
 			float angel_x = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
 			float angel_y = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
@@ -110,6 +127,8 @@ public class OnlineGamePanel : MonoBehaviour {
 			hook_info.rotateDirection = velocity/hook_info.hook_speed;
 			hook.rigidbody.velocity = velocity;
 
+			timer.gameObject.SetActive(false);
+
 			message.ReceiveData = true;
 			return;
 		}
@@ -127,6 +146,8 @@ public class OnlineGamePanel : MonoBehaviour {
 			player_hook_info.state = Hook.IDLE;
 			Hook waiter_hook_info = waiter.GetComponentInChildren<Hook>();
 			waiter_hook_info.state = Hook.WAITING;
+			round_time = 0;
+			timer.gameObject.SetActive(true);
 
 			message.ReceiveData = true;
 			return;

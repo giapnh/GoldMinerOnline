@@ -29,6 +29,7 @@ public class Hook : MonoBehaviour {
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
 	// Use this for initialization
+
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -42,10 +43,10 @@ public class Hook : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//rotate
-		Debug.Log (transform.eulerAngles);
 		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 		string current_player = onlineGame_info.current_player;
-		if(state == IDLE && current_player == PlayerInfo.Username){
+		float round_time = onlineGame_info.round_time;
+		if(state == IDLE && current_player == PlayerInfo.Username && round_time <= 15){
 			center_point = transform.parent.transform.position + new Vector3(0,-0.15f,0);
 			//center_point = Vector3(0,0.1,0);
 			if(transform.localRotation.z >= 0.5) flag=1;
@@ -73,13 +74,13 @@ public class Hook : MonoBehaviour {
 						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
 						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
 						ScreenManager.instance.Send(cmd);
+						
 					}	
 				}
 			//}
 		}//
 		//catching
 		if(state == CATCHING){
-			//Debug.Log(gold.transform.position);
 			if(transform.position.y > initialPosition.y){
 				if(caught_item) Destroy(caught_item);
 				returnIDLE();
@@ -152,6 +153,17 @@ public class Hook : MonoBehaviour {
 				cmd.addInt (ArgCode.ARG_CODE, caught_type);
 				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 				ScreenManager.instance.Send (cmd);
+		}
+		//check finish			
+		check_finish ();
+	}
+
+	void check_finish(){
+		string map = "Map"+PlayerInfo.MapID;
+		GameObject gold = GameObject.Find (map+"/Gold");
+		Debug.Log (gold);
+		if (gold == null) {
+				Debug.Log ("finish");
 		}
 	}
 }
