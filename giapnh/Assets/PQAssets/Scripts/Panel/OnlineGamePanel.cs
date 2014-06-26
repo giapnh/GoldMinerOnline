@@ -13,6 +13,7 @@ public class OnlineGamePanel : MonoBehaviour {
 	public string current_player;
 	public GameObject[] arrows;
 	GameObject player, waiter;
+	public Material[] player_mats;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +45,8 @@ public class OnlineGamePanel : MonoBehaviour {
 			}
 			player.transform.position = arrows[0].transform.position;
 			waiter.transform.position = arrows[3].transform.position;
+			player.renderer.material = player_mats[0];
+			waiter.renderer.material = player_mats[1];
 			Hook hook_info = player.GetComponentInChildren<Hook>();
 			hook_info.state = Hook.IDLE;
 
