@@ -84,8 +84,9 @@ public class OnlineGamePanel : MonoBehaviour {
 			float angel_x = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_X,0);
 			float angel_y = (float)cmd.getInt(ArgCode.ARG_DROP_ANGLE_Y,0);
 			string rotation_str = cmd.getString(ArgCode.ARG_DROP_ROTATION,"");
+			Debug.Log(rotation_str);
 			string[] tab = rotation_str.Split(',');
-			Vector3 rotation = new Vector3(float.Parse(tab[0]),float.Parse(tab[1]),float.Parse(tab[2]));
+			Vector3 rotation = new Vector3(int.Parse(tab[0]),int.Parse(tab[1]),int.Parse(tab[2]));
 			Vector3 velocity = new Vector3(angel_x/100, angel_y/100, 0);
 			
 			Vector3 center_point = player.transform.position + new Vector3(0,-0.15f,0);
@@ -94,8 +95,9 @@ public class OnlineGamePanel : MonoBehaviour {
 			//set
 			hook.gameObject.SetActive(true);
 			hook_info.state = Hook.HOOKING;
+			hook.transform.eulerAngles = rotation;
+			Debug.Log(hook.transform.rotation);
 			hook.transform.position = initialPosition;
-			hook.transform.rotation = Quaternion.FromToRotation(rotation, transform.forward);
 			hook_info.initialPosition = initialPosition;
 			hook_info.rotateDirection = velocity/hook_info.hook_speed;
 			hook.rigidbody.velocity = velocity;

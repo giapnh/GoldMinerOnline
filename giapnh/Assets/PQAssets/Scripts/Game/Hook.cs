@@ -61,7 +61,7 @@ public class Hook : MonoBehaviour {
 						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 						int angle_x = (int) (velocity.x*100);
 						int angle_y = (int) (velocity.y*100);						
-						string rotation = transform.rotation.x + "," + transform.rotation.y + "," + transform.rotation.z + "," + transform.rotation.w;
+						string rotation = transform.rotation.eulerAngles.x + "," + transform.rotation.eulerAngles.y + "," + transform.rotation.eulerAngles.z;
 						cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
 						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
 						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
