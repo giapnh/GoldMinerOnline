@@ -29,7 +29,6 @@ public class Hook : MonoBehaviour {
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
 	// Use this for initialization
-
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -83,6 +82,7 @@ public class Hook : MonoBehaviour {
 		if(state == CATCHING){
 			if(transform.position.y > initialPosition.y){
 				if(caught_item) Destroy(caught_item);
+				onlineGame_info.item_count --;
 				returnIDLE();
 			}
 		}
@@ -154,16 +154,14 @@ public class Hook : MonoBehaviour {
 				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 				ScreenManager.instance.Send (cmd);
 		}
-		//check finish			
-		check_finish ();
-	}
 
-	void check_finish(){
-		string map = "Map"+PlayerInfo.MapID;
-		GameObject gold = GameObject.Find (map+"/Gold");
-		Debug.Log (gold);
-		if (gold == null) {
-				Debug.Log ("finish");
+		//check end game
+		if (onlineGame_info.item_count == 0) {
+			Debug.Log ("end game");
+			//send end message
+			Command cmd = new Command (CmdCode.CMD_GAME_FINISH);
+			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+			ScreenManager.instance.Send (cmd);
 		}
 	}
 }

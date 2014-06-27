@@ -16,6 +16,7 @@ public class OnlineGamePanel : MonoBehaviour {
 	public Material[] player_mats;
 	public float round_time = 0;
 	public UILabel timer;
+	public int item_count=0;
 
 	// Use this for initialization
 	void Start () {
@@ -50,6 +51,10 @@ public class OnlineGamePanel : MonoBehaviour {
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
 			PlayerInfo.MapID = map_id;
 			maps[map_id-1].SetActive(true);
+			//cal number of item(gold, diamond, stone)
+			GameObject[] golds = GameObject.FindGameObjectsWithTag("Gold");
+			item_count = golds.Length;
+
 			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			user.GetComponentInChildren<UILabel>().text = PlayerInfo.Username;
 			op_user.GetComponentInChildren<UILabel>().text = PlayerInfo.OpUsername;
@@ -157,6 +162,15 @@ public class OnlineGamePanel : MonoBehaviour {
 			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			int score = cmd.getInt(ArgCode.ARG_SCORE,0);
 			Debug.Log(username + " them " + score);
+			
+			message.ReceiveData = true;
+			return;
+		}
+
+		// finish game
+		if (cmd.code == CmdCode.CMD_GAME_FINISH) {
+			string winner = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			Debug.Log(winner + " win");
 			
 			message.ReceiveData = true;
 			return;

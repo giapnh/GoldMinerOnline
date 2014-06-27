@@ -21,6 +21,7 @@ public class DmHook : MonoBehaviour {
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
 	// Use this for initialization
+	bool is_ended = false;
 	void Start () {
 		state = IDLE;
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -37,8 +38,9 @@ public class DmHook : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//rotate
-		Debug.Log (transform.localRotation.z);
 		if(state == IDLE){
+			//check finish			
+			//if(!is_ended) check_finish ();
 			center_point = transform.parent.transform.position + new Vector3(0,-0.15f,0);
 			//center_point = Vector3(0,0.1,0);
 			if(transform.localRotation.z >= 0.5) flag=1;
@@ -114,5 +116,21 @@ public class DmHook : MonoBehaviour {
 		rigidbody.velocity = new Vector3(0,0,0);
 		transform.position = initialPosition;
 		state = IDLE;
+	}
+	
+	void check_finish(){
+//		string map = "Map";
+//		GameObject gold = GameObject.Find(map+"/Gold");
+//		Debug.Log(map+"/Gold");
+//		Debug.Log (gold);
+//		if (gold == null) {
+//			Debug.Log ("finish");
+//			is_ended = true;
+//		}
+//		GameObject[] gos = GameObject.FindGameObjectsWithTag("Gold");
+//		if(gos.length() == 0)
+//		{
+//			Debug.Log ("finish");
+//		}
 	}
 }
