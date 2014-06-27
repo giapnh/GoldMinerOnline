@@ -169,8 +169,14 @@ public class OnlineGamePanel : MonoBehaviour {
 
 		// finish game
 		if (cmd.code == CmdCode.CMD_GAME_FINISH) {
-			string winner = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			Debug.Log(winner + " win");
+			int result = cmd.getInt(ArgCode.ARG_CODE,0);
+			if(result == 0){
+				Debug.Log ("draw");
+			}else{
+				string winner = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+				Debug.Log(winner + " win");
+			}
+
 			
 			message.ReceiveData = true;
 			return;
