@@ -12,12 +12,14 @@ public class GameResultPanel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (PlayerInfo.Winner == "") {
+			GameObject.Find("Opponent/Win").gameObject.SetActive(false);
+			GameObject.Find("Self/Win").gameObject.SetActive(false);
 			result_lable.text = "DRAW";
 		} else if (PlayerInfo.Winner == PlayerInfo.Username) {			
-			GameObject.Find("Self/Win").gameObject.SetActive(true);
+			GameObject.Find("Opponent/Win").gameObject.SetActive(false);
 			result_lable.text = PlayerInfo.Winner + " Won";
 		} else {
-			GameObject.Find("Opponent/Win").gameObject.SetActive(true);
+			GameObject.Find("Self/Win").gameObject.SetActive(false);
 			result_lable.text = PlayerInfo.Winner + " Won";
 		}
 	}
