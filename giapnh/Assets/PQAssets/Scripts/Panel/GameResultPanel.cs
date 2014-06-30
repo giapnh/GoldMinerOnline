@@ -8,9 +8,18 @@ public class GameResultPanel : MonoBehaviour {
 	public GameObject self_info;
 	public GameObject op_info;
 	GameObject user_info;
+	public UILabel result_lable;
 	// Use this for initialization
 	void Start () {
-	
+		if (PlayerInfo.Winner == "") {
+			result_lable.text = "DRAW";
+		} else if (PlayerInfo.Winner == PlayerInfo.Username) {			
+			GameObject.Find("Self/Win").gameObject.SetActive(true);
+			result_lable.text = PlayerInfo.Winner + " Won";
+		} else {
+			GameObject.Find("Opponent/Win").gameObject.SetActive(true);
+			result_lable.text = PlayerInfo.Winner + " Won";
+		}
 	}
 	
 	// Update is called once per frame
@@ -48,7 +57,11 @@ public class GameResultPanel : MonoBehaviour {
 				case "Score":
 					child.gameObject.GetComponent<UILabel>().text = score.ToString();
 					break;
+				case "Name":
+					child.gameObject.GetComponent<UILabel>().text = username;
+					break;
 				}
+
 			}
 
 			message.ReceiveData = true;

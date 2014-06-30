@@ -171,10 +171,11 @@ public class OnlineGamePanel : MonoBehaviour {
 		if (cmd.code == CmdCode.CMD_GAME_FINISH) {
 			int result = cmd.getInt(ArgCode.ARG_CODE,0);
 			if(result == 0){
-				Debug.Log ("draw");
+				PlayerInfo.Winner = "";
+
 			}else{
 				string winner = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-				Debug.Log(winner + " win");
+				PlayerInfo.Winner = winner;
 			}
 			controller.SendMessage("HidePanel" , ScreenManager.PN_ONLINE_ONGAME);
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_GAME_RESULT);

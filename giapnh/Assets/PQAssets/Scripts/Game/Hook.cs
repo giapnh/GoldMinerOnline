@@ -81,8 +81,10 @@ public class Hook : MonoBehaviour {
 		//catching
 		if(state == CATCHING){
 			if(transform.position.y > initialPosition.y){
-				if(caught_item) Destroy(caught_item);
-				onlineGame_info.item_count --;
+				if(caught_item){ 
+					Destroy(caught_item);
+					onlineGame_info.item_count --;
+				}
 				returnIDLE();
 			}
 		}
