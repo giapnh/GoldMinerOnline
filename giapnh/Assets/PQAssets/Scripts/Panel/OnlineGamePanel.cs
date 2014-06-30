@@ -18,9 +18,14 @@ public class OnlineGamePanel : MonoBehaviour {
 	public UILabel timer;
 	public int item_count=0;
 
+	int user_score;
+	int op_score;
+	public UILabel user_score_lable;
+	public UILabel op_score_label;
+
 	// Use this for initialization
 	void Start () {
-	
+		op_score_label.text = PlayerInfo.OpUsername + ": 0";
 	}
 	
 	// Update is called once per frame
@@ -157,15 +162,6 @@ public class OnlineGamePanel : MonoBehaviour {
 			message.ReceiveData = true;
 			return;
 		}
-		// add score
-		if (cmd.code == CmdCode.CMD_ADD_SCORE) {
-			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			int score = cmd.getInt(ArgCode.ARG_SCORE,0);
-			Debug.Log(username + " them " + score);
-			
-			message.ReceiveData = true;
-			return;
-		}
 
 		// finish game
 		if (cmd.code == CmdCode.CMD_GAME_FINISH) {
@@ -180,6 +176,22 @@ public class OnlineGamePanel : MonoBehaviour {
 			controller.SendMessage("HidePanel" , ScreenManager.PN_ONLINE_ONGAME);
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_GAME_RESULT);
 			
+			message.ReceiveData = true;
+			return;
+		}
+
+		//add score
+		if (cmd.code == CmdCode.CMD_ADD_SCORE) {
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			int score = cmd.getInt(ArgCode.ARG_SCORE, 0);
+			if(username == PlayerInfo.Username){
+				user_score += score;
+				user_score_lable.text = "You: "+ user_score;
+			} else{
+				op_score += score;
+				op_score_label.text = username + ": " + op_score;
+			}
+
 			message.ReceiveData = true;
 			return;
 		}
