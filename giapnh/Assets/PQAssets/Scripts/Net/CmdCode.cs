@@ -31,6 +31,7 @@ namespace INet
 		public static readonly int CMD_ADD_SCORE = 150;
 		public static readonly int CMD_PLAYER_TURN_TIME_OUT = 140;
 		public static readonly int CMD_GAME_FINISH = 160;
+		public static readonly int CMD_PLAYER_GAME_RESULT = 161;
 
 	}
 }

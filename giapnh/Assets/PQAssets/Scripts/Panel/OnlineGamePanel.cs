@@ -176,7 +176,8 @@ public class OnlineGamePanel : MonoBehaviour {
 				string winner = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 				Debug.Log(winner + " win");
 			}
-
+			controller.SendMessage("HidePanel" , ScreenManager.PN_ONLINE_ONGAME);
+			controller.SendMessage("ShowPanel" , ScreenManager.PN_GAME_RESULT);
 			
 			message.ReceiveData = true;
 			return;

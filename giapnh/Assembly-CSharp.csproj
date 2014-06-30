@@ -184,6 +184,7 @@
      <Compile Include="Assets\PQAssets\Scripts\Net\NetworkAPI.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Net\NetworkListener.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\CompainPanel.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Panel\GameResultPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\HomePanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\LoginPanel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Panel\OnlineGamePanel.cs" />

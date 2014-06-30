@@ -33,6 +33,8 @@ namespace INet
 		public static short ARG_DROP_ANGLE_Y = 136;
 		public static short ARG_MAP_OBJ_TYPE = 140;
 		public static short ARG_SCORE = 150;
+		public static short ARG_PLAYER_BONUS_CUP = 160;
+		public static short ARG_PLAYER_BONUS_LEVELUP_POINT = 161;
 	}
 }
 

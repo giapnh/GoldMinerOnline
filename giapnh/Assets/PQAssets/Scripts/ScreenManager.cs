@@ -19,6 +19,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public static readonly int PN_ONLINE_ONGAME = 5;
 	public static readonly int PN_SEARCH_OPPONENT = 6;
 	public static readonly int PN_WAITING_ROOM = 7;
+	public static readonly int PN_GAME_RESULT = 8;
 	
 	
 	//Loading dialog
