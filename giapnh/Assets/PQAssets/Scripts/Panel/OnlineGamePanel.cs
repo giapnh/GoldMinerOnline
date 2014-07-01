@@ -57,8 +57,11 @@ public class OnlineGamePanel : MonoBehaviour {
 			PlayerInfo.MapID = map_id;
 			maps[map_id-1].SetActive(true);
 			//cal number of item(gold, diamond, stone)
-			GameObject[] golds = GameObject.FindGameObjectsWithTag("Gold");
-			item_count = golds.Length;
+			string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
+			foreach(string item in items_list){
+				GameObject[] items = GameObject.FindGameObjectsWithTag(item);
+				item_count += items.Length;	
+			}
 
 			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			user.GetComponentInChildren<UILabel>().text = PlayerInfo.Username;
