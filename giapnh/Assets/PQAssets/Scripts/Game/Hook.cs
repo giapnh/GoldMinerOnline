@@ -166,13 +166,5 @@ public class Hook : MonoBehaviour {
 				ScreenManager.instance.Send (cmd);
 		}
 
-		//check end game
-		if (onlineGame_info.item_count == 0) {
-			Debug.Log ("end game");
-			//send end message
-			Command cmd = new Command (CmdCode.CMD_GAME_FINISH);
-			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-			ScreenManager.instance.Send (cmd);
-		}
 	}
 }

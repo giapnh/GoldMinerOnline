@@ -192,6 +192,9 @@ public class OnlineGamePanel : MonoBehaviour {
 				op_score_label.text = username + ": " + op_score;
 			}
 
+			//check end game
+			check_end_game();
+
 			message.ReceiveData = true;
 			return;
 		}
@@ -205,5 +208,16 @@ public class OnlineGamePanel : MonoBehaviour {
 //		cmd.addInt(ArgCode.ARG_MOVE_FROM, from_pos);
 		cmd.addInt(ArgCode.ARG_MOVE_TO, to_pos);
 		ScreenManager.instance.Send (cmd);
+	}
+	
+	//check end game
+	void check_end_game(){
+		if (item_count == 0) {
+			Debug.Log ("end game");
+			//send end message
+			Command cmd = new Command (CmdCode.CMD_GAME_FINISH);
+			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+			ScreenManager.instance.Send (cmd);
+		}
 	}
 }
