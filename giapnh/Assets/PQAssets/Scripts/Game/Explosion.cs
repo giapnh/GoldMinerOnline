@@ -17,9 +17,10 @@ public class Explosion : MonoBehaviour {
     private Vector2 offset;
 	float count_time=0;
 	bool is_destroyed = false;
-	public GameObject onlineGameScreen;
+	GameObject onlineGameScreen;
 	OnlineGamePanel onlineGame_info;
 	void Start () {
+		onlineGameScreen = GameObject.Find("OnlineGameScreen");
 	}
 	
 	// Update is called once per frame

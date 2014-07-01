@@ -118,7 +118,7 @@ public class Hook : MonoBehaviour {
 
 				Item item_info = col.GetComponent<Item>();
 				item_id = item_info.item_id;
-				rigidbody.velocity = rigidbody.velocity/item_info.speed_rate;
+				rigidbody.velocity = new Vector3(rigidbody.velocity.x/item_info.speed_rate, rigidbody.velocity.y/item_info.speed_rate,0);
 				col.rigidbody.velocity = rigidbody.velocity;
 
 				caught_item = col.gameObject;
