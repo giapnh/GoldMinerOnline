@@ -193,7 +193,8 @@ public class OnlineGamePanel : MonoBehaviour {
 			}
 
 			//check end game
-			check_end_game();
+			if(current_player==PlayerInfo.Username)
+				check_end_game();
 
 			message.ReceiveData = true;
 			return;

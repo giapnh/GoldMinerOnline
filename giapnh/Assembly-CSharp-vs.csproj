@@ -173,6 +173,7 @@
      <Compile Include="Assets\PQAssets\Scripts\Game\CurrentLevel.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Explosion.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Hook.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\Item.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Map.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Pig.cs" />
      <Compile Include="Assets\PQAssets\Scripts\GameController.cs" />

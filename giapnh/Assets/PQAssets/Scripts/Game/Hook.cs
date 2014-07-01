@@ -24,7 +24,7 @@ public class Hook : MonoBehaviour {
 	public Vector3 initialPosition;
 	Object caught_item;
 	int caught_type = 0; //0: ko co gi, -1:bomb, 1: vat pham
-	int item_id = 0; //0 khong co gi, 1:gold, 2: kim cuong
+	int item_id = 0; //0 khong co gi, 1:gold, 8: kim cuong
 	//draw line
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
@@ -109,8 +109,24 @@ public class Hook : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		//catch gold
 		if(state == HOOKING){
+			if(col.gameObject.tag != "Bomb"){
+				renderer.material.mainTexture = textures[1];
+				col.transform.position = transform.position + rotateDirection * 1.8f;
+				col.rigidbody.velocity = rigidbody.velocity;
+				caught_type = 1;
+
+				Item item_info = col.GetComponent<Item>();
+				item_id = item_info.item_id;
+				rigidbody.velocity = rigidbody.velocity/item_info.speed_rate;
+				col.rigidbody.velocity = rigidbody.velocity;
+
+				caught_item = col.gameObject;
+				GoBack();
+				state = CATCHING;
+			}
+			/*
+			//catch gold
 			if(col.gameObject.tag == "Gold") {
 				renderer.material.mainTexture = textures[1];
 				col.transform.position = transform.position + rotateDirection * 1.8f;
@@ -121,6 +137,29 @@ public class Hook : MonoBehaviour {
 				caught_type = 1;
 				item_id = 1;
 			}
+			//catch diamond
+			if(col.gameObject.tag == "Diamond") {
+				renderer.material.mainTexture = textures[1];
+				col.transform.position = transform.position + rotateDirection * 1.8f;
+				GoBack();
+				col.rigidbody.velocity = rigidbody.velocity;
+				caught_item = col.gameObject;
+				state = CATCHING;
+				caught_type = 1;
+				item_id = 8;
+			}
+			//catch stone
+			if(col.gameObject.tag == "Stone") {
+				renderer.material.mainTexture = textures[1];
+				col.transform.position = transform.position + rotateDirection * 1.8f;
+				GoBack();
+				col.rigidbody.velocity = rigidbody.velocity;
+				caught_item = col.gameObject;
+				state = CATCHING;
+				caught_type = 1;
+				item_id = 8;
+			}
+			*/
 			//catch bomb
 			if(col.gameObject.tag == "Bomb") {
 				GoBack();
@@ -128,26 +167,16 @@ public class Hook : MonoBehaviour {
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
 				caught_type = -1;
 				item_id = 0;
-
-				/*
-				OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-				string current_user = onlineGame_info.current_player;
-				if (current_user == PlayerInfo.Username) {
-					Command cmd = new Command (CmdCode.CMD_PLAYER_DROP_RESULT);
-					cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-					cmd.addInt (ArgCode.ARG_CODE, caught_type);
-					ScreenManager.instance.Send (cmd);
-				}*/
 			}
-			//catch pig
-			if(col.gameObject.tag == "Pig") {
-				renderer.material.mainTexture = textures[1];
-				GoBack();
-				col.rigidbody.velocity = rigidbody.velocity;
-				caught_item = col.gameObject;
-				state = CATCHING;
-				col.GetComponent<Pig>().state = Pig.HOOKED;
-			}
+//			//catch pig
+//			if(col.gameObject.tag == "Pig") {
+//				renderer.material.mainTexture = textures[1];
+//				GoBack();
+//				col.rigidbody.velocity = rigidbody.velocity;
+//				caught_item = col.gameObject;
+//				state = CATCHING;
+//				col.GetComponent<Pig>().state = Pig.HOOKED;
+//			}
 		}
 	}
 
