@@ -19,6 +19,8 @@ public class Explosion : MonoBehaviour {
 	bool is_destroyed = false;
 	GameObject onlineGameScreen;
 	OnlineGamePanel onlineGame_info;
+	
+	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 	void Start () {
 		onlineGameScreen = GameObject.Find("OnlineGameScreen");
 	}
@@ -42,7 +44,7 @@ public class Explosion : MonoBehaviour {
         int i = 0;
         while (i < hitColliders.Length) {
 			//if(hitColliders[i].gameObject.tag=="Gold" || hitColliders[i].gameObject.tag=="Diamond" || hitColliders[i].gameObject.tag=="Pig"){
-			if(hitColliders[i].gameObject.tag!="Bomb"){
+			if(System.Array.IndexOf(items_list,hitColliders[i].gameObject.tag)!=-1){
 				Destroy(hitColliders[i].gameObject);
 				onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 				onlineGame_info.item_count --;

@@ -56,7 +56,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
 			PlayerInfo.MapID = map_id;
 			maps[map_id-1].SetActive(true);
-			//cal number of item(gold, diamond, stone)
+			//calculate number of item(gold, diamond, stone)
 			string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 			foreach(string item in items_list){
 				GameObject[] items = GameObject.FindGameObjectsWithTag(item);
