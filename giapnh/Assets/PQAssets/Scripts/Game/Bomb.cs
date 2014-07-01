@@ -18,8 +18,6 @@ public class Bomb : MonoBehaviour {
 		if(state==HOOKED){
 			Instantiate(explosion, transform.position, Quaternion.identity);
 			Destroy(gameObject);
-			//TODO destroy other object in area
-			//TODO create explosion effect 
 		}
 	}
 }

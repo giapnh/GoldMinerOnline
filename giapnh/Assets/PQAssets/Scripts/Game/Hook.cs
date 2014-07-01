@@ -121,7 +121,9 @@ public class Hook : MonoBehaviour {
 				state = CATCHING;
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
 				caught_type = -1;
+				item_id = 0;
 
+				/*
 				OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 				string current_user = onlineGame_info.current_player;
 				if (current_user == PlayerInfo.Username) {
@@ -129,7 +131,7 @@ public class Hook : MonoBehaviour {
 					cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 					cmd.addInt (ArgCode.ARG_CODE, caught_type);
 					ScreenManager.instance.Send (cmd);
-				}
+				}*/
 			}
 			//catch pig
 			if(col.gameObject.tag == "Pig") {
