@@ -31,6 +31,8 @@ public class Hook : MonoBehaviour {
 	// Use this for initialization
 	string current_player;
 	OnlineGamePanel onlineGame_info;
+	
+	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -110,7 +112,7 @@ public class Hook : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if(state == HOOKING){
-			if(col.gameObject.tag != "Bomb"){
+			if(System.Array.IndexOf(items_list,col.gameObject.tag)!=-1){
 				renderer.material.mainTexture = textures[1];
 				col.transform.position = transform.position + rotateDirection * 1.8f;
 				col.rigidbody.velocity = rigidbody.velocity;
