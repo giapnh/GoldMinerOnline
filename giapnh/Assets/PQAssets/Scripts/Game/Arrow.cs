@@ -18,7 +18,8 @@ public class Arrow : MonoBehaviour {
 		//check current user' turn
 		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 		string current_user = onlineGame_info.current_player;
-        if(hook_info.state == Hook.IDLE && current_user == PlayerInfo.Username){
+		float round_time = onlineGame_info.round_time;
+        if(hook_info.state == Hook.IDLE && current_user == PlayerInfo.Username && round_time <=15){
 			int to_pos = int.Parse(this.gameObject.name.Substring(this.gameObject.name.Length - 1));
 			onlineGameScreen.SendMessage("Move", to_pos);
 		}

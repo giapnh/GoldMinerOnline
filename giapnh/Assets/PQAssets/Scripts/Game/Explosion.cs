@@ -17,6 +17,8 @@ public class Explosion : MonoBehaviour {
     private Vector2 offset;
 	float count_time=0;
 	bool is_destroyed = false;
+	public GameObject onlineGameScreen;
+	OnlineGamePanel onlineGame_info;
 	void Start () {
 	}
 	
@@ -38,8 +40,11 @@ public class Explosion : MonoBehaviour {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, damage_radius);
         int i = 0;
         while (i < hitColliders.Length) {
-			if(hitColliders[i].gameObject.tag=="Gold" || hitColliders[i].gameObject.tag=="Pig")
+			if(hitColliders[i].gameObject.tag=="Gold" || hitColliders[i].gameObject.tag=="Pig"){
 				Destroy(hitColliders[i].gameObject);
+				onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+				onlineGame_info.item_count --;
+			}
             i++;
         }
     }

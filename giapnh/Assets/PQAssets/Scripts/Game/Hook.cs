@@ -92,7 +92,11 @@ public class Hook : MonoBehaviour {
 		}
 		//hooking
 		if(state == HOOKING){
-			if(transform.position.y <= -0.9 || transform.position.x < -1.6 || transform.position.x > 1.6) GoBack();
+			if(transform.position.y <= -0.9 || transform.position.x < -1.6 || transform.position.x > 1.6){
+				caught_type = 0;
+				item_id = 0;
+				GoBack();
+			}
 			if(transform.position.y > initialPosition.y) returnIDLE();
 		}
 		//draw line
@@ -162,14 +166,13 @@ public class Hook : MonoBehaviour {
 		//send result if is current user
 		//OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 		//string current_user = onlineGame_info.current_player;
-		if (caught_type!=0 && current_player == PlayerInfo.Username) {
+		if (current_player == PlayerInfo.Username) {
 				Command cmd = new Command (CmdCode.CMD_PLAYER_DROP_RESULT);
 				cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 				cmd.addInt (ArgCode.ARG_CODE, caught_type);
 				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 				ScreenManager.instance.Send (cmd);
 		}
-		caught_type = 0;
 		Debug.Log (PlayerInfo.Username + " idle");
 	}
 }
