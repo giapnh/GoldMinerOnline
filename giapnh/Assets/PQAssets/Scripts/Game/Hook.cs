@@ -29,6 +29,8 @@ public class Hook : MonoBehaviour {
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
 	// Use this for initialization
+	string current_player;
+	OnlineGamePanel onlineGame_info;
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -42,8 +44,8 @@ public class Hook : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//rotate
-		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-		string current_player = onlineGame_info.current_player;
+		onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+		current_player = onlineGame_info.current_player;
 		float round_time = onlineGame_info.round_time;
 		if(state == IDLE && current_player == PlayerInfo.Username && round_time <= 15){
 			center_point = transform.parent.transform.position + new Vector3(0,-0.15f,0);
@@ -158,15 +160,16 @@ public class Hook : MonoBehaviour {
 		flag = -1;
 
 		//send result if is current user
-		OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-		string current_user = onlineGame_info.current_player;
-		if (current_user == PlayerInfo.Username) {
+		//OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+		//string current_user = onlineGame_info.current_player;
+		if (caught_type!=0 && current_player == PlayerInfo.Username) {
 				Command cmd = new Command (CmdCode.CMD_PLAYER_DROP_RESULT);
 				cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 				cmd.addInt (ArgCode.ARG_CODE, caught_type);
 				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 				ScreenManager.instance.Send (cmd);
 		}
-
+		caught_type = 0;
+		Debug.Log (PlayerInfo.Username + " idle");
 	}
 }
