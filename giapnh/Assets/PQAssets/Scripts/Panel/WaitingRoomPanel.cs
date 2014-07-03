@@ -30,7 +30,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 	private int ready_state = 0;
 	private int room_id;
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
 		TxtCup.text = PlayerPrefs.GetInt ("player_cup").ToString();
 		TxtLevel.text = PlayerPrefs.GetInt ("player_level").ToString ();
 		int pLevelUpProgress = PlayerPrefs.GetInt("player_levelup_point");
@@ -93,8 +93,14 @@ public class WaitingRoomPanel : MonoBehaviour {
 		if (cmd.code == CmdCode.CMD_GAME_START) {
 			message.ReceiveData = true;
 			Debug.Log("start");
-			controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_ONLINE_ONGAME);
+			controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
+
+			//reset for next game
+			ready_state = 0;
+			ReadySelf.gameObject.SetActive (false);
+			ReadyOp.gameObject.SetActive (false);
+			TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
 		}
 		message.ReceiveData = false;
 	}

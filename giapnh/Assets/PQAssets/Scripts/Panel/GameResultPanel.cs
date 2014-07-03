@@ -21,7 +21,7 @@ public class GameResultPanel : MonoBehaviour {
 	int bonus_exp;
 	int next_level_require;
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
 		//level info
 		current_cup = PlayerPrefs.GetInt ("player_cup");
 		TxtCup.text = current_cup.ToString();
@@ -122,5 +122,10 @@ public class GameResultPanel : MonoBehaviour {
 		}
 
 		message.ReceiveData = false;
+	}
+
+	void Back(){
+		controller.SendMessage("HidePanel" , ScreenManager.PN_GAME_RESULT);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 	}
 }

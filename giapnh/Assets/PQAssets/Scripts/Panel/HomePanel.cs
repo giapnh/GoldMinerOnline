@@ -13,12 +13,19 @@ public class HomePanel : MonoBehaviour {
 	public GameObject controller;
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void OnEnable(){
+		TxtCup.text = PlayerPrefs.GetInt ("player_cup").ToString();
+		TxtLevel.text = PlayerPrefs.GetInt ("player_level").ToString ();
+		int pLevelUpProgress = PlayerPrefs.GetInt("player_levelup_point");
+		int pLevelUpRequire = PlayerPrefs.GetInt("player_levelup_require");
+		TxtProgress.text = pLevelUpProgress.ToString () + "/" + pLevelUpRequire.ToString ();
 	}
 
 	void OnCommand(SendMessageContext message){

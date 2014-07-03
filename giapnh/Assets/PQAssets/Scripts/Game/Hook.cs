@@ -82,7 +82,17 @@ public class Hook : MonoBehaviour {
 					}	
 				}
 			//}
-		}//
+		}
+
+		//draw line
+		if (state == HOOKING || state == CATCHING) {					
+			lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer.SetVertexCount(2);
+			lineRenderer.SetPosition(0, initialPosition);
+			Vector3 pos = transform.position;
+			lineRenderer.SetPosition(1, pos);
+		}
+
 		//catching
 		if(state == CATCHING){
 			if(transform.position.y > initialPosition.y){
@@ -91,8 +101,10 @@ public class Hook : MonoBehaviour {
 					onlineGame_info.item_count --;
 				}
 				returnIDLE();
+				Debug.Log ("vao day khong em");
 			}
 		}
+
 		//hooking
 		if(state == HOOKING){
 			if(transform.position.y <= -0.9 || transform.position.x < -1.6 || transform.position.x > 1.6){
@@ -101,14 +113,6 @@ public class Hook : MonoBehaviour {
 				GoBack();
 			}
 			if(transform.position.y > initialPosition.y) returnIDLE();
-		}
-		//draw line
-		if (state == HOOKING || state == CATCHING) {					
-			lineRenderer = GetComponent<LineRenderer>();
-			lineRenderer.SetVertexCount(2);
-			lineRenderer.SetPosition(0, initialPosition);
-			Vector3 pos = transform.position;
-			lineRenderer.SetPosition(1, pos);
 		}
 	}
 
@@ -142,6 +146,8 @@ public class Hook : MonoBehaviour {
 			}
 		}
 	}
+
+
 
 	void GoBack(){
 		rigidbody.velocity =  -rotateDirection * hook_speed;

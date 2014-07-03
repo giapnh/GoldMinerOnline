@@ -55,6 +55,7 @@ public class OnlineGamePanel : MonoBehaviour {
 		if(cmd.code == CmdCode.CMD_MAP_INFO){
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
 			PlayerInfo.MapID = map_id;
+			//thay vi hien map thi load map tu prefab
 			maps[map_id-1].SetActive(true);
 			//calculate number of item(gold, diamond, stone)
 			string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
@@ -133,12 +134,12 @@ public class OnlineGamePanel : MonoBehaviour {
 
 			//set
 			hook.gameObject.SetActive(true);
-			hook_info.state = Hook.HOOKING;
 			hook.transform.eulerAngles = rotation;
 			hook.transform.position = initialPosition;
 			hook_info.initialPosition = initialPosition;
 			hook_info.rotateDirection = velocity/hook_info.hook_speed;
 			hook.rigidbody.velocity = velocity;
+			hook_info.state = Hook.HOOKING;
 
 			timer.gameObject.SetActive(false);
 
