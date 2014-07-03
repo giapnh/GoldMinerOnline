@@ -12,6 +12,9 @@ public class WaitingRoomPanel : MonoBehaviour {
 	public UILabel TxtMoveSpeed;
 	public UILabel TxtDropSpeed;
 	public UILabel TxtDragSpeed;
+	public UILabel TxtCup;
+	public UILabel TxtLevel;
+	public UILabel TxtProgress;
 	public GameObject ReadySelf;
 	//opponent
 	public UILabel TxtOpMoveSpeed;
@@ -28,6 +31,11 @@ public class WaitingRoomPanel : MonoBehaviour {
 	private int room_id;
 	// Use this for initialization
 	void Start () {
+		TxtCup.text = PlayerPrefs.GetInt ("player_cup").ToString();
+		TxtLevel.text = PlayerPrefs.GetInt ("player_level").ToString ();
+		int pLevelUpProgress = PlayerPrefs.GetInt("player_levelup_point");
+		int pLevelUpRequire = PlayerPrefs.GetInt("player_levelup_require");
+		TxtProgress.text = pLevelUpProgress.ToString () + "/" + pLevelUpRequire.ToString ();
 	}
 	
 	// Update is called once per frame

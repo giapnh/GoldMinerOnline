@@ -87,7 +87,7 @@ public class Hook : MonoBehaviour {
 		if(state == CATCHING){
 			if(transform.position.y > initialPosition.y){
 				if(caught_item){ 
-					Destroy(caught_item);
+					Destroy(caught_item); 
 					onlineGame_info.item_count --;
 				}
 				returnIDLE();
@@ -136,8 +136,8 @@ public class Hook : MonoBehaviour {
 				state = CATCHING;
 				GoBack();
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
-				caught_type = -1;
-				item_id = 0;
+				caught_type = 1;
+				item_id = -1;
 			}
 		}
 	}
