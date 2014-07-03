@@ -111,13 +111,10 @@ public class GameResultPanel : MonoBehaviour {
 			return;
 		}
 		if (cmd.code == CmdCode.CMD_PLAYER_INFO) {
-			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
-			if(username == PlayerInfo.Username){
-				int require = cmd.getInt(ArgCode.ARG_PLAYER_LEVEL_UP_REQUIRE, 0);
-				if(require!=level_require){
-					next_level_require = require;
-					PlayerPrefs.SetInt("player_levelup_require", require);
-				}
+			int require = cmd.getInt(ArgCode.ARG_PLAYER_LEVEL_UP_REQUIRE, 0);
+			if(require!=level_require){
+				next_level_require = require;
+				PlayerPrefs.SetInt("player_levelup_require", require);
 			}
 			
 			message.ReceiveData = true;
