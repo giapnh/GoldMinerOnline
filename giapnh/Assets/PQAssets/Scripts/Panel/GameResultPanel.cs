@@ -12,15 +12,21 @@ public class GameResultPanel : MonoBehaviour {
 	public UILabel TxtCup;
 	public UILabel TxtLevel;
 	public UILabel TxtProgress;
+	public GameObject Progress;
 	int current_exp;
+	int current_level;
+	int current_cup;
 	int level_require;
 	int bonus_cup;
 	int bonus_exp;
+	int next_level_require;
 	// Use this for initialization
 	void Start () {
 		//level info
-		TxtCup.text = PlayerPrefs.GetInt ("player_cup").ToString();
-		TxtLevel.text = PlayerPrefs.GetInt ("player_level").ToString ();
+		current_cup = PlayerPrefs.GetInt ("player_cup");
+		TxtCup.text = current_cup.ToString();
+		current_level = PlayerPrefs.GetInt ("player_level");
+		TxtLevel.text = current_level.ToString ();
 		current_exp = PlayerPrefs.GetInt("player_levelup_point");
 		level_require = PlayerPrefs.GetInt("player_levelup_require");
 		TxtProgress.text = current_exp.ToString() + "/" + level_require.ToString();
@@ -45,10 +51,19 @@ public class GameResultPanel : MonoBehaviour {
 		if (bonus_exp > 0) {
 			int step = 1;
 			current_exp += step;
+			float progress_percent = (float)current_exp / level_require;
+			Progress.transform.localScale = new Vector3(progress_percent, Progress.transform.localScale.y, Progress.transform.localScale.z);
 			TxtProgress.text = current_exp.ToString() + "/" + level_require.ToString();
 			bonus_exp -= step;
+			if(current_exp>=level_require){
+				current_exp = current_exp - level_require;
+				current_level +=1;
+				PlayerPrefs.SetInt("player_levelup_point", bonus_exp);
+				PlayerPrefs.SetInt("player_level", current_level);
+				TxtLevel.text = current_level.ToString ();
+				level_require = next_level_require;
+			}
 		}
-	
 	}
 	// On Command
 	void OnCommand(SendMessageContext message){
@@ -63,7 +78,6 @@ public class GameResultPanel : MonoBehaviour {
 			int score = cmd.getInt(ArgCode.ARG_SCORE,0);
 			bonus_cup = cmd.getInt(ArgCode.ARG_PLAYER_BONUS_CUP,0);
 			bonus_exp = cmd.getInt(ArgCode.ARG_PLAYER_BONUS_LEVELUP_POINT,0);
-
 			if(username == PlayerInfo.Username){
 				user_info = self_info;
 			}
@@ -87,7 +101,23 @@ public class GameResultPanel : MonoBehaviour {
 				}
 
 			}
+			//set pref			
+			PlayerPrefs.SetInt("player_cup", current_cup + bonus_cup);
+			PlayerPrefs.SetInt("player_levelup_point", current_exp + bonus_exp);
 
+			message.ReceiveData = true;
+			return;
+		}
+		if (cmd.code == CmdCode.CMD_PLAYER_INFO) {
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			if(username == PlayerInfo.Username){
+				int require = cmd.getInt(ArgCode.ARG_PLAYER_LEVEL_UP_REQUIRE, 0);
+				if(require!=level_require){
+					next_level_require = require;
+					PlayerPrefs.SetInt("player_levelup_require", require);
+				}
+			}
+			
 			message.ReceiveData = true;
 			return;
 		}
