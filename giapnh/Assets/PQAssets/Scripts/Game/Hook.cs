@@ -31,18 +31,17 @@ public class Hook : MonoBehaviour {
 	// Use this for initialization
 	string current_player;
 	OnlineGamePanel onlineGame_info;
+	LineRenderer lineRenderer;
 	
 	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
-	LineRenderer lineRenderer;
-	bool added_line = false;
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
 		//draw line
-//		lineRenderer = gameObject.AddComponent<LineRenderer>();
-//		lineRenderer.SetColors(c1, c2);
-//		lineRenderer.SetWidth(0.02f,0.02f);
-//		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+		lineRenderer = gameObject.AddComponent<LineRenderer>();
+		lineRenderer.SetColors(c1, c2);
+		lineRenderer.SetWidth(0.02f,0.02f);
+		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 	}
 	
 	// Update is called once per frame
@@ -104,17 +103,7 @@ public class Hook : MonoBehaviour {
 			if(transform.position.y > initialPosition.y) returnIDLE();
 		}
 		//draw line
-		if (state == HOOKING || state == CATCHING) {
-			//check neu chua co linerender
-			if(!added_line){
-				lineRenderer = gameObject.AddComponent<LineRenderer>();
-				lineRenderer.SetColors(c1, c2);
-				lineRenderer.SetWidth(0.02f,0.02f);
-				lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-				added_line = true;
-			}
-
-
+		if (state == HOOKING || state == CATCHING) {					
 			lineRenderer = GetComponent<LineRenderer>();
 			lineRenderer.SetPosition(0, initialPosition);
 			Vector3 pos = transform.position;
@@ -162,8 +151,8 @@ public class Hook : MonoBehaviour {
 		//transform.position = initialPosition;
 		transform.localPosition = new Vector3 (0,-0.6f,-5f);
 		transform.eulerAngles = new Vector3 (0,180,0);
-		Destroy (lineRenderer);
 		flag = -1;
+		lineRenderer.SetVertexCount (0);
 
 		//send result if is current user
 		//OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
