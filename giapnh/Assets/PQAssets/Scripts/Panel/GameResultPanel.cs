@@ -52,6 +52,7 @@ public class GameResultPanel : MonoBehaviour {
 			int step = 1;
 			current_exp += step;
 			float progress_percent = (float)current_exp / level_require;
+			Debug.Log (progress_percent);
 			Progress.transform.localScale = new Vector3(progress_percent, Progress.transform.localScale.y, Progress.transform.localScale.z);
 			TxtProgress.text = current_exp.ToString() + "/" + level_require.ToString();
 			bonus_exp -= step;
