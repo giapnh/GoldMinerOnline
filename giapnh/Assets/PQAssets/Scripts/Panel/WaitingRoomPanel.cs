@@ -156,5 +156,10 @@ public class WaitingRoomPanel : MonoBehaviour {
 		Command cmd = new Command(CmdCode.CMD_ROOM_EXIT);
 		cmd.addInt(ArgCode.ARG_ROOM_ID, room_id);
 		ScreenManager.instance.Send (cmd);
+		//reset for out room
+		ready_state = 0;
+		ReadySelf.gameObject.SetActive (false);
+		ReadyOp.gameObject.SetActive (false);
+		TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
 	}
 }
