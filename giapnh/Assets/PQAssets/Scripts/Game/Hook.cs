@@ -114,6 +114,7 @@ public class Hook : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if(state == HOOKING){
+			//catch item
 			if(System.Array.IndexOf(items_list,col.gameObject.tag)!=-1){
 				renderer.material.mainTexture = textures[1];
 				col.transform.position = transform.position + rotateDirection * 1.8f;
