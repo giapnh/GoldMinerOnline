@@ -33,14 +33,15 @@ public class Hook : MonoBehaviour {
 	OnlineGamePanel onlineGame_info;
 	
 	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
+	LineRenderer lineRenderer;
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
 		//draw line
-		LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
-		lineRenderer.SetColors(c1, c2);
-		lineRenderer.SetWidth(0.02f,0.02f);
-		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+//		lineRenderer = gameObject.AddComponent<LineRenderer>();
+//		lineRenderer.SetColors(c1, c2);
+//		lineRenderer.SetWidth(0.02f,0.02f);
+//		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 	}
 	
 	// Update is called once per frame
@@ -61,11 +62,16 @@ public class Hook : MonoBehaviour {
 			//if(current_player == PlayerInfo.Username){
 				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
 					var mouse_pos = Input.mousePosition;
-					if(mouse_pos.y<400 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+					if(mouse_pos.y<370 && transform.parent.GetComponent<Character>().state== Character.IDLE){
 						initialPosition = transform.position;
 						rotateDirection = transform.position - center_point;
 						Vector3 velocity = rotateDirection*hook_speed;
 						state = HOOKING;
+						//draw line
+						lineRenderer = gameObject.AddComponent<LineRenderer>();
+						lineRenderer.SetColors(c1, c2);
+						lineRenderer.SetWidth(0.02f,0.02f);
+						lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 
 						//send hook velocity to server
 						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
@@ -103,7 +109,7 @@ public class Hook : MonoBehaviour {
 		}
 		//draw line
 		if (state == HOOKING || state == CATCHING) {					
-			LineRenderer lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer = GetComponent<LineRenderer>();
 			lineRenderer.SetPosition(0, initialPosition);
 			Vector3 pos = transform.position;
 			lineRenderer.SetPosition(1, pos);
@@ -128,58 +134,15 @@ public class Hook : MonoBehaviour {
 				caught_item = col.gameObject;
 				state = CATCHING;
 			}
-			/*
-			//catch gold
-			if(col.gameObject.tag == "Gold") {
-				renderer.material.mainTexture = textures[1];
-				col.transform.position = transform.position + rotateDirection * 1.8f;
-				GoBack();
-				col.rigidbody.velocity = rigidbody.velocity;
-				caught_item = col.gameObject;
-				state = CATCHING;
-				caught_type = 1;
-				item_id = 1;
-			}
-			//catch diamond
-			if(col.gameObject.tag == "Diamond") {
-				renderer.material.mainTexture = textures[1];
-				col.transform.position = transform.position + rotateDirection * 1.8f;
-				GoBack();
-				col.rigidbody.velocity = rigidbody.velocity;
-				caught_item = col.gameObject;
-				state = CATCHING;
-				caught_type = 1;
-				item_id = 8;
-			}
-			//catch stone
-			if(col.gameObject.tag == "Stone") {
-				renderer.material.mainTexture = textures[1];
-				col.transform.position = transform.position + rotateDirection * 1.8f;
-				GoBack();
-				col.rigidbody.velocity = rigidbody.velocity;
-				caught_item = col.gameObject;
-				state = CATCHING;
-				caught_type = 1;
-				item_id = 8;
-			}
-			*/
+
 			//catch bomb
 			if(col.gameObject.tag == "Bomb") {
-				GoBack();
 				state = CATCHING;
+				GoBack();
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
 				caught_type = -1;
 				item_id = 0;
 			}
-//			//catch pig
-//			if(col.gameObject.tag == "Pig") {
-//				renderer.material.mainTexture = textures[1];
-//				GoBack();
-//				col.rigidbody.velocity = rigidbody.velocity;
-//				caught_item = col.gameObject;
-//				state = CATCHING;
-//				col.GetComponent<Pig>().state = Pig.HOOKED;
-//			}
 		}
 	}
 
@@ -193,6 +156,7 @@ public class Hook : MonoBehaviour {
 		//transform.position = initialPosition;
 		transform.localPosition = new Vector3 (0,-0.6f,-5f);
 		transform.eulerAngles = new Vector3 (0,180,0);
+		Destroy (lineRenderer);
 		flag = -1;
 
 		//send result if is current user
