@@ -105,6 +105,7 @@ public class Hook : MonoBehaviour {
 		//draw line
 		if (state == HOOKING || state == CATCHING) {					
 			lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer.SetVertexCount(2);
 			lineRenderer.SetPosition(0, initialPosition);
 			Vector3 pos = transform.position;
 			lineRenderer.SetPosition(1, pos);
