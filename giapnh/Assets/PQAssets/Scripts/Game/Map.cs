@@ -14,6 +14,7 @@ public class Map : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log(Time.realtimeSinceStartup);
+		/*
 		if(i<clone_pig_times.Length && Time.realtimeSinceStartup > clone_pig_times[i]){
 			random_position = new Vector3(-2f,0.3f,0.42f);
 			pig_clone = (GameObject)Instantiate(pig, random_position, Quaternion.identity);			
@@ -22,6 +23,6 @@ public class Map : MonoBehaviour {
 			//Debug.Log (pig_clone.transform.position);
 			i++;
 		}
-		
+		*/
 	}
 }

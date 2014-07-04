@@ -88,6 +88,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 		if (cmd.code == CmdCode.CMD_GAME_READY) {
 			message.ReceiveData = true;
 			ReadyOp.gameObject.SetActive (true);
+			return;
 		}
 		//all ready, game start
 		if (cmd.code == CmdCode.CMD_GAME_START) {
@@ -101,6 +102,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 			ReadySelf.gameObject.SetActive (false);
 			ReadyOp.gameObject.SetActive (false);
 			TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
+			return;
 		}
 		message.ReceiveData = false;
 	}

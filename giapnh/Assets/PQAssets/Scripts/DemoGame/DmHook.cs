@@ -22,16 +22,28 @@ public class DmHook : MonoBehaviour {
 	public Color c2 = Color.red;
 	// Use this for initialization
 	bool is_ended = false;
+	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
+	LineRenderer lineRenderer;
+
+	//check finish
+	public int item_count=0;
+
+	void OnEnable(){
+		foreach(string item in items_list){
+			GameObject[] items = GameObject.FindGameObjectsWithTag(item);
+			item_count += items.Length;	
+		}
+		Debug.Log (item_count);
+	}
 	void Start () {
 		state = IDLE;
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
 
 		//draw line
-		LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
+		lineRenderer = gameObject.AddComponent<LineRenderer>();
 		lineRenderer.SetColors(c1, c2);
 		lineRenderer.SetWidth(0.02f,0.02f);
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		Debug.Log (transform.localRotation.z);
 
 	}
 	
@@ -72,7 +84,8 @@ public class DmHook : MonoBehaviour {
 		}
 		//draw line
 		if (state == HOOKING || state == CATCHING) {					
-			LineRenderer lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer.SetVertexCount(2);
 			lineRenderer.SetPosition(0, initialPosition);
 			Vector3 pos = transform.position;
 			lineRenderer.SetPosition(1, pos);
@@ -82,28 +95,30 @@ public class DmHook : MonoBehaviour {
 	void OnTriggerEnter(Collider col) {
 		//catch gold
 		if(state == HOOKING){
-			if(col.gameObject.tag == "Gold") {
+			//catch item
+			if(System.Array.IndexOf(items_list,col.gameObject.tag)!=-1){
 				renderer.material.mainTexture = textures[1];
 				col.transform.position = transform.position + rotateDirection * 1.8f;
-				GoBack();
 				col.rigidbody.velocity = rigidbody.velocity;
+				
+				Item item_info = col.GetComponent<Item>();
+				int item_score = item_info.item_score;
+				//TODO cong diem
+				
+				GoBack();
+				rigidbody.velocity = new Vector3(rigidbody.velocity.x/item_info.speed_rate, rigidbody.velocity.y/item_info.speed_rate,0);
+				col.rigidbody.velocity = rigidbody.velocity;
+				
 				caught_item = col.gameObject;
 				state = CATCHING;
+				item_count --;
 			}
+			
 			//catch bomb
 			if(col.gameObject.tag == "Bomb") {
-				GoBack();
 				state = CATCHING;
+				GoBack();
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
-			}
-			//catch pig
-			if(col.gameObject.tag == "Pig") {
-				renderer.material.mainTexture = textures[1];
-				GoBack();
-				col.rigidbody.velocity = rigidbody.velocity;
-				caught_item = col.gameObject;
-				state = CATCHING;
-				col.GetComponent<Pig>().state = Pig.HOOKED;
 			}
 		}
 	}
@@ -116,21 +131,16 @@ public class DmHook : MonoBehaviour {
 		rigidbody.velocity = new Vector3(0,0,0);
 		transform.position = initialPosition;
 		state = IDLE;
+		lineRenderer.SetVertexCount (0);
+		Debug.Log (item_count);
+		check_finish ();
 	}
 	
 	void check_finish(){
-//		string map = "Map";
-//		GameObject gold = GameObject.Find(map+"/Gold");
-//		Debug.Log(map+"/Gold");
-//		Debug.Log (gold);
-//		if (gold == null) {
-//			Debug.Log ("finish");
-//			is_ended = true;
-//		}
-//		GameObject[] gos = GameObject.FindGameObjectsWithTag("Gold");
-//		if(gos.length() == 0)
-//		{
-//			Debug.Log ("finish");
-//		}
+		if (item_count == 0) {
+			Debug.Log ("end game");
+//			controller.SendMessage("HidePanel" , ScreenManager.PN_ONLINE_ONGAME);
+//			controller.SendMessage("ShowPanel" , ScreenManager.PN_GAME_RESULT);
+		}
 	}
 }

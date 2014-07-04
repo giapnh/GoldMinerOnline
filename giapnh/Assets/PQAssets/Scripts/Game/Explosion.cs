@@ -19,10 +19,12 @@ public class Explosion : MonoBehaviour {
 	bool is_destroyed = false;
 	GameObject onlineGameScreen;
 	OnlineGamePanel onlineGame_info;
+	GameObject dmHook;
 	
 	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 	void Start () {
 		onlineGameScreen = GameObject.Find("OnlineGameScreen");
+		dmHook = GameObject.Find("Hook");
 	}
 	
 	// Update is called once per frame
@@ -46,8 +48,15 @@ public class Explosion : MonoBehaviour {
 			//if(hitColliders[i].gameObject.tag=="Gold" || hitColliders[i].gameObject.tag=="Diamond" || hitColliders[i].gameObject.tag=="Pig"){
 			if(System.Array.IndexOf(items_list,hitColliders[i].gameObject.tag)!=-1){
 				Destroy(hitColliders[i].gameObject);
-				onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-				onlineGame_info.item_count --;
+				if(onlineGameScreen){
+					//online
+					onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
+					onlineGame_info.item_count --;
+				} else{
+					//offline
+					DmHook dmHook_info = dmHook.gameObject.GetComponent<DmHook>();
+					dmHook_info.item_count --;
+				}
 			}
             i++;
         }
