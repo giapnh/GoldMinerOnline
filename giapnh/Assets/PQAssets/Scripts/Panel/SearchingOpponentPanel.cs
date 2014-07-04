@@ -22,16 +22,15 @@ public class SearchingOpponentPanel : MonoBehaviour {
 		Command cmd = (Command)message.InputData;
 		if(cmd.code == CmdCode.CMD_GAME_MATCHING){
 			int result = cmd.getInt(ArgCode.ARG_CODE, 0);
-			if(result==0){
-				//TODO ko thay
-			} else if(result==1){
+			if(result==1){
 				//tim thay
 				controller.SendMessage("HidePanel" , ScreenManager.PN_SEARCH_OPPONENT);
-				controller.SendMessage("ShowPanel" , ScreenManager.PN_WAITING_ROOM);				
+				controller.SendMessage("ShowPanel" , ScreenManager.PN_WAITING_ROOM);
 			}
 			message.ReceiveData = true;
 			return;
 		}
+
 		message.ReceiveData = false;
 	}
 	

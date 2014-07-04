@@ -45,7 +45,6 @@ public class HomePanel : MonoBehaviour {
 			TxtLevel.text = ""+pLevel;
 			TxtCup.text = ""+pCup;
 			TxtProgress.text = "("+pLevelUpProgress+"/"+pLevelUpRequire+")";
-			message.ReceiveData = true;
 			
 			
 			PlayerInfo.MoveSpeed = cmd.getInt(ArgCode.ARG_PLAYER_SPEED_MOVE , 0);
@@ -55,6 +54,9 @@ public class HomePanel : MonoBehaviour {
 			TxtMoveSpeed.text = "" + PlayerInfo.MoveSpeed;
 			TxtDropSpeed.text = "" + PlayerInfo.DropSpeed;
 			TxtDragSpeed.text = "" + PlayerInfo.DragSpeed;
+
+			
+			message.ReceiveData = true;
 			return;
 		}
 	}

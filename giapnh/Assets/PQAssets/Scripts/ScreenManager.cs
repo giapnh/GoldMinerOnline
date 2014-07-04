@@ -40,6 +40,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 		if(mNetwork == null)
 			return;
 		if(mNetwork.Connected){
+
 			if(mNetwork.queueMessage.Count == 0)
 				return;
 			Command cmd = mNetwork.queueMessage.Dequeue() as Command;
@@ -56,6 +57,11 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				// If screen manager can't process this command, enqueue
 				mNetwork.queueMessage.Enqueue(command.InputData);
 			}
+			mNetwork.queueMessage.Clear();
+//			Debug.Log("Remain command = " + mNetwork.queueMessage.Count);
+//			foreach(Command cmd2 in mNetwork.queueMessage){
+//				Debug.Log(cmd2.code);
+//			}
 		}
 //			reading = false;
 //		}
