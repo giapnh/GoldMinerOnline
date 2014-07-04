@@ -1,17 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/ScreenManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Panel/LoginPanel.cs">
     <Files>
-      <File FileName="Assets/PQAssets/Scripts/Net/CmdCode.cs" Line="21" Column="14" />
-      <File FileName="Assets/PQAssets/Scripts/Net/ArgCode.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/OnlineGamePanel.cs" Line="56" Column="11" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/GameResultPanel.cs" Line="127" Column="14" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/WaitingRoomPanel.cs" Line="100" Column="20" />
-      <File FileName="Assets/PQAssets/Scripts/Game/Explosion.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Game/Bomb.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/HomePanel.cs" Line="63" Column="43" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/SearchingOpponentPanel.cs" Line="23" Column="45" />
-      <File FileName="Assets/PQAssets/Scripts/ScreenManager.cs" Line="59" Column="40" />
+      <File FileName="Assets/PQAssets/Scripts/DemoGame/DmHook.cs" Line="5" Column="31" />
+      <File FileName="Assets/PQAssets/Scripts/DemoGame/DmArrow.cs" Line="1" Column="1" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/GameResultPanel.cs" Line="38" Column="20" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/LoginPanel.cs" Line="103" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

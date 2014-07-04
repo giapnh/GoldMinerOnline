@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DmHook : MonoBehaviour {	
+public class DmHook : MonoBehaviour {
+	public GameObject controller;
 	public int state;
 	public static int IDLE = 0;
 	public static int MOVING = 1;
@@ -21,7 +22,6 @@ public class DmHook : MonoBehaviour {
 	public Color c1 = Color.black;
 	public Color c2 = Color.red;
 	// Use this for initialization
-	bool is_ended = false;
 	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 	LineRenderer lineRenderer;
 
@@ -30,15 +30,16 @@ public class DmHook : MonoBehaviour {
 	public int score = 0;
 	public UILabel score_label;
 
+	public GameObject offline_result;
+	public int map_id = 0;
 	void OnEnable(){
 		foreach(string item in items_list){
 			GameObject[] items = GameObject.FindGameObjectsWithTag(item);
 			item_count += items.Length;	
 		}
-		Debug.Log (item_count);
+		state = IDLE;
 	}
 	void Start () {
-		state = IDLE;
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
 
 		//draw line
@@ -143,8 +144,14 @@ public class DmHook : MonoBehaviour {
 	void check_finish(){
 		if (item_count == 0) {
 			Debug.Log ("end game");
-//			controller.SendMessage("HidePanel" , ScreenManager.PN_ONLINE_ONGAME);
-//			controller.SendMessage("ShowPanel" , ScreenManager.PN_GAME_RESULT);
+			controller.SendMessage("HidePanel" , ScreenManager.PN_COMPAIN_ONGAME);
+			controller.SendMessage("ShowPanel" , ScreenManager.PN_OFFLINE_GAME_RESULT);
+			offline_result.SendMessage("Score", score);
+			//reset map
+			GameObject map = GameObject.Find("Map"+map_id+"(Clone)");
+			Destroy(map);
+			item_count = 0;
+			score = 0;
 		}
 	}
 }
