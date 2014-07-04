@@ -56,7 +56,6 @@ public class OnlineGamePanel : MonoBehaviour {
 		if(cmd.code == CmdCode.CMD_MAP_INFO){
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
 			PlayerInfo.MapID = map_id;
-			Debug.Log("map id "+PlayerInfo.MapID);
 			//thay vi hien map thi load map tu prefab
 			//maps[map_id-1].SetActive(true);
 			Instantiate(maps[map_id-1], new Vector3(0, 0, 0.416687f), Quaternion.identity);
@@ -66,7 +65,6 @@ public class OnlineGamePanel : MonoBehaviour {
 				GameObject[] items = GameObject.FindGameObjectsWithTag(item);
 				item_count += items.Length;	
 			}
-			Debug.Log ("so item "+ item_count);
 
 			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			user.GetComponentInChildren<UILabel>().text = PlayerInfo.Username;
@@ -208,9 +206,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			}
 
 			//check end game
-			Debug.Log("online con item: " + item_count);
 			if(current_player==PlayerInfo.Username){
-				Debug.Log ("da check end game");
 				check_end_game();
 
 			}
@@ -232,7 +228,6 @@ public class OnlineGamePanel : MonoBehaviour {
 	
 	//check end game
 	void check_end_game(){
-		Debug.Log ("vao check roi");
 		if (item_count == 0) {
 			Debug.Log ("end game");
 			//send end message

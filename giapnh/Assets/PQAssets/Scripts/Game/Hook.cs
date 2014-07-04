@@ -173,6 +173,5 @@ public class Hook : MonoBehaviour {
 				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 				ScreenManager.instance.Send (cmd);
 		}
-		Debug.Log (PlayerInfo.Username + " idle");
 	}
 }

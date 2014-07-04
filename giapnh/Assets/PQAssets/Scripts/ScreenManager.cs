@@ -57,7 +57,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				// If screen manager can't process this command, enqueue
 				Command com = command.InputData as Command;
 				if(!(com.code == CmdCode.CMD_GAME_MATCHING || com.code == CmdCode.CMD_ROOM_EXIT)){
-					Debug.Log("Enqueue: " + com.code);
+//					Debug.Log("Enqueue: " + com.code);
 					mNetwork.queueMessage.Enqueue(command.InputData);
 				}
 			}
