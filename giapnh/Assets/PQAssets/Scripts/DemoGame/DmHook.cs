@@ -110,7 +110,7 @@ public class DmHook : MonoBehaviour {
 				score +=item_score;
 				
 				GoBack();
-				rigidbody.velocity = new Vector3(rigidbody.velocity.x/item_info.speed_rate, rigidbody.velocity.y/item_info.speed_rate,0);
+				rigidbody.velocity = new Vector3(rigidbody.velocity.x*item_info.speed_rate, rigidbody.velocity.y*item_info.speed_rate,0);
 				col.rigidbody.velocity = rigidbody.velocity;
 				
 				caught_item = col.gameObject;
