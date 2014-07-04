@@ -56,6 +56,7 @@ public class OnlineGamePanel : MonoBehaviour {
 		if(cmd.code == CmdCode.CMD_MAP_INFO){
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
 			PlayerInfo.MapID = map_id;
+			Debug.Log("map id "+PlayerInfo.MapID);
 			//thay vi hien map thi load map tu prefab
 			//maps[map_id-1].SetActive(true);
 			Instantiate(maps[map_id-1], new Vector3(0, 0, 0.416687f), Quaternion.identity);

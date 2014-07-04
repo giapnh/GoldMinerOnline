@@ -102,7 +102,6 @@ public class WaitingRoomPanel : MonoBehaviour {
 			ReadySelf.gameObject.SetActive (false);
 			ReadyOp.gameObject.SetActive (false);
 			TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
-			PlayerInfo.RoomId = 0;
 
 			message.ReceiveData = true;
 			return;
@@ -114,7 +113,6 @@ public class WaitingRoomPanel : MonoBehaviour {
 			ReadySelf.gameObject.SetActive (false);
 			ReadyOp.gameObject.SetActive (false);
 			TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
-			PlayerInfo.RoomId = 0;
 			
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 			controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);

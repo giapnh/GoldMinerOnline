@@ -70,6 +70,7 @@ public class Hook : MonoBehaviour {
 
 						//send hook velocity to server
 						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
+					Debug.Log (PlayerInfo.RoomId);
 						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 						int angle_x = (int) (velocity.x*100);
 						int angle_y = (int) (velocity.y*100);
