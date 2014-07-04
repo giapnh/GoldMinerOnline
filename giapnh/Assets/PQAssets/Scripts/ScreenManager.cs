@@ -51,17 +51,15 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				if(screen.activeSelf)
 					screen.SendMessage("OnCommand", command);
 			}
-			if(command.ReceiveData == false){
+			if(command.ReceiveData == false)){
 				// If no have panel process this command
 				// Debug.Log("Screen manager have to process this command");
 				// If screen manager can't process this command, enqueue
-				mNetwork.queueMessage.Enqueue(command.InputData);
+				Command com = command.InputData;
+				if(com.code != CmdCode.CMD_GAME_MATCHING){
+					mNetwork.queueMessage.Enqueue(command.InputData);
+				}
 			}
-			mNetwork.queueMessage.Clear();
-//			Debug.Log("Remain command = " + mNetwork.queueMessage.Count);
-//			foreach(Command cmd2 in mNetwork.queueMessage){
-//				Debug.Log(cmd2.code);
-//			}
 		}
 //			reading = false;
 //		}

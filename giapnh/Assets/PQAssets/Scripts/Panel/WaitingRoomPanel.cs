@@ -49,6 +49,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 		Command cmd = (Command)message.InputData;
 		if(cmd.code == CmdCode.CMD_ROOM_INFO){
 			room_id = cmd.getInt(ArgCode.ARG_ROOM_ID, 0);
+			Debug.Log ("roomid "+room_id);
 			PlayerInfo.RoomId = room_id;
 			int cup_win = cmd.getInt(ArgCode.ARG_CUP_WIN, 0);
 			int cup_lost = cmd.getInt(ArgCode.ARG_CUP_LOST, 0);
@@ -164,11 +165,12 @@ public class WaitingRoomPanel : MonoBehaviour {
 	}
 	
 	void OutRoom(){
-		Debug.Log ("Outroom tu waiting");
-		controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 		Command cmd = new Command(CmdCode.CMD_ROOM_EXIT);
+		Debug.Log ("Outroom "+ room_id);
 		cmd.addInt(ArgCode.ARG_ROOM_ID, room_id);
 		ScreenManager.instance.Send (cmd);
+		
+		controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 	}
 }
