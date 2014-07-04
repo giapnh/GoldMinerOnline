@@ -74,7 +74,6 @@ public class HomePanel : MonoBehaviour {
 	}
 
 	void OnQuit(){
-//		controller.SendMessage ("OnApplicationQuit");
 		ScreenManager.instance.OnApplicationQuit ();
 		Application.Quit ();
 	}

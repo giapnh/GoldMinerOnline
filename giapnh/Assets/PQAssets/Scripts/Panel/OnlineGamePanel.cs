@@ -199,9 +199,11 @@ public class OnlineGamePanel : MonoBehaviour {
 			int score = cmd.getInt(ArgCode.ARG_SCORE, 0);
 			if(username == PlayerInfo.Username){
 				user_score += score;
+				if(user_score<0) user_score = 0;
 				user_score_lable.text = "You: "+ user_score;
 			} else{
 				op_score += score;
+				if(user_score<0) user_score = 0;
 				op_score_label.text = username + ": " + op_score;
 			}
 
