@@ -27,6 +27,8 @@ public class DmHook : MonoBehaviour {
 
 	//check finish
 	public int item_count=0;
+	public int score = 0;
+	public UILabel score_label;
 
 	void OnEnable(){
 		foreach(string item in items_list){
@@ -74,6 +76,7 @@ public class DmHook : MonoBehaviour {
 		if(state == CATCHING){
 			if(transform.position.y > initialPosition.y){
 				if(caught_item) Destroy(caught_item);
+				score_label.text = "Score: "+ score;
 				returnIDLE();
 			}
 		}
@@ -103,7 +106,7 @@ public class DmHook : MonoBehaviour {
 				
 				Item item_info = col.GetComponent<Item>();
 				int item_score = item_info.item_score;
-				//TODO cong diem
+				score +=item_score;
 				
 				GoBack();
 				rigidbody.velocity = new Vector3(rigidbody.velocity.x/item_info.speed_rate, rigidbody.velocity.y/item_info.speed_rate,0);
@@ -117,6 +120,8 @@ public class DmHook : MonoBehaviour {
 			//catch bomb
 			if(col.gameObject.tag == "Bomb") {
 				state = CATCHING;
+				score -= 100;
+				score_label.text = "Score: "+ score;
 				GoBack();
 				col.GetComponent<Bomb>().state = Bomb.HOOKED;
 			}
@@ -132,7 +137,6 @@ public class DmHook : MonoBehaviour {
 		transform.position = initialPosition;
 		state = IDLE;
 		lineRenderer.SetVertexCount (0);
-		Debug.Log (item_count);
 		check_finish ();
 	}
 	
