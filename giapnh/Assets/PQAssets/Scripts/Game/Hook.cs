@@ -100,9 +100,9 @@ public class Hook : MonoBehaviour {
 				if(caught_item){ 
 					Destroy(caught_item); 
 					onlineGame_info.item_count --;
+					Debug.Log ("so item "+ onlineGame_info.item_count);
 				}
 				returnIDLE();
-				Debug.Log ("vao day khong em");
 			}
 		}
 

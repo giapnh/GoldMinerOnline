@@ -66,6 +66,7 @@ public class OnlineGamePanel : MonoBehaviour {
 				GameObject[] items = GameObject.FindGameObjectsWithTag(item);
 				item_count += items.Length;	
 			}
+			Debug.Log ("so item "+ item_count);
 
 			current_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			user.GetComponentInChildren<UILabel>().text = PlayerInfo.Username;
@@ -205,8 +206,12 @@ public class OnlineGamePanel : MonoBehaviour {
 			}
 
 			//check end game
-			if(current_player==PlayerInfo.Username)
+			Debug.Log("online con item: " + item_count);
+			if(current_player==PlayerInfo.Username){
+				Debug.Log ("da check end game");
 				check_end_game();
+
+			}
 
 			message.ReceiveData = true;
 			return;
@@ -225,6 +230,7 @@ public class OnlineGamePanel : MonoBehaviour {
 	
 	//check end game
 	void check_end_game(){
+		Debug.Log ("vao check roi");
 		if (item_count == 0) {
 			Debug.Log ("end game");
 			//send end message
