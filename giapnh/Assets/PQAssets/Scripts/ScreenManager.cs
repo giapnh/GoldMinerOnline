@@ -55,7 +55,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				// If no have panel process this command
 				// Debug.Log("Screen manager have to process this command");
 				// If screen manager can't process this command, enqueue
-				Command com = command.InputData;
+				Command com = command.InputData as Command;
 				if(com.code != CmdCode.CMD_GAME_MATCHING){
 					mNetwork.queueMessage.Enqueue(command.InputData);
 				}
