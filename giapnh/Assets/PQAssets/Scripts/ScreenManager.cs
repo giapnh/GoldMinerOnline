@@ -51,7 +51,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				if(screen.activeSelf)
 					screen.SendMessage("OnCommand", command);
 			}
-			if(command.ReceiveData == false)){
+			if(command.ReceiveData == false){
 				// If no have panel process this command
 				// Debug.Log("Screen manager have to process this command");
 				// If screen manager can't process this command, enqueue
