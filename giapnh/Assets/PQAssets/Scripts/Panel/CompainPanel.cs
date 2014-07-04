@@ -94,4 +94,9 @@ public class CompainPanel : MonoBehaviour {
 		controller.SendMessage("HidePanel" , ScreenManager.PN_COMPAIN_MAP);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_ONGAME);
 	}
+
+	void Back(){
+		controller.SendMessage("HidePanel" , ScreenManager.PN_COMPAIN_MAP);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
+	}
 }
