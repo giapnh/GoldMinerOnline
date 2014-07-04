@@ -92,7 +92,6 @@ public class WaitingRoomPanel : MonoBehaviour {
 		}
 		//all ready, game start
 		if (cmd.code == CmdCode.CMD_GAME_START) {
-			message.ReceiveData = true;
 			Debug.Log("start");
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_ONLINE_ONGAME);
 			controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
@@ -102,6 +101,24 @@ public class WaitingRoomPanel : MonoBehaviour {
 			ReadySelf.gameObject.SetActive (false);
 			ReadyOp.gameObject.SetActive (false);
 			TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
+			PlayerInfo.RoomId = 0;
+
+			message.ReceiveData = true;
+			return;
+		}
+
+		if(cmd.code == CmdCode.CMD_ROOM_EXIT){
+			//reset
+			ready_state = 0;
+			ReadySelf.gameObject.SetActive (false);
+			ReadyOp.gameObject.SetActive (false);
+			TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
+			PlayerInfo.RoomId = 0;
+			
+			controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
+			controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
+
+			message.ReceiveData = true;
 			return;
 		}
 		message.ReceiveData = false;
@@ -136,13 +153,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 			TxtReady.gameObject.transform.parent.gameObject.SetActive(false);
 			ready_state = 1;
 		}
-		/*
-		else{
-			cmd.addInt(ArgCode.ARG_CODE, 0);
-			TxtReady.text = "Ready";
-			ready_state = 0;
-		}*/
-		//TODO hien thi dau tich trang thai san sang
+		//hien thi dau tich trang thai san sang
 		ReadySelf.gameObject.SetActive (true);
 		ScreenManager.instance.Send (cmd);
 		
