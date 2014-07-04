@@ -72,4 +72,10 @@ public class HomePanel : MonoBehaviour {
 		Command cmd = new Command(CmdCode.CMD_GAME_MATCHING);
 		ScreenManager.instance.Send (cmd);
 	}
+
+	void OnQuit(){
+//		controller.SendMessage ("OnApplicationQuit");
+		ScreenManager.instance.OnApplicationQuit ();
+		Application.Quit ();
+	}
 }

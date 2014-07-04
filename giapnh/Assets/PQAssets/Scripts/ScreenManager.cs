@@ -116,7 +116,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 		Debug.Log("Cannot connect to server, please check your device network and try again!");
 	}
 	
-	void OnApplicationQuit(){
+	public void OnApplicationQuit(){
 		
 		if(mNetwork!=null)
 			mNetwork.Stop();
