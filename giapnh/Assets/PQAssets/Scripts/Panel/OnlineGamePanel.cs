@@ -24,7 +24,8 @@ public class OnlineGamePanel : MonoBehaviour {
 	public UILabel op_score_label;
 
 	// Use this for initialization
-	void Start () {
+
+	void OnEnable () {
 		op_score_label.text = PlayerInfo.OpUsername + ": 0";
 	}
 	
@@ -56,7 +57,8 @@ public class OnlineGamePanel : MonoBehaviour {
 			int map_id = cmd.getInt(ArgCode.ARG_MAP_ID, 0);
 			PlayerInfo.MapID = map_id;
 			//thay vi hien map thi load map tu prefab
-			maps[map_id-1].SetActive(true);
+			//maps[map_id-1].SetActive(true);
+			Instantiate(maps[map_id-1], new Vector3(0, 0, 0.416687f), Quaternion.identity);
 			//calculate number of item(gold, diamond, stone)
 			string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 			foreach(string item in items_list){
@@ -179,7 +181,12 @@ public class OnlineGamePanel : MonoBehaviour {
 			}
 			controller.SendMessage("HidePanel" , ScreenManager.PN_ONLINE_ONGAME);
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_GAME_RESULT);
-			
+			//TODO reset game;
+			GameObject map = GameObject.Find("Map"+PlayerInfo.MapID+"(Clone)");
+			Destroy(map);
+			item_count = 0;
+			user_score = 0;
+
 			message.ReceiveData = true;
 			return;
 		}

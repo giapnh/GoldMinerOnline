@@ -5,7 +5,7 @@ public class Map : MonoBehaviour {
 	public float[] clone_pig_times;
 	public GameObject pig;
 	GameObject pig_clone;
-	int i=0;
+//	int i=0;
 	Vector3 random_position;
 	// Use this for initialization
 	void Start () {

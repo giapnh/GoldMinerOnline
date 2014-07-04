@@ -36,13 +36,13 @@ public class Hook : MonoBehaviour {
 	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
-		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
-		//draw line
-		lineRenderer = gameObject.AddComponent<LineRenderer>();
-		lineRenderer.SetColors(c1, c2);
-		lineRenderer.SetWidth(0.02f,0.02f);
-		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-	}
+				transform.localRotation.Set (transform.localRotation.x, transform.localRotation.y, 0, 0);
+				//draw line
+				lineRenderer = gameObject.AddComponent<LineRenderer> ();
+				lineRenderer.SetColors (c1, c2);
+				lineRenderer.SetWidth (0.02f, 0.02f);
+				lineRenderer.material = new Material (Shader.Find ("Particles/Additive"));
+		}
 	
 	// Update is called once per frame
 	void Update () {
