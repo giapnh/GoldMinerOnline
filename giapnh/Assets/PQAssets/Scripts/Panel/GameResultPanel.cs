@@ -20,6 +20,8 @@ public class GameResultPanel : MonoBehaviour {
 	int bonus_cup;
 	int bonus_exp;
 	int next_level_require;
+	public GameObject SpeechBoxPrefab;
+	public UILabel txtMessage;
 	// Use this for initialization
 	void OnEnable () {
 		//level info
@@ -120,6 +122,13 @@ public class GameResultPanel : MonoBehaviour {
 			message.ReceiveData = true;
 			return;
 		}
+		//recv chat message
+		if(cmd.code == CmdCode.CMD_PLAYER_CHAT){
+			string chat_text = cmd.getString(ArgCode.ARG_MESSAGE , "");
+			ReceiveChat(chat_text);
+			message.ReceiveData = true;
+			return;
+		}
 
 		message.ReceiveData = false;
 	}
@@ -127,5 +136,28 @@ public class GameResultPanel : MonoBehaviour {
 	void Back(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_GAME_RESULT);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
+	}
+
+	
+	
+	void SendChat(){
+		//clone
+		GameObject clone = Instantiate(SpeechBoxPrefab, new Vector3(-0.2053595F, 0.7534268F, 0), Quaternion.identity) as GameObject;
+		clone.GetComponentInChildren<UILabel>().text = "" + txtMessage.text;
+		//send
+		Command cmd = new Command(CmdCode.CMD_PLAYER_CHAT);
+		cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+		cmd.addString(ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+		cmd.addString(ArgCode.ARG_MESSAGE , txtMessage.text);
+		ScreenManager.instance.Send (cmd);
+		//reset
+		txtMessage.text = "enter message";
+		Destroy (clone, 5);
+	}
+	
+	void ReceiveChat(string chat_text){
+		GameObject clone = Instantiate(SpeechBoxPrefab, new Vector3(1.059338F, 0.7533067F, 0), Quaternion.identity) as GameObject;
+		clone.GetComponentInChildren<UILabel>().text = "" + chat_text;
+		Destroy (clone, 5);
 	}
 }
