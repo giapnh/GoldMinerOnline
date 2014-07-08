@@ -12,6 +12,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 	public UILabel TxtMoveSpeed;
 	public UILabel TxtDropSpeed;
 	public UILabel TxtDragSpeed;
+	public UILabel TxtUsername;
 	public UILabel TxtCup;
 	public UILabel TxtLevel;
 	public UILabel TxtProgress;
@@ -70,10 +71,12 @@ public class WaitingRoomPanel : MonoBehaviour {
 			TxtOpMoveSpeed.text = "" + PlayerInfo.OpMoveSpeed;
 			TxtOpDropSpeed.text = "" + PlayerInfo.OpDropSpeed;
 			TxtOpDragSpeed.text = "" + PlayerInfo.OpDragSpeed;
+			TxtOpUsername.text = "" + PlayerInfo.OpUsername;
 			//self info
 			TxtMoveSpeed.text = "" + PlayerInfo.MoveSpeed;
 			TxtDropSpeed.text = "" + PlayerInfo.DropSpeed;
 			TxtDragSpeed.text = "" + PlayerInfo.DragSpeed;
+			TxtUsername.text = "" + PlayerInfo.Username;
 			
 			message.ReceiveData = true;
 			return;
