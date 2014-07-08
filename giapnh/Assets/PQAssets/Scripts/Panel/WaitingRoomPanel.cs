@@ -5,9 +5,6 @@ using IHelper;
 
 public class WaitingRoomPanel : MonoBehaviour {
 	public UILabel TxtReady;
-	public UILabel TxtOpUsername;
-	public UILabel TxtOpLevel;
-	public UILabel TxtOpCup;
 	//self
 	public UILabel TxtMoveSpeed;
 	public UILabel TxtDropSpeed;
@@ -16,11 +13,16 @@ public class WaitingRoomPanel : MonoBehaviour {
 	public UILabel TxtCup;
 	public UILabel TxtLevel;
 	public UILabel TxtProgress;
+	public UISprite Avatar;
 	public GameObject ReadySelf;
 	//opponent
 	public UILabel TxtOpMoveSpeed;
 	public UILabel TxtOpDropSpeed;
 	public UILabel TxtOpDragSpeed;
+	public UILabel TxtOpUsername;
+	public UILabel TxtOpLevel;
+	public UILabel TxtOpCup;
+	public UISprite OpAvatar;
 	public GameObject ReadyOp;
 	
 	public GameObject SpeechBoxPrefab;
@@ -54,8 +56,18 @@ public class WaitingRoomPanel : MonoBehaviour {
 			PlayerInfo.RoomId = room_id;
 			int cup_win = cmd.getInt(ArgCode.ARG_CUP_WIN, 0);
 			int cup_lost = cmd.getInt(ArgCode.ARG_CUP_LOST, 0);
+			string first_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			/**/
-			
+			//set avatar for user choi truoc mai den
+			if(first_player== PlayerInfo.Username){
+//				player.renderer.material = player_mats[0];
+//				waiter.renderer.material = player_mats[1];
+				Avatar.spriteName = "character7";
+				OpAvatar.spriteName = "character6";
+			} else{
+				Avatar.spriteName = "character6";
+				OpAvatar.spriteName = "character7";
+			}
 			message.ReceiveData = true;
 			return;
 		}
