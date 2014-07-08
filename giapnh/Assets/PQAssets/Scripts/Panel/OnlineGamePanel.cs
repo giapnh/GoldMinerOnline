@@ -207,14 +207,15 @@ public class OnlineGamePanel : MonoBehaviour {
 			Debug.Log(item_count);
 			//check end game
 			if (item_count == 0) {
+				Debug.Log ("end game");
 				Debug.Log(current_player);
 				Debug.Log(PlayerInfo.Username);
 			}
-			if(current_player==PlayerInfo.Username){
-				Debug.Log("chua vao day");
-				check_end_game();
+//			if(current_player==PlayerInfo.Username){
+//				Debug.Log("chua vao day");
+//				check_end_game();
 
-			}
+//			}
 
 			message.ReceiveData = true;
 			return;
@@ -234,7 +235,6 @@ public class OnlineGamePanel : MonoBehaviour {
 	//check end game
 	void check_end_game(){
 		if (item_count == 0) {
-			Debug.Log ("end game");
 			//send end message
 			Command cmd = new Command (CmdCode.CMD_GAME_FINISH);
 			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
