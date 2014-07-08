@@ -204,9 +204,14 @@ public class OnlineGamePanel : MonoBehaviour {
 				if(user_score<0) user_score = 0;
 				op_score_label.text = username + ": " + op_score;
 			}
-
+			Debug.Log(item_count);
 			//check end game
+			if (item_count == 0) {
+				Debug.Log(current_player);
+				Debug.Log(PlayerInfo.Username);
+			}
 			if(current_player==PlayerInfo.Username){
+				Debug.Log("chua vao day");
 				check_end_game();
 
 			}
