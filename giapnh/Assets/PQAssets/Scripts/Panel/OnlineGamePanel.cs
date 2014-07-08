@@ -26,6 +26,8 @@ public class OnlineGamePanel : MonoBehaviour {
 	// Use this for initialization
 
 	void OnEnable () {
+		user_score = 0;
+		op_score = 0;
 		op_score_label.text = PlayerInfo.OpUsername + ": 0";
 	}
 	

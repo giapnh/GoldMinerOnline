@@ -1,13 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Net/NetworkAPI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Panel/RegisterPanel.cs">
     <Files>
-      <File FileName="Assets/PQAssets/Scripts/Game/Hook.cs" Line="171" Column="27" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/CampainPanel.cs" Line="74" Column="25" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/HomePanel.cs" Line="35" Column="44" />
-      <File FileName="Assets/PQAssets/Scripts/DemoGame/DmHook.cs" Line="28" Column="16" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/OfflineResultPanel.cs" Line="19" Column="59" />
-      <File FileName="Assets/PQAssets/Scripts/Net/NetworkAPI.cs" Line="110" Column="15" />
+      <File FileName="Assets/PQAssets/Scripts/Game/Hook.cs" Line="174" Column="39" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/OnlineGamePanel.cs" Line="212" Column="36" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/SearchingOpponentPanel.cs" Line="39" Column="36" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/RegisterPanel.cs" Line="32" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
