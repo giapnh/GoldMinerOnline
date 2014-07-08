@@ -196,6 +196,7 @@
      <Compile Include="Assets\PQAssets\Scripts\Player\PlayerInfo.cs" />
      <Compile Include="Assets\PQAssets\Scripts\ScreenManager.cs" />
      <Compile Include="Assets\PQAssets\Scripts\UI\LoadingRotation.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\UI\Toast.cs" />
      <Compile Include="Assets\iTween\Plugins\iTween.cs" />
      <Compile Include="Assets\iTween\Sample\MoveSample.cs" />
      <Compile Include="Assets\iTween\Sample\RotateSample.cs" />
