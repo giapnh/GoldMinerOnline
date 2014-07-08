@@ -38,6 +38,7 @@ public class DmHook : MonoBehaviour {
 			item_count += items.Length;	
 		}
 		state = IDLE;
+		score_label.text = "Score: "+ score;
 	}
 	void Start () {
 		transform.localRotation.Set(transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -52,6 +53,16 @@ public class DmHook : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//back button
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			//reset map
+			GameObject map = GameObject.Find("Map"+map_id+"(Clone)");
+			Destroy(map);
+			item_count = 0;
+			score = 0;
+			controller.SendMessage("ShowPanel" , ScreenManager.PN_CAMPAIN_MAP);
+			controller.SendMessage("HidePanel" , ScreenManager.PN_CAMPAIN_ONGAME);
+		}
 		//rotate
 		if(state == IDLE){
 			//check finish			
@@ -144,7 +155,7 @@ public class DmHook : MonoBehaviour {
 	void check_finish(){
 		if (item_count == 0) {
 			Debug.Log ("end game");
-			controller.SendMessage("HidePanel" , ScreenManager.PN_COMPAIN_ONGAME);
+			controller.SendMessage("HidePanel" , ScreenManager.PN_CAMPAIN_ONGAME);
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_OFFLINE_GAME_RESULT);
 			offline_result.SendMessage("Score", score);
 			//reset map

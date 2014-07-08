@@ -63,7 +63,7 @@ public class HomePanel : MonoBehaviour {
 	
 	void OnCompain(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_HOME);
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_MAP);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_CAMPAIN_MAP);
 	}
 	
 	void JoinOnline(){

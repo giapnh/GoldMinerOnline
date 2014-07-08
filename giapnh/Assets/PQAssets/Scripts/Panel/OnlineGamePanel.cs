@@ -201,7 +201,7 @@ public class OnlineGamePanel : MonoBehaviour {
 				user_score_lable.text = "You: "+ user_score;
 			} else{
 				op_score += score;
-				if(user_score<0) user_score = 0;
+				if(user_score<0) op_score = 0;
 				op_score_label.text = username + ": " + op_score;
 			}
 			Debug.Log(item_count);

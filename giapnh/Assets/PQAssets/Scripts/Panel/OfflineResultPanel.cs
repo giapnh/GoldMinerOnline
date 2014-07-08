@@ -16,7 +16,7 @@ public class OfflineResultPanel : MonoBehaviour {
 
 	void Back(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_OFFLINE_GAME_RESULT);
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_COMPAIN_MAP);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_CAMPAIN_MAP);
 	}
 	public void Score(int score){
 		score_label.text = "Score: " + score;
