@@ -134,6 +134,8 @@ public class GameResultPanel : MonoBehaviour {
 	void Back(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_GAME_RESULT);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
+		GameObject.Find("Opponent/Win").gameObject.SetActive(true);
+		GameObject.Find("Self/Win").gameObject.SetActive(true);
 		PlayerInfo.MapID = 0;
 		PlayerInfo.RoomId = 0;
 		PlayerInfo.Winner = "";
