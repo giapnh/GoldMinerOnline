@@ -7,6 +7,8 @@ public class GameResultPanel : MonoBehaviour {
 	public GameObject controller;
 	public GameObject self_info;
 	public GameObject op_info;
+	public GameObject op_win_icon;
+	public GameObject self_win_icon;
 	GameObject user_info;
 	public UILabel result_lable;
 	public UILabel TxtCup;
@@ -35,11 +37,11 @@ public class GameResultPanel : MonoBehaviour {
 
 		//result
 		if (PlayerInfo.Winner == "") {
-			GameObject.Find("Opponent/Win").gameObject.SetActive(false);
-			GameObject.Find("Self/Win").gameObject.SetActive(false);
+			op_win_icon.gameObject.SetActive(false);
+			self_win_icon.gameObject.SetActive(false);
 			result_lable.text = "DRAW";
 		} else if (PlayerInfo.Winner == PlayerInfo.Username) {			
-			GameObject.Find("Opponent/Win").gameObject.SetActive(false);
+			op_win_icon.gameObject.SetActive(false);
 			result_lable.text = PlayerInfo.Winner + " Won";
 		} else {
 			GameObject.Find("Self/Win").gameObject.SetActive(false);
@@ -128,14 +130,15 @@ public class GameResultPanel : MonoBehaviour {
 			return;
 		}
 
+
 		message.ReceiveData = false;
 	}
 
 	void Back(){
 		controller.SendMessage("HidePanel" , ScreenManager.PN_GAME_RESULT);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
-		GameObject.Find("Opponent/Win").gameObject.SetActive(true);
-		GameObject.Find("Self/Win").gameObject.SetActive(true);
+		op_win_icon.gameObject.SetActive(true);
+		self_win_icon.gameObject.SetActive(true);
 		PlayerInfo.MapID = 0;
 		PlayerInfo.RoomId = 0;
 		PlayerInfo.Winner = "";
@@ -163,5 +166,11 @@ public class GameResultPanel : MonoBehaviour {
 		GameObject clone = Instantiate(SpeechBoxPrefab, new Vector3(1.059338F, 0.7533067F, 0), Quaternion.identity) as GameObject;
 		clone.GetComponentInChildren<UILabel>().text = "" + chat_text;
 		Destroy (clone, 5);
+	}
+
+	void AddFriend(){
+		Command cmd = new Command (CmdCode.CMD_ADD_FRIEND);
+		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+		ScreenManager.instance.Send (cmd);
 	}
 }

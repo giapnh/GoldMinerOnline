@@ -7,6 +7,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public NetworkAPI mNetwork;
 	//Panel
 	public GameObject[] mScreens;
+	public GameObject NotiPopup,FriendPopup;
 //	public GameObject mLoginScreen;
 //	public GameObject mRegisterScreen;
 	public bool reading = false;
@@ -21,8 +22,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public static readonly int PN_WAITING_ROOM = 7;
 	public static readonly int PN_GAME_RESULT = 8;
 	public static readonly int PN_OFFLINE_GAME_RESULT = 9;
-	
-	
+
 	//Loading dialog
 	public GameObject loading;
 	// Use this for initialization
@@ -33,6 +33,45 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 		for(int i = 1; i < mScreens.Length; i++){
 			mScreens[i].SetActive(false);
 		}
+	}
+
+	void OnCommand(SendMessageContext message){
+		//If process, return true
+		if(message.InputData == null)
+			return;
+		Command cmd = (Command)message.InputData;
+
+
+		//add friend
+		if(cmd.code == CmdCode.CMD_ADD_FRIEND){
+			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
+			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
+			if(arg_code == 0 || arg_code ==  1){
+				showNoti(msg);
+			} else{
+				//nhan loi moi ket ban
+				string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME, "");
+				GameObject noti = Instantiate (FriendPopup) as GameObject;
+				noti.SendMessage ("set_message", msg);
+				noti.SendMessage("set_username", username);
+			}
+			
+			message.ReceiveData = true;
+			return;
+		}
+
+		if(cmd.code == CmdCode.CMD_ACCEPT_FRIEND){
+			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME, "");
+			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
+
+			showNoti(msg);
+
+			message.ReceiveData = true;
+			return;
+		}
+
+		message.ReceiveData = false;
 	}
 
 	void Update(){
@@ -121,4 +160,10 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 		if(mNetwork!=null)
 			mNetwork.Stop();
 	}
+
+	public void showNoti(string msg){
+		GameObject noti = Instantiate (NotiPopup) as GameObject;
+		noti.SendMessage ("set_message", msg);
+	}
+
 }
