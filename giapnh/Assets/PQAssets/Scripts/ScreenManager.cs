@@ -44,11 +44,14 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 		//add friend
 		if(cmd.code == CmdCode.CMD_ADD_FRIEND){
+			Debug.Log ("nhan dc msg add friend");
 			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
 			if(arg_code == 0 || arg_code ==  1){
+				Debug.Log("gui msg thanh cong hoac that bai");
 				showNoti(msg);
 			} else{
+				Debug.Log("nhan loi moi ket ban");
 				//nhan loi moi ket ban
 				string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME, "");
 				GameObject noti = Instantiate (FriendPopup) as GameObject;
@@ -62,10 +65,11 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 		if(cmd.code == CmdCode.CMD_ACCEPT_FRIEND){
 			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
-			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME, "");
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
 
 			showNoti(msg);
+			//neu thanh cong thi huy nut di
+
 
 			message.ReceiveData = true;
 			return;
@@ -86,15 +90,21 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			SendMessageContext command = new SendMessageContext();
 			command.InputData = cmd;
 			command.ReceiveData = true;
+//			OnCommand(command);
 			foreach(GameObject screen in mScreens){
 				if(screen.activeSelf)
 					screen.SendMessage("OnCommand", command);
+			}
+
+			if(command.ReceiveData == false){
+				OnCommand(command);
 			}
 			if(command.ReceiveData == false){
 				// If no have panel process this command
 				// Debug.Log("Screen manager have to process this command");
 				// If screen manager can't process this command, enqueue
 				Command com = command.InputData as Command;
+
 //				if(!(com.code == CmdCode.CMD_GAME_MATCHING || com.code == CmdCode.CMD_ROOM_EXIT)){
 //					Debug.Log("Enqueue: " + com.code);
 					mNetwork.queueMessage.Enqueue(command.InputData);
@@ -164,6 +174,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public void showNoti(string msg){
 		GameObject noti = Instantiate (NotiPopup) as GameObject;
 		noti.SendMessage ("set_message", msg);
+		Destroy (noti, 2);
 	}
 
 }

@@ -17,6 +17,7 @@ public class Popup : MonoBehaviour {
 	}
 
 	void Exit(){
+		Debug.Log ("goi exit");
 		Destroy (this.gameObject);
 	}
 
@@ -28,17 +29,21 @@ public class Popup : MonoBehaviour {
 		this.username = name;
 	}
 
-	public void Accept(string username){
+	public void Accept(){
 		Command cmd = new Command (CmdCode.CMD_ACCEPT_FRIEND);
-		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, username);
+		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
 		cmd.addInt (ArgCode.ARG_CODE, 1);
 		ScreenManager.instance.Send (cmd);
+		Debug.Log ("goi exit");
+		Exit ();
 	}
 
-	public void Deny(string username){
+	public void Deny(){
 		Command cmd = new Command (CmdCode.CMD_ACCEPT_FRIEND);
-		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, username);
+		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
 		cmd.addInt (ArgCode.ARG_CODE, 0);
 		ScreenManager.instance.Send (cmd);
+		Debug.Log ("goi exit");
+		Exit ();
 	}
 }

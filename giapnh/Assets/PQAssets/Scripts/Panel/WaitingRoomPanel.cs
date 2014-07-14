@@ -190,4 +190,9 @@ public class WaitingRoomPanel : MonoBehaviour {
 		controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 	}
+	void AddFriend(){
+		Command cmd = new Command (CmdCode.CMD_ADD_FRIEND);
+		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+		ScreenManager.instance.Send (cmd);
+	}
 }

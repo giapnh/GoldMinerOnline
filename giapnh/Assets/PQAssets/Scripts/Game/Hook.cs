@@ -62,7 +62,7 @@ public class Hook : MonoBehaviour {
 			//if(current_player == PlayerInfo.Username){
 				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
 					var mouse_pos = Input.mousePosition;
-					if(mouse_pos.y<370 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+					if(mouse_pos.y < 370 && transform.parent.GetComponent<Character>().state== Character.IDLE){
 						initialPosition = transform.position;
 						rotateDirection = transform.position - center_point;
 						Vector3 velocity = rotateDirection*hook_speed;
@@ -101,6 +101,7 @@ public class Hook : MonoBehaviour {
 					onlineGame_info.item_count --;
 					Debug.Log ("so item "+ onlineGame_info.item_count);
 				}
+				Debug.Log("return vi y > initial y khi dang catching");
 				returnIDLE();
 			}
 		}
@@ -110,9 +111,13 @@ public class Hook : MonoBehaviour {
 			if(transform.position.y <= -0.9 || transform.position.x < -1.6 || transform.position.x > 1.6){
 				caught_type = 0;
 				item_id = 0;
+				Debug.Log("goback vi gap vien");
 				GoBack();
 			}
-			if(transform.position.y > initialPosition.y) returnIDLE();
+			if(transform.position.y > initialPosition.y){
+				returnIDLE();
+				Debug.Log("return vi y > initial y khi dang hooking");
+			}
 		}
 	}
 
@@ -150,9 +155,11 @@ public class Hook : MonoBehaviour {
 
 
 	void GoBack(){
+		Debug.Log ("da goi goback");
 		rigidbody.velocity =  -rotateDirection * hook_speed;
 	}
 	void returnIDLE(){
+		Debug.Log ("da return idle");
 		state = WAITING;
 		renderer.material.mainTexture = textures[0];
 		rigidbody.velocity = new Vector3(0,0,0);
