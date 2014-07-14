@@ -24,7 +24,8 @@ public class WaitingRoomPanel : MonoBehaviour {
 	public UILabel TxtOpCup;
 	public UISprite OpAvatar;
 	public GameObject ReadyOp;
-	
+
+	public UIButton BtnAddFriend;
 	public GameObject SpeechBoxPrefab;
 	public UILabel txtMessage;
 	public GameObject controller;
@@ -32,7 +33,11 @@ public class WaitingRoomPanel : MonoBehaviour {
 	private float hide_speechBoxOP_time;
 	private int ready_state = 0;
 	private int room_id;
+	UILabel button_label;
 	// Use this for initialization
+	void Start(){
+		button_label = BtnAddFriend.GetComponentInChildren<UILabel>();
+	}
 	void OnEnable () {
 		TxtCup.text = PlayerPrefs.GetInt ("player_cup").ToString();
 		TxtLevel.text = PlayerPrefs.GetInt ("player_level").ToString ();
@@ -57,8 +62,9 @@ public class WaitingRoomPanel : MonoBehaviour {
 			int cup_win = cmd.getInt(ArgCode.ARG_CUP_WIN, 0);
 			int cup_lost = cmd.getInt(ArgCode.ARG_CUP_LOST, 0);
 			string first_player = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+
 			/**/
-			//set avatar for user choi truoc mai den
+			//set avatar for user choi truoc mau den
 			if(first_player== PlayerInfo.Username){
 //				player.renderer.material = player_mats[0];
 //				waiter.renderer.material = player_mats[1];
@@ -68,6 +74,7 @@ public class WaitingRoomPanel : MonoBehaviour {
 				Avatar.spriteName = "character6";
 				OpAvatar.spriteName = "character7";
 			}
+
 			message.ReceiveData = true;
 			return;
 		}
@@ -89,7 +96,26 @@ public class WaitingRoomPanel : MonoBehaviour {
 			TxtDropSpeed.text = "" + PlayerInfo.DropSpeed;
 			TxtDragSpeed.text = "" + PlayerInfo.DragSpeed;
 			TxtUsername.text = "" + PlayerInfo.Username;
-			
+			//them nut add friend neu chua la ban, accept neu da dc request
+			PlayerInfo.FriendType = cmd.getInt(ArgCode.ARG_FRIEND_TYPE, 0);
+			switch(PlayerInfo.FriendType){
+			case 0:
+				//chua la ban
+				button_label.text = "Add Friend";
+				break;
+			case 1:
+				//da la ban
+				button_label.text = "Unfriend";
+				break;
+			case 2:
+				//da gui loi moi ket ban
+				button_label.text = "Cancel Request";
+				break;
+			case 3:
+				//dang cho accept
+				button_label.text = "Accept Friend";
+				break;
+			}
 			message.ReceiveData = true;
 			return;
 		}
@@ -191,8 +217,33 @@ public class WaitingRoomPanel : MonoBehaviour {
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 	}
 	void AddFriend(){
-		Command cmd = new Command (CmdCode.CMD_ADD_FRIEND);
-		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
-		ScreenManager.instance.Send (cmd);
+		Command cmd;
+		switch(PlayerInfo.FriendType){
+		case 0:
+			//gui add friend
+			cmd = new Command (CmdCode.CMD_ADD_FRIEND);
+			cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+			ScreenManager.instance.Send (cmd);
+			break;
+		case 1:
+			//gui unfriend
+			cmd = new Command(CmdCode.CMD_REMOVE_FRIEND);
+			cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+			ScreenManager.instance.Send (cmd);
+			break;
+		case 2:
+			//huy ket ban
+			cmd = new Command(CmdCode.CMD_CANCEL_REQUEST);
+			cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+			ScreenManager.instance.Send (cmd);
+			break;
+		case 3:
+			//chap nhan ket ban
+			cmd = new Command (CmdCode.CMD_ACCEPT_FRIEND);
+			cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
+			cmd.addInt (ArgCode.ARG_CODE, 1);
+			ScreenManager.instance.Send (cmd);
+			break;
+		}
 	}
 }

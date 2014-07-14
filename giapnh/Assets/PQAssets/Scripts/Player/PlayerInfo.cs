@@ -19,6 +19,7 @@ public class PlayerInfo
 	public static int OpMoveSpeed = 0;
 	public static int OpDropSpeed = 0;
 	public static int OpDragSpeed = 0;
+	public static int FriendType = 0;
 	public PlayerInfo ()
 	{
 		

@@ -21,6 +21,7 @@ namespace INet
 		public static short ARG_PLAYER_SPEED_MOVE = 30;
 	    public static short ARG_PLAYER_SPEED_DROP = 31;
 	    public static short ARG_PLAYER_SPEED_DRAG = 32;
+		public static short ARG_FRIEND_TYPE = 40;
 		
 		public static short ARG_ROOM_ID = 100;
 		public static short ARG_CUP_WIN = 101;

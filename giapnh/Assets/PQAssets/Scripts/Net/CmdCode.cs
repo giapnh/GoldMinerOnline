@@ -16,6 +16,7 @@ namespace INet
     	public static readonly int CMD_ACCEPT_FRIEND = 12;
     	public static readonly int CMD_REMOVE_FRIEND = 13;
     	public static readonly int CMD_PLAYER_CHAT = 20;
+		public static readonly int CMD_CANCEL_REQUEST = 14;
 
     	public static readonly int CMD_GAME_MATCHING = 100;
 		public static readonly int CMD_GAME_MATCHING_CANCEL = 101;

@@ -25,6 +25,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 	//Loading dialog
 	public GameObject loading;
+	public UILabel friend_button_label;
 	// Use this for initialization
 	void Start () {
 		instance = this;
@@ -44,21 +45,57 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 		//add friend
 		if(cmd.code == CmdCode.CMD_ADD_FRIEND){
-			Debug.Log ("nhan dc msg add friend");
 			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
-			if(arg_code == 0 || arg_code ==  1){
-				Debug.Log("gui msg thanh cong hoac that bai");
+			if(arg_code == 0 ){
+				//gui ket ban khong thanh cong
 				showNoti(msg);
+			}
+			else if(arg_code ==  1){
+				//gui ket ban thanh cong
+				showNoti(msg);
+				friend_button_label.text = "Cancel Request";
+				PlayerInfo.FriendType = 2;
 			} else{
-				Debug.Log("nhan loi moi ket ban");
 				//nhan loi moi ket ban
 				string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME, "");
 				GameObject noti = Instantiate (FriendPopup) as GameObject;
 				noti.SendMessage ("set_message", msg);
 				noti.SendMessage("set_username", username);
 			}
-			
+
+			message.ReceiveData = true;
+			return;
+		}
+
+		if(cmd.code == CmdCode.CMD_CANCEL_REQUEST){
+			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
+			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
+			if(arg_code == 1){
+				friend_button_label.text = "Add Friend";
+				PlayerInfo.FriendType = 0;
+				//doi lai button tu cancel ve add friend
+			}
+			showNoti(msg);
+
+			message.ReceiveData = true;
+			return;
+		}
+
+		if(cmd.code == CmdCode.CMD_REMOVE_FRIEND){
+			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
+			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
+			if(arg_code == 1){
+				friend_button_label.text = "Add Friend";
+				PlayerInfo.FriendType = 0;
+				//doi lai button tu remove ve accept friend
+			}else if(arg_code == 2){
+				//nhan dc huy ket ban
+				friend_button_label.text = "Add Friend";
+				PlayerInfo.FriendType = 0;
+			}
+			showNoti(msg);
+
 			message.ReceiveData = true;
 			return;
 		}
@@ -68,12 +105,15 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
 
 			showNoti(msg);
-			//neu thanh cong thi huy nut di
+			
+			friend_button_label.text = "Remove Friend";
+			PlayerInfo.FriendType = 1;
 
 
 			message.ReceiveData = true;
 			return;
 		}
+
 
 		message.ReceiveData = false;
 	}

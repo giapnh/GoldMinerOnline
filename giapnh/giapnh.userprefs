@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Game/Hook.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Panel/WaitingRoomPanel.cs">
     <Files>
-      <File FileName="Assets/PQAssets/Scripts/Panel/GameResultPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Game/Hook.cs" Line="119" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/OnlineGamePanel.cs" Line="31" Column="55" />
-      <File FileName="Assets/PQAssets/Scripts/Net/CmdCode.cs" Line="1" Column="1" />
+      <File FileName="Assets/PQAssets/Scripts/Net/CmdCode.cs" Line="16" Column="55" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/Popup.cs" Line="34" Column="52" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/WaitingRoomPanel.cs" Line="27" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

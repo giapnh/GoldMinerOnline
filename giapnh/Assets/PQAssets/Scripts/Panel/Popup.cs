@@ -34,7 +34,9 @@ public class Popup : MonoBehaviour {
 		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
 		cmd.addInt (ArgCode.ARG_CODE, 1);
 		ScreenManager.instance.Send (cmd);
-		Debug.Log ("goi exit");
+		UILabel friend_button_label = GameObject.Find ("BtnAddFriend/Label").GetComponentInChildren<UILabel>();
+		friend_button_label.text = "Remove Friend";
+		PlayerInfo.FriendType = 1;
 		Exit ();
 	}
 
@@ -43,7 +45,9 @@ public class Popup : MonoBehaviour {
 		cmd.addString (ArgCode.ARG_PLAYER_USERNAME, PlayerInfo.OpUsername);
 		cmd.addInt (ArgCode.ARG_CODE, 0);
 		ScreenManager.instance.Send (cmd);
-		Debug.Log ("goi exit");
+		UILabel friend_button_label = GameObject.Find ("BtnAddFriend/Label").GetComponentInChildren<UILabel>();
+		friend_button_label.text = "Add Friend";
+		PlayerInfo.FriendType = 0;
 		Exit ();
 	}
 }
