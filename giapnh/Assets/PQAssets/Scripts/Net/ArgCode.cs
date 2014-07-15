@@ -12,6 +12,7 @@ namespace INet
 		public static short ARG_LIMIT = 3;
 		public static short ARG_OFFSET = 4;
 		public static short ARG_AMOUNT = 5;
+		public static short ARG_COUNT = 8;
 
 		public static short ARG_PLAYER_USERNAME = 20;
 		public static short ARG_PLAYER_PASSWRD = 21;

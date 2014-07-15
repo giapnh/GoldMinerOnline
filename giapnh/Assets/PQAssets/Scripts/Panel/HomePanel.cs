@@ -59,6 +59,7 @@ public class HomePanel : MonoBehaviour {
 			message.ReceiveData = true;
 			return;
 		}
+		message.ReceiveData = false;
 	}
 	
 	void OnCompain(){
@@ -83,7 +84,6 @@ public class HomePanel : MonoBehaviour {
 		cmd.addInt (ArgCode.ARG_LIMIT,100);
 		cmd.addInt (ArgCode.ARG_OFFSET,0);
 		ScreenManager.instance.Send (cmd);
-		controller.SendMessage("HidePanel" , ScreenManager.PN_HOME);
 		controller.SendMessage("ShowPanel" , ScreenManager.PN_FRIENDS_LIST);
 	}
 }

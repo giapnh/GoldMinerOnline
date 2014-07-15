@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
 using INet;
-
+using IHelper;
 public class ScreenManager : MonoBehaviour,NetworkListener {
 	public static ScreenManager instance;
 	public NetworkAPI mNetwork;
 	//Panel
 	public GameObject[] mScreens;
-	public GameObject NotiPopup,FriendPopup;
+	public GameObject NotiPopup,FriendPopup, ConfirmPopup;
 //	public GameObject mLoginScreen;
 //	public GameObject mRegisterScreen;
 	public bool reading = false;
@@ -111,6 +111,41 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			PlayerInfo.FriendType = 1;
 
 
+			message.ReceiveData = true;
+			return;
+		}
+
+		if (cmd.code == CmdCode.CMD_INVITE_GAME) {
+			Debug.Log("nhan dc thong bao moi than hcong");
+			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
+			string msg = cmd.getString(ArgCode.ARG_MESSAGE,"");
+
+			if(arg_code == 0 || arg_code ==1){
+				// gui thanh cong hay that bai
+			} else if (arg_code == 2){
+				// nhan dc loi moi choi
+				// show confirm msg
+				GameObject popup = Instantiate (ConfirmPopup) as GameObject;
+				popup.SendMessage("set_command_type", CmdCode.CMD_ACCEPT_INVITE_GAME);
+				popup.SendMessage("set_username", username);
+				popup.SendMessage ("set_message", msg);
+			}
+			showNoti(msg);
+
+			message.ReceiveData = true;
+			return;
+		}
+
+		if(cmd.code == CmdCode.CMD_GAME_MATCHING){
+			int result = cmd.getInt(ArgCode.ARG_CODE, 0);
+			if(result==1){
+				//tim thay
+				for(int i = 1; i < mScreens.Length; i++){
+					mScreens[i].SetActive(false);
+				}
+				ShowPanel(ScreenManager.PN_WAITING_ROOM);
+			}
 			message.ReceiveData = true;
 			return;
 		}

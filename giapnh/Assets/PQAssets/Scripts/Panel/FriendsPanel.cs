@@ -31,7 +31,7 @@ public class FriendsPanel : MonoBehaviour {
 			return;
 		Command cmd = (Command)message.InputData;
 		if (cmd.code == CmdCode.CMD_LIST_FRIEND) {
-			friends_num = cmd.getInt(ArgCode.ARG_CODE,0);		
+			friends_num = cmd.getInt(ArgCode.ARG_COUNT,0);		
 		}
 		if (cmd.code == CmdCode.CMD_FRIEND_INFO) {
 			string name = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
@@ -42,7 +42,9 @@ public class FriendsPanel : MonoBehaviour {
 
 			//create clone in grid then reposition
 			GameObject friend = Instantiate (FriendPrefab) as GameObject;
-			friend.SendMessage("set_info",friend_info);
+			friend.SendMessage("set_level",level);
+			friend.SendMessage("set_cup",cup);
+			friend.SendMessage("set_online_status",online_status);
 			friend.SendMessage("set_name", name);
 			friend.transform.parent = friends_grid.transform;
 			friends_num --;
@@ -50,6 +52,11 @@ public class FriendsPanel : MonoBehaviour {
 				//reposition
 				friends_grid.GetComponent<UIGrid>().Reposition();
 			}
+
+			message.ReceiveData = true;
+			return;
 		}
+
+		message.ReceiveData = false;
 	}
 }
