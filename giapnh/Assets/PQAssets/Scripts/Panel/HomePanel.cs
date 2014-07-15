@@ -77,4 +77,13 @@ public class HomePanel : MonoBehaviour {
 		ScreenManager.instance.OnApplicationQuit ();
 		Application.Quit ();
 	}
+
+	void InviteFriend(){
+		Command cmd = new Command(CmdCode.CMD_LIST_FRIEND);
+		cmd.addInt (ArgCode.ARG_LIMIT,100);
+		cmd.addInt (ArgCode.ARG_OFFSET,0);
+		ScreenManager.instance.Send (cmd);
+		controller.SendMessage("HidePanel" , ScreenManager.PN_HOME);
+		controller.SendMessage("ShowPanel" , ScreenManager.PN_FRIENDS_LIST);
+	}
 }

@@ -17,6 +17,9 @@ namespace INet
     	public static readonly int CMD_REMOVE_FRIEND = 13;
     	public static readonly int CMD_PLAYER_CHAT = 20;
 		public static readonly int CMD_CANCEL_REQUEST = 14;
+		public static readonly int CMD_INVITE_GAME = 15;
+		public static readonly int CMD_ACCEPT_INVITE_GAME = 16;
+		public static readonly int CMD_FRIEND_INFO = 30;
 
     	public static readonly int CMD_GAME_MATCHING = 100;
 		public static readonly int CMD_GAME_MATCHING_CANCEL = 101;
@@ -33,6 +36,7 @@ namespace INet
 		public static readonly int CMD_PLAYER_TURN_TIME_OUT = 140;
 		public static readonly int CMD_GAME_FINISH = 160;
 		public static readonly int CMD_PLAYER_GAME_RESULT = 161;
+
 	}
 }
 
