@@ -80,10 +80,14 @@ public class HomePanel : MonoBehaviour {
 	}
 
 	void InviteFriend(){
-		Command cmd = new Command(CmdCode.CMD_LIST_FRIEND);
-		cmd.addInt (ArgCode.ARG_LIMIT,100);
-		cmd.addInt (ArgCode.ARG_OFFSET,0);
-		ScreenManager.instance.Send (cmd);
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_FRIENDS_LIST);
+		if (ScreenManager.instance.mScreens [ScreenManager.PN_FRIENDS_LIST].activeSelf) {
+			controller.SendMessage("HidePanel" , ScreenManager.PN_FRIENDS_LIST);
+		} else{
+			Command cmd = new Command(CmdCode.CMD_LIST_FRIEND);
+			cmd.addInt (ArgCode.ARG_LIMIT,100);
+			cmd.addInt (ArgCode.ARG_OFFSET,0);
+			ScreenManager.instance.Send (cmd);
+			controller.SendMessage("ShowPanel" , ScreenManager.PN_FRIENDS_LIST);
+		}
 	}
 }

@@ -123,6 +123,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 			if(arg_code == 0 || arg_code ==1){
 				// gui thanh cong hay that bai
+				showNoti(msg);
 			} else if (arg_code == 2){
 				// nhan dc loi moi choi
 				// show confirm msg
@@ -131,7 +132,6 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				popup.SendMessage("set_username", username);
 				popup.SendMessage ("set_message", msg);
 			}
-			showNoti(msg);
 
 			message.ReceiveData = true;
 			return;
