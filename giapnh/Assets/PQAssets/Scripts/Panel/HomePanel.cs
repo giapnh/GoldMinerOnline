@@ -11,6 +11,12 @@ public class HomePanel : MonoBehaviour {
 	public UILabel TxtDropSpeed;
 	public UILabel TxtDragSpeed;
 	public GameObject controller;
+
+	//Friend
+	
+	public GameObject FriendPrefab;
+	public GameObject friends_grid;
+	int friends_num;
 	// Use this for initialization
 	void Start () {
 	}
@@ -74,6 +80,33 @@ public class HomePanel : MonoBehaviour {
 			return;
 		}
 
+		if (cmd.code == CmdCode.CMD_LIST_FRIEND) {
+			friends_num = cmd.getInt(ArgCode.ARG_COUNT,0);		
+		}
+		if (cmd.code == CmdCode.CMD_FRIEND_INFO) {
+			string name = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
+			int level = cmd.getInt(ArgCode.ARG_PLAYER_LEVEL,0);
+			int cup = cmd.getInt(ArgCode.ARG_PLAYER_CUP,0);
+			int online_status = cmd.getInt(ArgCode.ARG_ONLINE,0);
+			object friend_info = new object[level,cup,online_status];
+			
+			//create clone in grid then reposition
+			GameObject friend = Instantiate (FriendPrefab) as GameObject;
+			friend.SendMessage("set_level",level);
+			friend.SendMessage("set_cup",cup);
+			friend.SendMessage("set_online_status",online_status);
+			friend.SendMessage("set_name", name);
+			friend.transform.parent = friends_grid.transform;
+			friends_num --;
+			if(friends_num == 0){
+				//reposition
+				friends_grid.GetComponent<UIGrid>().Reposition();
+			}
+			
+			message.ReceiveData = true;
+			return;
+		}
+
 		message.ReceiveData = false;
 	}
 	
@@ -93,7 +126,7 @@ public class HomePanel : MonoBehaviour {
 		ScreenManager.instance.OnApplicationQuit ();
 		Application.Quit ();
 	}
-
+	/*
 	void InviteFriend(){
 		if (ScreenManager.instance.mScreens [ScreenManager.PN_FRIENDS_LIST].activeSelf) {
 			controller.SendMessage("HidePanel" , ScreenManager.PN_FRIENDS_LIST);
@@ -104,5 +137,5 @@ public class HomePanel : MonoBehaviour {
 			ScreenManager.instance.Send (cmd);
 			controller.SendMessage("ShowPanel" , ScreenManager.PN_FRIENDS_LIST);
 		}
-	}
+	}*/
 }

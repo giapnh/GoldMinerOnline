@@ -12,9 +12,7 @@ public class FriendsPanel : MonoBehaviour {
 	// Use this for initialization
 
 	void OnEnable(){
-		List<GameObject> children = new List<GameObject>();
-		foreach (Transform child in friends_grid.transform) children.Add(child.gameObject);
-		children.ForEach (child => Destroy (child));
+		Refresh_List ();
 	}
 	void Start () {
 	
@@ -58,5 +56,17 @@ public class FriendsPanel : MonoBehaviour {
 		}
 
 		message.ReceiveData = false;
+	}
+
+	void Refresh_List(){
+		//xoa list cu
+		List<GameObject> children = new List<GameObject>();
+		foreach (Transform child in friends_grid.transform) children.Add(child.gameObject);
+		children.ForEach (child => Destroy (child));
+		//get friend
+		Command cmd = new Command(CmdCode.CMD_LIST_FRIEND);
+		cmd.addInt (ArgCode.ARG_LIMIT,100);
+		cmd.addInt (ArgCode.ARG_OFFSET,0);
+		ScreenManager.instance.Send (cmd);
 	}
 }

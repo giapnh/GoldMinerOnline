@@ -22,7 +22,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 	public static readonly int PN_WAITING_ROOM = 7;
 	public static readonly int PN_GAME_RESULT = 8;
 	public static readonly int PN_OFFLINE_GAME_RESULT = 9;
-	public static readonly int PN_FRIENDS_LIST = 10;
+	//public static readonly int PN_FRIENDS_LIST = 10;
 
 	//Loading dialog
 	public GameObject loading;
@@ -158,18 +158,16 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			command.InputData = cmd;
 			command.ReceiveData = true;
 //			OnCommand(command);
-			lock(command){
 				foreach(GameObject screen in mScreens){
 					if(screen.activeSelf){
 						screen.SendMessage("OnCommand", command);
 						break;
 					}
 				}
-			}
 
-//			if(command.ReceiveData == false){
-//				OnCommand(command);
-//			}
+			if(command.ReceiveData == false){
+				OnCommand(command);
+			}
 			if(command.ReceiveData == false){
 				// If no have panel process this command
 				// Debug.Log("Screen manager have to process this command");
@@ -177,12 +175,12 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				Command com = command.InputData as Command;
 
 //				if(!(com.code == CmdCode.CMD_GAME_MATCHING || com.code == CmdCode.CMD_ROOM_EXIT)){
-					Debug.Log("Enqueue: " + com.code);
+//					Debug.Log("Enqueue: " + com.code);
 
 					mNetwork.queueMessage.Enqueue(command.InputData);
 //				}
 			}
-			Debug.Log("Queue size : " + mNetwork.queueMessage.Count);
+//			Debug.Log("Queue size : " + mNetwork.queueMessage.Count);
 		}
 //			reading = false;
 //		}
