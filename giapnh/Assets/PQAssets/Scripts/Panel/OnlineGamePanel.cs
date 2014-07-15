@@ -173,6 +173,7 @@ public class OnlineGamePanel : MonoBehaviour {
 
 		// finish game
 		if (cmd.code == CmdCode.CMD_GAME_FINISH) {
+			Debug.Log("nhan dc finish");
 			int result = cmd.getInt(ArgCode.ARG_CODE,0);
 			if(result == 0){
 				PlayerInfo.Winner = "";

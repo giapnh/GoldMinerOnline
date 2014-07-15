@@ -106,9 +106,14 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE, "");
 
 			showNoti(msg);
-			
-			friend_button_label.text = "Remove Friend";
-			PlayerInfo.FriendType = 1;
+
+			if(arg_code==0){
+				friend_button_label.text = "Add Friend";
+				PlayerInfo.FriendType = 0;
+			} else{
+				friend_button_label.text = "Remove Friend";
+				PlayerInfo.FriendType = 1;
+			}
 
 
 			message.ReceiveData = true;
@@ -116,7 +121,6 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 		}
 
 		if (cmd.code == CmdCode.CMD_INVITE_GAME) {
-			Debug.Log("nhan dc thong bao moi than hcong");
 			string username = cmd.getString(ArgCode.ARG_PLAYER_USERNAME,"");
 			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE,"");
@@ -133,19 +137,6 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				popup.SendMessage ("set_message", msg);
 			}
 
-			message.ReceiveData = true;
-			return;
-		}
-
-		if(cmd.code == CmdCode.CMD_GAME_MATCHING){
-			int result = cmd.getInt(ArgCode.ARG_CODE, 0);
-			if(result==1){
-				//tim thay
-				for(int i = 1; i < mScreens.Length; i++){
-					mScreens[i].SetActive(false);
-				}
-				ShowPanel(ScreenManager.PN_WAITING_ROOM);
-			}
 			message.ReceiveData = true;
 			return;
 		}
@@ -167,14 +158,18 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			command.InputData = cmd;
 			command.ReceiveData = true;
 //			OnCommand(command);
-			foreach(GameObject screen in mScreens){
-				if(screen.activeSelf)
-					screen.SendMessage("OnCommand", command);
+			lock(command){
+				foreach(GameObject screen in mScreens){
+					if(screen.activeSelf){
+						screen.SendMessage("OnCommand", command);
+						break;
+					}
+				}
 			}
 
-			if(command.ReceiveData == false){
-				OnCommand(command);
-			}
+//			if(command.ReceiveData == false){
+//				OnCommand(command);
+//			}
 			if(command.ReceiveData == false){
 				// If no have panel process this command
 				// Debug.Log("Screen manager have to process this command");
@@ -182,16 +177,17 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				Command com = command.InputData as Command;
 
 //				if(!(com.code == CmdCode.CMD_GAME_MATCHING || com.code == CmdCode.CMD_ROOM_EXIT)){
-//					Debug.Log("Enqueue: " + com.code);
+					Debug.Log("Enqueue: " + com.code);
+
 					mNetwork.queueMessage.Enqueue(command.InputData);
 //				}
 			}
-//			Debug.Log("Queue size : " + mNetwork.queueMessage.Count);
+			Debug.Log("Queue size : " + mNetwork.queueMessage.Count);
 		}
 //			reading = false;
 //		}
 	}
-	
+
 	public void ShowPanel(int panelId){
 		((GameObject)mScreens[panelId]).SetActive(true);
 	}

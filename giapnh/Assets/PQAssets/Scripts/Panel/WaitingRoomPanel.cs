@@ -209,12 +209,12 @@ public class WaitingRoomPanel : MonoBehaviour {
 		cmd.addInt(ArgCode.ARG_ROOM_ID, room_id);
 		ScreenManager.instance.Send (cmd);
 
-		ready_state = 0;
-		ReadySelf.gameObject.SetActive (false);
-		ReadyOp.gameObject.SetActive (false);
-		TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
-		controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
-		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
+//		ready_state = 0;
+//		ReadySelf.gameObject.SetActive (false);
+//		ReadyOp.gameObject.SetActive (false);
+//		TxtReady.gameObject.transform.parent.gameObject.SetActive(true);
+//		controller.SendMessage("HidePanel" , ScreenManager.PN_WAITING_ROOM);
+//		controller.SendMessage("ShowPanel" , ScreenManager.PN_HOME);
 	}
 	void AddFriend(){
 		Command cmd;
