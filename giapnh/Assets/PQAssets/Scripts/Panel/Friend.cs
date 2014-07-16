@@ -17,6 +17,7 @@ public class Friend : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Destroy(this.gameObject.GetComponent<UIPanel>());
 	
 	}
 	
