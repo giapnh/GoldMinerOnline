@@ -236,11 +236,8 @@ public class OnlineGamePanel : MonoBehaviour {
 	}
 	
 	//check end game
-	void check_end_game(){
-		Debug.Log ("check end game");
-		Debug.Log ("con lai: " + item_count);
+	public void check_end_game(){
 		if (item_count == 0) {
-			Debug.Log ("goi den khi item = 0");
 			//send end message
 			Command cmd = new Command (CmdCode.CMD_GAME_FINISH);
 			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);

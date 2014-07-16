@@ -178,7 +178,7 @@ public class Hook : MonoBehaviour {
 				cmd.addInt (ArgCode.ARG_CODE, caught_type);
 				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 				ScreenManager.instance.Send (cmd);
-				onlineGameScreen.SendMessage("check_end_game");
+			onlineGameScreen.GetComponent<OnlineGamePanel>().check_end_game();
 		}	
 	}
 }
