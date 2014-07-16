@@ -150,6 +150,19 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			message.ReceiveData = true;
 			return;
 		}
+		
+		if(cmd.code == CmdCode.CMD_GAME_MATCHING){
+			int result = cmd.getInt(ArgCode.ARG_CODE, 0);
+			if(result==1){
+				//tim thay
+				for(int i = 1; i < ScreenManager.instance.mScreens.Length; i++){
+					ScreenManager.instance.mScreens[i].SetActive(false);
+				}
+				ScreenManager.instance.ShowPanel(ScreenManager.PN_WAITING_ROOM);
+			}
+			message.ReceiveData = true;
+			return;
+		}
 
 
 		message.ReceiveData = false;
