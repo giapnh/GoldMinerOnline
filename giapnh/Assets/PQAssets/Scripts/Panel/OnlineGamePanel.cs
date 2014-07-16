@@ -237,11 +237,15 @@ public class OnlineGamePanel : MonoBehaviour {
 	
 	//check end game
 	public void check_end_game(){
+		StartCoroutine (wait ());
 		if (item_count == 0) {
 			//send end message
 			Command cmd = new Command (CmdCode.CMD_GAME_FINISH);
 			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
 			ScreenManager.instance.Send (cmd);
 		}
+	}
+	public IEnumerator wait(){
+		yield return new WaitForSeconds(1);
 	}
 }
