@@ -60,9 +60,11 @@ public class FriendsPanel : MonoBehaviour {
 
 	void Refresh_List(){
 		//xoa list cu
-		List<GameObject> children = new List<GameObject>();
-		foreach (Transform child in friends_grid.transform) children.Add(child.gameObject);
-		children.ForEach (child => Destroy (child));
+//		List<GameObject> children = new List<GameObject>();
+		foreach (Transform child in friends_grid.transform)
+						Destroy (child.gameObject);
+//		foreach (Transform child in friends_grid.transform) children.Add(child.gameObject);
+//		children.ForEach (child => Destroy (child));
 		//get friend
 		Command cmd = new Command(CmdCode.CMD_LIST_FRIEND);
 		cmd.addInt (ArgCode.ARG_LIMIT,100);
