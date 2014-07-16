@@ -9,7 +9,7 @@ public class Popup : MonoBehaviour {
 	int type=0;
 	// Use this for initialization
 	void Start () {
-	
+		StartCoroutine (wait (1.5f));
 	}
 	
 	// Update is called once per frame
@@ -17,13 +17,18 @@ public class Popup : MonoBehaviour {
 	
 	}
 
-	void Exit(){
-		Debug.Log ("goi exit");
-		Destroy (this.gameObject);
+	public IEnumerator wait(float seconds){
+		yield return new WaitForSeconds (seconds);
 		if (this.type == CmdCode.CMD_DISCONNECT) {
-			Debug.Log("quit");
 			Application.Quit();		
+			
 		}
+//		Exit ();
+	}
+
+	void Exit(){
+		Destroy (this.gameObject);
+
 	}
 
 	public void set_message(string msg){
