@@ -55,7 +55,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			else if(arg_code ==  1){
 				//gui ket ban thanh cong
 				showNoti(msg);
-				friend_button_label.text = "Cancel Request";
+				friend_button_label.text = "Cancel";
 				PlayerInfo.FriendType = 2;
 			} else{
 				//nhan loi moi ket ban
@@ -111,7 +111,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				friend_button_label.text = "Add Friend";
 				PlayerInfo.FriendType = 0;
 			} else{
-				friend_button_label.text = "Remove Friend";
+				friend_button_label.text = "Unfriend";
 				PlayerInfo.FriendType = 1;
 			}
 
@@ -125,7 +125,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			int arg_code = cmd.getInt(ArgCode.ARG_CODE, 0);
 			string msg = cmd.getString(ArgCode.ARG_MESSAGE,"");
 
-			if(arg_code == 0 || arg_code ==1){
+			if(arg_code == 0){
 				// gui thanh cong hay that bai
 				showNoti(msg);
 			} else if (arg_code == 2){
