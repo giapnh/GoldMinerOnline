@@ -123,6 +123,8 @@ public class HomePanel : MonoBehaviour {
 	}
 
 	void OnQuit(){
+		Command cmd = new Command(CmdCode.CMD_LOGOUT);
+		ScreenManager.instance.Send (cmd);
 		ScreenManager.instance.OnApplicationQuit ();
 		Application.Quit ();
 	}

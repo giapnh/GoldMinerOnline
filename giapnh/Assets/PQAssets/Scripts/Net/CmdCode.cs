@@ -9,6 +9,8 @@ namespace INet
 		public static readonly int CMD_REGISTER = 1;
 		public static readonly int CMD_LOGIN = 2;
 		public static readonly int CMD_PLAYER_INFO = 3;
+		public static readonly int CMD_DISCONNECT = 4;
+		public static readonly int CMD_LOGOUT = 5;
 		public static readonly int CMD_OPPONENT_INFO = 30;
 		
     	public static readonly int  CMD_LIST_FRIEND = 10;

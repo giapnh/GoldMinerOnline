@@ -6,6 +6,7 @@ using IHelper;
 public class Popup : MonoBehaviour {
 	public UILabel message;
 	string username = "";
+	int type=0;
 	// Use this for initialization
 	void Start () {
 	
@@ -19,6 +20,10 @@ public class Popup : MonoBehaviour {
 	void Exit(){
 		Debug.Log ("goi exit");
 		Destroy (this.gameObject);
+		if (this.type == CmdCode.CMD_DISCONNECT) {
+			Debug.Log("quit");
+			Application.Quit();		
+		}
 	}
 
 	public void set_message(string msg){
@@ -27,6 +32,10 @@ public class Popup : MonoBehaviour {
 
 	public void set_username(string name){
 		this.username = name;
+	}
+
+	public void set_type(int type){
+		this.type = type;
 	}
 
 	public void Accept(){

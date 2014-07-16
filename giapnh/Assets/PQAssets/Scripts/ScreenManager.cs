@@ -141,6 +141,16 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 			return;
 		}
 
+		if (cmd.code == CmdCode.CMD_DISCONNECT) {
+			string msg = cmd.getString(ArgCode.ARG_MESSAGE,"");
+			GameObject noti = Instantiate (NotiPopup) as GameObject;
+			noti.SendMessage ("set_message", msg);
+			noti.SendMessage("set_type",CmdCode.CMD_DISCONNECT);
+
+			message.ReceiveData = true;
+			return;
+		}
+
 
 		message.ReceiveData = false;
 	}
