@@ -21,7 +21,7 @@ public class Explosion : MonoBehaviour {
 	OnlineGamePanel onlineGame_info;
 	GameObject dmHook;
 	
-	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
+	string[] items_list = new string[4]{ "Gold", "Diamond", "Stone", "Buff"};
 	void Start () {
 		onlineGameScreen = GameObject.Find("OnlineGameScreen");
 		dmHook = GameObject.Find("Hook");

@@ -2,6 +2,7 @@
 using System.Collections;
 using INet;
 using IHelper;
+using System.Collections.Generic;
 
 public class Hook : MonoBehaviour {
 	public GameObject onlineGameScreen;
@@ -22,7 +23,7 @@ public class Hook : MonoBehaviour {
 	public float hook_speed;
 	public Vector3 rotateDirection;
 	public Vector3 initialPosition;
-	Object caught_item;
+	GameObject caught_item;
 	int caught_type = 0; //0: ko co gi, -1:bomb, 1: vat pham
 	int item_id = 0; //0 khong co gi, 1:gold, 8: kim cuong
 	//draw line
@@ -32,8 +33,12 @@ public class Hook : MonoBehaviour {
 	string current_player;
 	OnlineGamePanel onlineGame_info;
 	LineRenderer lineRenderer;
+//	int[] remaining_buff_item;
+//	int[] used_buff_item;
+	List<int> remaining_buff_item;
+	string used_buff_item = "";
 	
-	string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
+	string[] items_list = new string[4]{ "Gold", "Diamond", "Stone", "Buff"};
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 				transform.localRotation.Set (transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -60,27 +65,29 @@ public class Hook : MonoBehaviour {
 			//click
 			//check current user
 			//if(current_player == PlayerInfo.Username){
-				if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
-					var mouse_pos = Input.mousePosition;
-					if(mouse_pos.y < 370 && transform.parent.GetComponent<Character>().state== Character.IDLE){
-						initialPosition = transform.position;
-						rotateDirection = transform.position - center_point;
-						Vector3 velocity = rotateDirection*hook_speed;
-						state = HOOKING;
+			if(Input.GetMouseButtonDown(0) || ( Input.touchCount >0 && Input.GetTouch(0).phase == TouchPhase.Began)){
+				var mouse_pos = Input.mousePosition;
+				if(mouse_pos.y < 370 && transform.parent.GetComponent<Character>().state== Character.IDLE){
+					initialPosition = transform.position;
+					rotateDirection = transform.position - center_point;
+					Vector3 velocity = rotateDirection*hook_speed;
+					state = HOOKING;
 
-						//send hook velocity to server
-						Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
-						cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-						int angle_x = (int) (velocity.x*100);
-						int angle_y = (int) (velocity.y*100);
-						string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
-						cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
-						cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
-						cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
-						ScreenManager.instance.Send(cmd);
-						
-					}	
-				}
+					//send hook velocity to server
+					Command cmd = new Command(CmdCode.CMD_PLAYER_DROP);
+					cmd.addInt(ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+					int angle_x = (int) (velocity.x*100);
+					int angle_y = (int) (velocity.y*100);
+					string rotation = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
+					cmd.addString(ArgCode.ARG_DROP_ROTATION, rotation);
+					cmd.addInt(ArgCode.ARG_DROP_ANGLE_X, angle_x);
+					cmd.addInt(ArgCode.ARG_DROP_ANGLE_Y, angle_y);
+					//TODO fix if use item
+//					used_buff_item.ForEach();
+					cmd.addString(ArgCode.ARG_ITEM_USED, used_buff_item);
+					ScreenManager.instance.Send(cmd);
+				}	
+			}
 			//}
 		}
 
@@ -96,9 +103,17 @@ public class Hook : MonoBehaviour {
 		//catching
 		if(state == CATCHING){
 			if(transform.position.y > initialPosition.y){
-				if(caught_item){ 
-					Destroy(caught_item); 
-					onlineGame_info.item_count --;
+				if(caught_item){
+					if(caught_item.tag!="Buff"){
+						onlineGame_info.item_count --;
+					} else{
+						Item item_info = caught_item.GetComponent<Item>();
+						item_id = item_info.item_id;
+						if(item_id == 10){
+							used_buff_item = used_buff_item+ item_id.ToString()+ ";";
+						}
+					}
+					Destroy(caught_item);
 					Debug.Log ("so item "+ onlineGame_info.item_count);
 				}
 				Debug.Log("return vi y > initial y khi dang catching");
@@ -128,7 +143,10 @@ public class Hook : MonoBehaviour {
 				renderer.material.mainTexture = textures[1];
 				col.transform.position = transform.position + rotateDirection * 1.8f;
 				col.rigidbody.velocity = rigidbody.velocity;
-				caught_type = 1;
+				if(col.gameObject.tag=="Buff")
+					caught_type = 2;
+				else 
+					caught_type = 1;
 
 				Item item_info = col.GetComponent<Item>();
 				item_id = item_info.item_id;
@@ -173,11 +191,15 @@ public class Hook : MonoBehaviour {
 		//OnlineGamePanel onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
 		//string current_user = onlineGame_info.current_player;
 		if (current_player == PlayerInfo.Username) {
-				Command cmd = new Command (CmdCode.CMD_PLAYER_DROP_RESULT);
-				cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
-				cmd.addInt (ArgCode.ARG_CODE, caught_type);
-				cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
-				ScreenManager.instance.Send (cmd);
+			Command cmd = new Command (CmdCode.CMD_PLAYER_DROP_RESULT);
+			cmd.addInt (ArgCode.ARG_ROOM_ID, PlayerInfo.RoomId);
+			cmd.addInt (ArgCode.ARG_CODE, caught_type);
+			cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
+			//TODO them item used
+			cmd.addInt(ArgCode.ARG_ITEM_USED, 0);
+			ScreenManager.instance.Send (cmd);
+			cmd.addString(ArgCode.ARG_ITEM_USED, used_buff_item);
+			used_buff_item = "";
 			onlineGameScreen.GetComponent<OnlineGamePanel>().check_end_game();
 		}	
 	}

@@ -23,6 +23,10 @@ public class OnlineGamePanel : MonoBehaviour {
 	public UILabel user_score_lable;
 	public UILabel op_score_label;
 
+	public GameObject[] buff_item;
+	string used_buff_item = "";
+	GameObject map;
+
 	// Use this for initialization
 
 	void OnEnable () {
@@ -60,7 +64,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			PlayerInfo.MapID = map_id;
 			//thay vi hien map thi load map tu prefab
 			//maps[map_id-1].SetActive(true);
-			Instantiate(maps[map_id-1], new Vector3(0, 0, 0.416687f), Quaternion.identity);
+			map = Instantiate(maps[map_id-1], new Vector3(0, 0, 0.416687f), Quaternion.identity) as GameObject;
 			//calculate number of item(gold, diamond, stone)
 			string[] items_list = new string[3]{ "Gold", "Diamond", "Stone"};
 			foreach(string item in items_list){
@@ -146,6 +150,9 @@ public class OnlineGamePanel : MonoBehaviour {
 			hook_info.state = Hook.HOOKING;
 
 			timer.gameObject.SetActive(false);
+			//TODO item used
+			used_buff_item = cmd.getString(ArgCode.ARG_ITEM_USED, "");
+
 
 			message.ReceiveData = true;
 			return;
@@ -222,6 +229,25 @@ public class OnlineGamePanel : MonoBehaviour {
 
 			message.ReceiveData = true;
 			return;
+		}
+
+		if (cmd.code == CmdCode.CMD_ITEM_APPEAR) {
+			int item_type = cmd.getInt(ArgCode.ARG_MAP_OBJ_TYPE,0);
+			int pos_x = cmd.getInt(ArgCode.ARG_POSITION_X,0);
+			int pos_y = cmd.getInt(ArgCode.ARG_POSITION_Y,0);
+			int time_life = cmd.getInt(ArgCode.ARG_ITEM_TIME_LIFE,0);
+			GameObject buff = buff_item[0];
+				if(item_type == 10){
+				buff = buff_item[0];
+			} else if (item_type == 11){
+				buff = buff_item[1];
+			}
+			float x = (float)pos_x/10;
+			float y = (float)pos_y/10;
+			Vector3 pos = new Vector3(x, y, 0.4167f);
+			GameObject obj = Instantiate(buff, pos, Quaternion.identity) as GameObject;
+			obj.transform.parent = map.transform;
+			Destroy(obj, time_life);
 		}
 
 		message.ReceiveData = false;

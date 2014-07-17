@@ -13,6 +13,7 @@ namespace INet
 		public static short ARG_OFFSET = 4;
 		public static short ARG_AMOUNT = 5;
 		public static short ARG_COUNT = 8;
+		public static short ARG_TYPE = 9;
 
 		public static short ARG_PLAYER_USERNAME = 20;
 		public static short ARG_PLAYER_PASSWRD = 21;
@@ -41,6 +42,10 @@ namespace INet
 		public static short ARG_SCORE = 150;
 		public static short ARG_PLAYER_BONUS_CUP = 160;
 		public static short ARG_PLAYER_BONUS_LEVELUP_POINT = 161;
+		public static short ARG_POSITION_X = 137;
+		public static short ARG_POSITION_Y = 138;
+		public static short ARG_ITEM_TIME_LIFE = 141;
+		public static short ARG_ITEM_USED = 142;
 	}
 }
 

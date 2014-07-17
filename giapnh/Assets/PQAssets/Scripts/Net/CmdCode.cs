@@ -38,6 +38,7 @@ namespace INet
 		public static readonly int CMD_PLAYER_TURN_TIME_OUT = 140;
 		public static readonly int CMD_GAME_FINISH = 160;
 		public static readonly int CMD_PLAYER_GAME_RESULT = 161;
+		public static readonly int CMD_ITEM_APPEAR = 142;
 
 	}
 }
