@@ -99,8 +99,13 @@ public class NetworkAPI{
 	}
 	
 	public void Send(Command cmd){
-		Debug.Log("Sent: " + cmd.GetLog());
-		client.Send(cmd.getBytes());
+		try{
+			Thread.Sleep (200);
+			client.Send(cmd.getBytes());
+			Debug.Log("Sent: " + cmd.GetLog());
+		}catch(Exception ex){
+			Debug.Log(ex.Message);		
+		}
 	}
 	
 	public void OnError(){
