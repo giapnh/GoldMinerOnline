@@ -248,6 +248,9 @@ public class OnlineGamePanel : MonoBehaviour {
 			GameObject obj = Instantiate(buff, pos, Quaternion.identity) as GameObject;
 			obj.transform.parent = map.transform;
 			Destroy(obj, time_life);
+
+			message.ReceiveData = true;
+			return;
 		}
 
 		message.ReceiveData = false;

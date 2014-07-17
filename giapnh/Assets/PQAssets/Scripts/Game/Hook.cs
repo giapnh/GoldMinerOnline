@@ -110,7 +110,10 @@ public class Hook : MonoBehaviour {
 						Item item_info = caught_item.GetComponent<Item>();
 						item_id = item_info.item_id;
 						if(item_id == 10){
-							used_buff_item = used_buff_item+ item_id.ToString()+ ";";
+							if(used_buff_item == "")
+								used_buff_item = item_id.ToString();
+							else
+								used_buff_item = used_buff_item + ";" + item_id.ToString();
 						}
 					}
 					Destroy(caught_item);
@@ -196,9 +199,8 @@ public class Hook : MonoBehaviour {
 			cmd.addInt (ArgCode.ARG_CODE, caught_type);
 			cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 			//TODO them item used
-			cmd.addInt(ArgCode.ARG_ITEM_USED, 0);
-			ScreenManager.instance.Send (cmd);
 			cmd.addString(ArgCode.ARG_ITEM_USED, used_buff_item);
+			ScreenManager.instance.Send (cmd);
 			used_buff_item = "";
 			onlineGameScreen.GetComponent<OnlineGamePanel>().check_end_game();
 		}	
