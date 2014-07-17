@@ -37,6 +37,7 @@ public class Hook : MonoBehaviour {
 //	int[] used_buff_item;
 	List<int> remaining_buff_item;
 	string used_buff_item = "";
+	string tmp_item;
 	
 	string[] items_list = new string[4]{ "Gold", "Diamond", "Stone", "Buff"};
 	void Start () {
@@ -86,6 +87,9 @@ public class Hook : MonoBehaviour {
 //					used_buff_item.ForEach();
 					cmd.addString(ArgCode.ARG_ITEM_USED, used_buff_item);
 					ScreenManager.instance.Send(cmd);
+					tmp_item = used_buff_item;
+					used_buff_item = "";
+
 				}	
 			}
 			//}
@@ -199,9 +203,9 @@ public class Hook : MonoBehaviour {
 			cmd.addInt (ArgCode.ARG_CODE, caught_type);
 			cmd.addInt (ArgCode.ARG_MAP_OBJ_TYPE, item_id);
 			//TODO them item used
-			cmd.addString(ArgCode.ARG_ITEM_USED, used_buff_item);
+			cmd.addString(ArgCode.ARG_ITEM_USED, tmp_item);
 			ScreenManager.instance.Send (cmd);
-			used_buff_item = "";
+//			used_buff_item = ""; loi o dayyyyyyyy
 			onlineGameScreen.GetComponent<OnlineGamePanel>().check_end_game();
 		}	
 	}
