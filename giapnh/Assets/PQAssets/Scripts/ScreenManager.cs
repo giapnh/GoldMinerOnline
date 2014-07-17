@@ -167,7 +167,6 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 
 		message.ReceiveData = false;
 	}
-
 	void Update(){
 //		if(reading){
 		if(mNetwork == null)
