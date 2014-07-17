@@ -51,7 +51,8 @@ public class Explosion : MonoBehaviour {
 				if(onlineGameScreen){
 					//online
 					onlineGame_info = onlineGameScreen.gameObject.GetComponent<OnlineGamePanel> ();
-					onlineGame_info.item_count --;
+					if(hitColliders[i].gameObject.tag!="Buff")
+						onlineGame_info.item_count --;
 				} else{
 					//offline
 					DmHook dmHook_info = dmHook.gameObject.GetComponent<DmHook>();
