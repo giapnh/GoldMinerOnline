@@ -1,16 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Panel/Popup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PQAssets/Scripts/Panel/OnlineGamePanel.cs">
     <Files>
-      <File FileName="Assets/PQAssets/Scripts/ScreenManager.cs" Line="47" Column="31" />
-      <File FileName="Assets/PQAssets/Scripts/Net/CmdCode.cs" Line="41" Column="46" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/OnlineGamePanel.cs" Line="254" Column="1" />
+      <File FileName="Assets/PQAssets/Scripts/Net/CmdCode.cs" Line="1" Column="1" />
       <File FileName="Assets/PQAssets/Scripts/Net/ArgCode.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/Popup.cs" Line="24" Column="19" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/HomePanel.cs" Line="1" Column="1" />
       <File FileName="Assets/PQAssets/Scripts/Panel/FriendsPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/Friend.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/Panel/WaitingRoomPanel.cs" Line="1" Column="1" />
       <File FileName="Assets/PQAssets/Scripts/Game/Hook.cs" Line="1" Column="1" />
-      <File FileName="Assets/PQAssets/Scripts/DemoGame/DmHook.cs" Line="147" Column="43" />
+      <File FileName="Assets/PQAssets/Scripts/Panel/OnlineGamePanel.cs" Line="245" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
