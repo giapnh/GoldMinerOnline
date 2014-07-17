@@ -22,9 +22,10 @@ public class Arrow : MonoBehaviour {
 		string current_user = onlineGame_info.current_player;
 		float round_time = onlineGame_info.round_time;
 
-		if (character_info.state != Character.MOVING && hook_info.state == Hook.IDLE && current_user == PlayerInfo.Username && round_time <= 15) {
-				int to_pos = int.Parse (this.gameObject.name.Substring (this.gameObject.name.Length - 1));
-				onlineGameScreen.SendMessage ("Move", to_pos);
+		if (character_info.state == Character.IDLE && hook_info.state == Hook.IDLE && current_user == PlayerInfo.Username && round_time <= 15) {
+			int to_pos = int.Parse (this.gameObject.name.Substring (this.gameObject.name.Length - 1));
+			onlineGameScreen.SendMessage ("Move", to_pos);
+			character_info.state = Character.WAITING;
 		}
 	}
 }

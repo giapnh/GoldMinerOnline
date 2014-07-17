@@ -5,6 +5,7 @@ public class Character : MonoBehaviour {
 	public int state;
 	public static int IDLE = 0;
 	public static int MOVING = 1;
+	public static int WAITING = 2;
 	public Vector3 target;
 	public float speed;
 	// Use this for initialization
