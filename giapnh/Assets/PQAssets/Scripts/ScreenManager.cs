@@ -135,6 +135,7 @@ public class ScreenManager : MonoBehaviour,NetworkListener {
 				popup.SendMessage("set_command_type", CmdCode.CMD_ACCEPT_INVITE_GAME);
 				popup.SendMessage("set_username", username);
 				popup.SendMessage ("set_message", msg);
+				Destroy(popup,5);
 			}
 
 			message.ReceiveData = true;

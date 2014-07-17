@@ -119,6 +119,9 @@ public class Hook : MonoBehaviour {
 								used_buff_item = item_id.ToString();
 							else
 								used_buff_item = used_buff_item + ";" + item_id.ToString();
+						} else if(item_id == 11){
+							//TODO them vao list remaining item
+							//chuyen remaining item ve dang list -key
 						}
 					}
 					Destroy(caught_item);
