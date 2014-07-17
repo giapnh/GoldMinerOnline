@@ -110,6 +110,7 @@ public class Hook : MonoBehaviour {
 				if(caught_item){
 					if(caught_item.tag!="Buff"){
 						onlineGame_info.item_count --;
+						Debug.Log("con lai "+ onlineGame_info.item_count + " item");
 					} else{
 						Item item_info = caught_item.GetComponent<Item>();
 						item_id = item_info.item_id;
@@ -180,7 +181,7 @@ public class Hook : MonoBehaviour {
 
 
 	void GoBack(){
-		Debug.Log ("da goi goback");
+		Debug.Log ("da goi go back");
 		rigidbody.velocity =  -rotateDirection * hook_speed;
 	}
 	void returnIDLE(){
