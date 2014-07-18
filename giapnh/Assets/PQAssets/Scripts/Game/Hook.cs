@@ -126,7 +126,9 @@ public class Hook : MonoBehaviour {
 								used_buff_item = used_buff_item + ";" + item_id.ToString();
 						} else if(item_id == 11){
 							//TODO them vao list remaining item
-							ItemX2.SendMessage("Increase");
+							Debug.Log("bat dc x2");
+							if(current_player==PlayerInfo.Username)
+								ItemX2.SendMessage("Increase");
 							//chuyen remaining item ve dang list -key
 						}
 					}

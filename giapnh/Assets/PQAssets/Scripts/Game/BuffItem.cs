@@ -34,6 +34,7 @@ public class BuffItem : MonoBehaviour {
 	}
 
 	void Increase(){
+		Debug.Log ("goi increase");
 		remainingNums++;
 		lbl_remaining.text = remainingNums.ToString();
 	}
