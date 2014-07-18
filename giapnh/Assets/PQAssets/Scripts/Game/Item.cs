@@ -8,16 +8,17 @@ public class Item : MonoBehaviour {
 	// Use this for initialization
 	float running_time = 0;
 	public int state = 0;
+	public int life_time = 0;
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (state == 0){
+		if (state == 1){
 			running_time += Time.deltaTime;
 			//TODO fix runnign time theo server
-			if (running_time > 15)
+			if (running_time > life_time)
 					Destroy (this.gameObject);
 		}
 	}

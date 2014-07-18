@@ -164,7 +164,7 @@ public class Hook : MonoBehaviour {
 				col.rigidbody.velocity = rigidbody.velocity;
 				if(col.gameObject.tag=="Buff"){
 					caught_type = 2;
-					col.gameObject.GetComponent<Item>().state = 1;
+					col.gameObject.GetComponent<Item>().state = 0;
 				}
 				else 
 					caught_type = 1;
