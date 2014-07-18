@@ -168,6 +168,7 @@
      <Compile Include="Assets\PQAssets\Scripts\DemoGame\DmHook.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Arrow.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Bomb.cs" />
+     <Compile Include="Assets\PQAssets\Scripts\Game\BuffItem.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Character.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\Controll.cs" />
      <Compile Include="Assets\PQAssets\Scripts\Game\CurrentLevel.cs" />

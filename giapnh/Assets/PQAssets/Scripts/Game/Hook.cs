@@ -35,11 +35,16 @@ public class Hook : MonoBehaviour {
 	LineRenderer lineRenderer;
 //	int[] remaining_buff_item;
 //	int[] used_buff_item;
-	List<int> remaining_buff_item;
-	string used_buff_item = "";
+//	List<int> remaining_buff_item;
+	public string used_buff_item = "";
+	int[] remaining_buff_item;
 	string tmp_item;
 	
 	string[] items_list = new string[4]{ "Gold", "Diamond", "Stone", "Buff"};
+
+	void OnEnable(){
+//		remaining_buff_item [11] = 0;
+	}
 	void Start () {
 //		state = IDLE; dat day thi luon bi goi -_-
 				transform.localRotation.Set (transform.localRotation.x, transform.localRotation.y, 0, 0);
@@ -121,6 +126,9 @@ public class Hook : MonoBehaviour {
 								used_buff_item = used_buff_item + ";" + item_id.ToString();
 						} else if(item_id == 11){
 							//TODO them vao list remaining item
+							remaining_buff_item[11]+=1;
+
+							Debug.Log(remaining_buff_item[11]);
 							//chuyen remaining item ve dang list -key
 						}
 					}
