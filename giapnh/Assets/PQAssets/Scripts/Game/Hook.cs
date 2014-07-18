@@ -37,7 +37,7 @@ public class Hook : MonoBehaviour {
 //	int[] used_buff_item;
 //	List<int> remaining_buff_item;
 	public string used_buff_item = "";
-	int[] remaining_buff_item;
+	public GameObject ItemX2;
 	string tmp_item;
 	
 	string[] items_list = new string[4]{ "Gold", "Diamond", "Stone", "Buff"};
@@ -126,9 +126,7 @@ public class Hook : MonoBehaviour {
 								used_buff_item = used_buff_item + ";" + item_id.ToString();
 						} else if(item_id == 11){
 							//TODO them vao list remaining item
-							remaining_buff_item[11]+=1;
-
-							Debug.Log(remaining_buff_item[11]);
+							ItemX2.SendMessage("Increase");
 							//chuyen remaining item ve dang list -key
 						}
 					}

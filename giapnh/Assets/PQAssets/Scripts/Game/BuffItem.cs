@@ -32,4 +32,9 @@ public class BuffItem : MonoBehaviour {
 				used_buff_item = used_buff_item + ";" + item_id.ToString();
 		}
 	}
+
+	void Increase(){
+		remainingNums++;
+		lbl_remaining.text = remainingNums.ToString();
+	}
 }
