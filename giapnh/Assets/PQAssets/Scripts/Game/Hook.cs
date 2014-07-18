@@ -128,7 +128,7 @@ public class Hook : MonoBehaviour {
 							//TODO them vao list remaining item
 							Debug.Log("bat dc x2");
 							if(current_player==PlayerInfo.Username)
-								ItemX2.SendMessage("Increase");
+								ItemX2.SendMessage("Increase", item_id);
 							//chuyen remaining item ve dang list -key
 						}
 					}
