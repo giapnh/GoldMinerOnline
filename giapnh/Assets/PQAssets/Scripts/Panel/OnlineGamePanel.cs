@@ -247,7 +247,7 @@ public class OnlineGamePanel : MonoBehaviour {
 			Vector3 pos = new Vector3(x, y, 0.4167f);
 			GameObject obj = Instantiate(buff, pos, Quaternion.identity) as GameObject;
 			obj.transform.parent = map.transform;
-			Destroy(obj, time_life);
+//			Destroy(obj, time_life);
 
 			message.ReceiveData = true;
 			return;

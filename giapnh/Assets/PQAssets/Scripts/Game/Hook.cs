@@ -162,8 +162,10 @@ public class Hook : MonoBehaviour {
 				renderer.material.mainTexture = textures[1];
 				col.transform.position = transform.position + rotateDirection * 1.8f;
 				col.rigidbody.velocity = rigidbody.velocity;
-				if(col.gameObject.tag=="Buff")
+				if(col.gameObject.tag=="Buff"){
 					caught_type = 2;
+					col.gameObject.GetComponent<Item>().state = 1;
+				}
 				else 
 					caught_type = 1;
 
