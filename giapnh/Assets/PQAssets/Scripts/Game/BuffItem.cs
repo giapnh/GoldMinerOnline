@@ -25,11 +25,11 @@ public class BuffItem : MonoBehaviour {
 			remainingNums--;
 			lbl_remaining.text = remainingNums.ToString();
 
-			string used_buff_item = hook_info.used_buff_item;
-			if(used_buff_item == "")
-				used_buff_item = item_id.ToString();
+//			string used_buff_item = hook_info.used_buff_item;
+			if(hook_info.used_buff_item == "")
+				hook_info.used_buff_item = item_id.ToString();
 			else
-				used_buff_item = used_buff_item + ";" + item_id.ToString();
+				hook_info.used_buff_item = hook_info.used_buff_item + ";" + item_id.ToString();
 		}
 	}
 
